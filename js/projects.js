@@ -314,14 +314,12 @@
     });
   }
 
-  function renderActivityCard(act, isClone = false) {
+  function renderActivityCard(act) {
     const tagsHtml = act.tags.map((t) => `<span class="project-tag">${t}</span>`).join('');
-    const cloneAttrs = isClone ? ' aria-hidden="true"' : '';
-    const tabAttr = isClone ? ' tabindex="-1"' : '';
     return `
-      <article class="activity-card"${cloneAttrs}>
+      <article class="activity-card">
         <div class="activity-media" style="${act.imageBg ? `background: ${act.imageBg};` : ''}${act.imageFit === 'contain' ? ' padding: 40px 10px 10px;' : ''}">
-          <img src="${act.image}" alt="${act.imageAlt}" style="object-fit: ${act.imageFit || 'cover'}; object-position: ${act.imagePosition || 'center center'};${act.imageFit === 'contain' ? ' border-radius: 8px;' : ''}" data-zoom-src="${act.image}" data-zoom-caption="${act.title}" loading="lazy" />
+          <img src="${act.image}" alt="${act.imageAlt}" style="object-fit: ${act.imageFit || 'cover'}; object-position: ${act.imagePosition || 'center center'};${act.imageFit === 'contain' ? ' border-radius: 8px;' : ''}" data-zoom-src="${act.image}" data-zoom-caption="${act.title}" />
           <span class="activity-badge">${act.badge}</span>
         </div>
         <div class="activity-body">
@@ -332,11 +330,11 @@
           <p class="activity-desc" title="${act.summary}">${act.summary}</p>
           <div class="activity-tags">${tagsHtml}</div>
           <div class="activity-actions">
-            <a href="${act.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"${tabAttr}>
+            <a href="${act.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
               <span>${act.urlLabel}</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </a>
-            <button type="button" class="btn btn-glass" data-zoom-src="${act.image}" data-zoom-caption="${act.title}"${tabAttr}>
+            <button type="button" class="btn btn-glass" data-zoom-src="${act.image}" data-zoom-caption="${act.title}">
               <span>Ver Foto</span>
             </button>
           </div>
@@ -349,6 +347,14 @@
   let activitiesPauseUntil = 0;
   let activitiesVirtualScroll = 0;
   let activitiesTickerStarted = false;
+
+  function getActivityStep() {
+    const card = activitiesGrid?.querySelector('.activity-card');
+    if (!card) return 365;
+    const style = window.getComputedStyle(activitiesGrid);
+    const gap = parseFloat(style.columnGap || style.gap) || 18;
+    return card.getBoundingClientRect().width + gap;
+  }
 
   function startActivitiesAutoScroll() {
     if (activitiesTickerStarted || !activitiesGrid) return;
@@ -364,15 +370,25 @@
       lastTime = now;
 
       if (!activitiesAutoPaused && !document.hidden && now >= activitiesPauseUntil) {
-        const halfWidth = activitiesGrid.scrollWidth / 2;
-        if (halfWidth > 0) {
+        const cardStep = getActivityStep();
+        const maxScroll = activitiesGrid.scrollWidth - activitiesGrid.clientWidth;
+
+        if (maxScroll > 10 && activitiesGrid.children.length > 1) {
           if (Math.abs(activitiesVirtualScroll - activitiesGrid.scrollLeft) > 3) {
             activitiesVirtualScroll = activitiesGrid.scrollLeft;
           }
           activitiesVirtualScroll += SPEED_PX_PER_SEC * dt;
-          if (activitiesVirtualScroll >= halfWidth) {
-            activitiesVirtualScroll -= halfWidth;
+
+          // Bucle infinito sin tarjetas repetidas: cuando la primera tarjeta salió por completo a la izquierda,
+          // pasa al final de la fila restando su ancho exacto para mantener continuidad visual de 0px de salto.
+          if (activitiesVirtualScroll >= cardStep) {
+            const firstCard = activitiesGrid.firstElementChild;
+            if (firstCard) {
+              activitiesGrid.appendChild(firstCard);
+              activitiesVirtualScroll -= cardStep;
+            }
           }
+
           activitiesGrid.scrollLeft = activitiesVirtualScroll;
         }
       } else {
@@ -390,9 +406,7 @@
     if (activitiesCount) {
       activitiesCount.textContent = `${ACTIVITIES.length} eventos`;
     }
-    const primaryCards = ACTIVITIES.map((act) => renderActivityCard(act, false)).join('');
-    const cloneCards = ACTIVITIES.map((act) => renderActivityCard(act, true)).join('');
-    activitiesGrid.innerHTML = primaryCards + cloneCards;
+    activitiesGrid.innerHTML = ACTIVITIES.map((act) => renderActivityCard(act)).join('');
 
     activitiesGrid.querySelectorAll('[data-zoom-src]').forEach((el) => {
       el.addEventListener('click', () => {
@@ -417,32 +431,27 @@
     });
   }
 
-  function getActivityStep() {
-    const card = activitiesGrid?.querySelector('.activity-card');
-    if (!card) return 365;
-    const style = window.getComputedStyle(activitiesGrid);
-    const gap = parseFloat(style.columnGap || style.gap) || 18;
-    return Math.round(card.getBoundingClientRect().width + gap);
-  }
-
   if (activitiesPrevBtn && activitiesGrid) {
     activitiesPrevBtn.addEventListener('click', () => {
-      const halfWidth = activitiesGrid.scrollWidth / 2;
-      if (halfWidth > 0 && activitiesGrid.scrollLeft <= 12) {
-        activitiesGrid.scrollLeft += halfWidth;
+      const cardStep = getActivityStep();
+      if (activitiesGrid.scrollLeft <= cardStep * 0.6 && activitiesGrid.lastElementChild) {
+        activitiesGrid.prepend(activitiesGrid.lastElementChild);
+        activitiesGrid.scrollLeft += cardStep;
       }
       activitiesPauseUntil = performance.now() + 1200;
-      activitiesGrid.scrollBy({ left: -getActivityStep(), behavior: 'smooth' });
+      activitiesGrid.scrollBy({ left: -Math.round(cardStep), behavior: 'smooth' });
     });
   }
   if (activitiesNextBtn && activitiesGrid) {
     activitiesNextBtn.addEventListener('click', () => {
-      const halfWidth = activitiesGrid.scrollWidth / 2;
-      if (halfWidth > 0 && activitiesGrid.scrollLeft >= halfWidth) {
-        activitiesGrid.scrollLeft -= halfWidth;
+      const cardStep = getActivityStep();
+      const maxScroll = activitiesGrid.scrollWidth - activitiesGrid.clientWidth;
+      if (activitiesGrid.scrollLeft >= maxScroll - cardStep * 0.6 && activitiesGrid.firstElementChild) {
+        activitiesGrid.appendChild(activitiesGrid.firstElementChild);
+        activitiesGrid.scrollLeft = Math.max(0, activitiesGrid.scrollLeft - cardStep);
       }
       activitiesPauseUntil = performance.now() + 1200;
-      activitiesGrid.scrollBy({ left: getActivityStep(), behavior: 'smooth' });
+      activitiesGrid.scrollBy({ left: Math.round(cardStep), behavior: 'smooth' });
     });
   }
 
