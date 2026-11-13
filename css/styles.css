@@ -112,7 +112,7 @@ code {
 }
 
 .container {
-  width: min(1200px, calc(100% - 2rem));
+  width: min(1680px, calc(100% - clamp(1.25rem, 4vw, 5.5rem)));
   margin-inline: auto;
 }
 
@@ -186,15 +186,16 @@ code {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: clamp(0.18rem, 0.45vw, 0.45rem);
 }
 
 .nav-link {
-  padding: 0.5rem 0.9rem;
+  padding: 0.48rem clamp(0.55rem, 0.78vw, 0.9rem);
   border-radius: 9px;
-  font-size: 0.92rem;
+  font-size: clamp(0.84rem, 0.9vw, 0.94rem);
   font-weight: 600;
   color: var(--text-secondary);
+  white-space: nowrap;
   transition: all 0.2s ease;
 }
 
@@ -243,6 +244,7 @@ code {
   padding: 0.55rem 1rem;
   border-radius: 10px;
   font-size: 0.88rem;
+  white-space: nowrap;
   font-weight: 600;
   background: rgba(255, 107, 53, 0.14);
   border: 1px solid var(--border-fox);
@@ -368,14 +370,14 @@ code {
    ========================================================================== */
 
 .hero {
-  padding: 4.5rem 0 3.25rem;
+  padding: clamp(2.5rem, 5vw, 5rem) 0 clamp(2rem, 4vw, 3.5rem);
 }
 
 .hero-grid {
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
   align-items: center;
-  gap: 3rem;
+  gap: clamp(1.75rem, 3.5vw, 4rem);
 }
 
 .hero-kicker {
@@ -504,7 +506,8 @@ code {
 
 .fox-orb-card {
   position: relative;
-  width: min(355px, 100%);
+  width: clamp(250px, 28vw, 410px);
+  max-width: 100%;
   aspect-ratio: 1;
   border-radius: 30px;
   background: radial-gradient(circle at 50% 45%, rgba(255, 107, 53, 0.18), rgba(24, 26, 36, 0.86) 68%);
@@ -607,7 +610,7 @@ code {
    ========================================================================== */
 
 .section {
-  padding: 3.5rem 0;
+  padding: clamp(2.4rem, 4.2vw, 4.2rem) 0;
 }
 
 .section-header {
@@ -933,8 +936,8 @@ code {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(1rem, 1.8vw, 1.65rem);
 }
 
 .project-card {
@@ -1309,8 +1312,7 @@ code {
 }
 
 .activity-card {
-  flex: 0 0 345px;
-  scroll-snap-align: start;
+  flex: 0 0 clamp(275px, 24vw, 390px);
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-md);
@@ -1612,7 +1614,7 @@ code {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 1rem;
 }
 
@@ -1819,23 +1821,7 @@ code {
    Responsive
    ========================================================================== */
 
-@media (max-width: 1040px) {
-  .hero-grid,
-  .flagship-card,
-  .podcast-card {
-    grid-template-columns: 1fr;
-  }
-
-  .projects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .contact-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 820px) {
+@media (max-width: 1060px) {
   .nav-links,
   .btn-nav-cta {
     display: none;
@@ -1845,6 +1831,14 @@ code {
     display: flex;
   }
 
+  .hero-grid,
+  .flagship-card,
+  .podcast-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 820px) {
   .qstate-layout {
     grid-template-columns: 1fr;
     text-align: center;

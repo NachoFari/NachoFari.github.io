@@ -417,6 +417,14 @@
     });
   }
 
+  function getActivityStep() {
+    const card = activitiesGrid?.querySelector('.activity-card');
+    if (!card) return 365;
+    const style = window.getComputedStyle(activitiesGrid);
+    const gap = parseFloat(style.columnGap || style.gap) || 18;
+    return Math.round(card.getBoundingClientRect().width + gap);
+  }
+
   if (activitiesPrevBtn && activitiesGrid) {
     activitiesPrevBtn.addEventListener('click', () => {
       const halfWidth = activitiesGrid.scrollWidth / 2;
@@ -424,7 +432,7 @@
         activitiesGrid.scrollLeft += halfWidth;
       }
       activitiesPauseUntil = performance.now() + 1200;
-      activitiesGrid.scrollBy({ left: -365, behavior: 'smooth' });
+      activitiesGrid.scrollBy({ left: -getActivityStep(), behavior: 'smooth' });
     });
   }
   if (activitiesNextBtn && activitiesGrid) {
@@ -434,7 +442,7 @@
         activitiesGrid.scrollLeft -= halfWidth;
       }
       activitiesPauseUntil = performance.now() + 1200;
-      activitiesGrid.scrollBy({ left: 365, behavior: 'smooth' });
+      activitiesGrid.scrollBy({ left: getActivityStep(), behavior: 'smooth' });
     });
   }
 
