@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101116" />
+  <title>NachoFari | Ignacio Farías — Mis Proyectos &amp; Ciencia Computacional</title>
+  <meta name="description" content="Portafolio y galería de proyectos públicos de Ignacio Farías (NachoFari): NaTex Studio, Radar ICF, LabVision, VirtualLab_N y SaliencyVision IA. Estudiante de Ingeniería Civil Física UTFSM y miembro de QState." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NachoFari | Mis Proyectos — Ignacio Farías" />
+  <meta property="og:description" content="Software científico, IA aplicada, LaTeX y física computacional. Miembro de QState (UTFSM)." />
+  <meta property="og:image" content="assets/img/fox-avatar.png" />
+
+  <link rel="icon" type="image/png" href="assets/img/fox-avatar.png" />
+  <link rel="apple-touch-icon" href="assets/img/fox-avatar.png" />
+
+  <!-- Tipografía moderna y tecnológica -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Fondo animado tecnológico (inspirado en qstate.cl + paleta Fox Naranjo) -->
+  <div class="bg-atmosphere" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <canvas id="tech-canvas" aria-hidden="true"></canvas>
+
+  <!-- Barra de navegación sticky glassmorphism (inspirada en qstate.cl) -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#inicio" class="brand" aria-label="Inicio NachoFari">
+        <div class="brand-avatar-wrap">
+          <img src="assets/img/fox-avatar.png" alt="Ícono del zorro NachoFari" class="brand-avatar" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">NachoFari</span>
+          <span class="brand-sub">Ignacio Farías · Physics &amp; Dev</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#inicio" class="nav-link active">Inicio</a>
+        <a href="#estrella" class="nav-link">Proyecto Estrella</a>
+        <a href="#proyectos" class="nav-link">Mis Proyectos</a>
+        <a href="#qstate" class="nav-link">Q|State⟩</a>
+        <a href="#actividades" class="nav-link">Actividades</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/NachoFari" target="_blank" rel="noopener noreferrer" class="btn-icon" title="GitHub: NachoFari" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.295 24 17.798 24 12.5 24 5.87 18.63.5 12 .5z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/ignacio-farias-61a6b1273/" target="_blank" rel="noopener noreferrer" class="btn-icon" title="LinkedIn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="mailto:ifarias@usm.cl" class="btn-nav-cta">Contactar</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <a href="#inicio" class="mobile-link">Inicio</a>
+      <a href="#estrella" class="mobile-link">Proyecto Estrella</a>
+      <a href="#proyectos" class="mobile-link">Mis Proyectos</a>
+      <a href="#qstate" class="mobile-link">Miembro Q|State⟩</a>
+      <a href="#actividades" class="mobile-link">Actividades</a>
+      <a href="#contacto" class="mobile-link">Contacto</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-kicker">
+            <span class="pulse-dot"></span>
+            <span>Ingeniería Civil Física · UTFSM · Software &amp; IA</span>
+          </div>
+
+          <h1 class="hero-title">
+            Hola, soy <span class="text-gradient">Ignacio Farías</span>
+            <span class="hero-handle">@NachoFari</span>
+          </h1>
+
+          <p class="hero-desc">
+            Soy estudiante de <strong>Ingeniería Civil Física en la USM</strong>. Me apasiona hacer <strong>divulgación científica</strong> y crear <strong>herramientas de automatización y comodidad usando inteligencia artificial</strong>, transformando ideas y flujos complejos en software rápido, visual y abierto.
+          </p>
+
+          <ul class="hero-traits" aria-label="Perfil">
+            <li>🎓 Estudiante de Ingeniería Civil Física · USM</li>
+            <li>🔭 Divulgación científica y extensión</li>
+            <li>🤖 Herramientas de automatización y comodidad con IA</li>
+          </ul>
+
+          <!-- Botonera principal de enlaces -->
+          <div class="hero-links">
+            <a href="https://github.com/NachoFari" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.295 24 17.798 24 12.5 24 5.87 18.63.5 12 .5z"/></svg>
+              <span>GitHub</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/ignacio-farias-61a6b1273/" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+
+            <a href="mailto:ifarias@usm.cl" class="btn btn-glass">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <span>ifarias@usm.cl</span>
+            </a>
+
+            <button type="button" class="btn btn-subtle" id="copyEmailBtn" title="Copiar correo al portapapeles">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              <span>Copiar correo</span>
+            </button>
+          </div>
+
+          <!-- Métricas rápidas -->
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <span class="metric-value" id="publicRepoCount">5</span>
+              <span class="metric-label">Repos Públicos</span>
+            </div>
+            <div class="metric-card" title="Radar ICF y VirtualLab_N">
+              <span class="metric-value">2</span>
+              <span class="metric-label">Apps Web en Vivo</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">Q|State⟩</span>
+              <span class="metric-label">Área Computacional · USM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta visual del Zorro (Emblema + HUD tecnológico) -->
+        <div class="hero-visual">
+          <div class="fox-orb-card">
+            <div class="orb-ring orb-ring-outer"></div>
+            <div class="orb-ring orb-ring-inner"></div>
+            <div class="fox-frame">
+              <img src="assets/img/fox-avatar.png" alt="Emblema Zorro NachoFari" class="fox-hero-img" />
+            </div>
+            <div class="fox-hud-badge hud-bottom">
+              <img src="assets/img/fox-icon.svg" alt="" class="hud-svg-icon" />
+              <span>NaTex Creator · Q|State⟩ Member</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTO ESTRELLA: NATEX -->
+    <section id="estrella" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <span>★</span> Proyecto Estrella
+          </div>
+          <h2 class="section-title">NaTex Studio</h2>
+          <p class="section-subtitle">
+            Entorno de edición LaTeX rápido, visual, libre y colaborativo — compilación instantánea sin configuraciones pesadas.
+          </p>
+        </div>
+
+        <article class="flagship-card">
+          <div class="flagship-info">
+            <div class="flagship-brand-row">
+              <img src="assets/img/natex-logo.png" alt="Logo de NaTex Studio" class="flagship-logo" />
+              <div>
+                <div class="flagship-badges">
+                  <span class="badge-star">★ Proyecto Estrella</span>
+                  <span class="badge-version">v1.3.1</span>
+                  <span class="badge-license">GPLv3</span>
+                </div>
+                <h3 class="flagship-name">🦊 NaTex Studio</h3>
+                <p class="flagship-tagline">Editor de texto LaTeX pensado en la comodidad, rapidez y experiencia visual</p>
+              </div>
+            </div>
+
+            <p class="flagship-description">
+              Herramienta de edición de documentos LaTeX pensada en la comodidad y en ahorrar tiempo, sin instalaciones pesadas ni configuraciones complicadas. Abres, escribes y ves tu PDF actualizado al instante, con un constructor visual de fórmulas, editor rápido de tablas, trabajo colaborativo en vivo, asistente con IA y más de 20 temas personalizables.
+            </p>
+
+            <ul class="flagship-features">
+              <li>⚡ Abre, escribe y compila en segundos</li>
+              <li>🧮 Teclado visual para fórmulas sin memorizar comandos</li>
+              <li>🌐 Colaboración en tiempo real mediante enlace o QR</li>
+              <li>🤖 Asistente con IA y dictáfono inteligente de clases</li>
+            </ul>
+
+            <div class="flagship-tech">
+              <span class="tech-pill">Edición LaTeX Visual</span>
+              <span class="tech-pill">Vista PDF Instantánea</span>
+              <span class="tech-pill">Trabajo Colaborativo</span>
+              <span class="tech-pill">Asistente IA</span>
+              <span class="tech-pill">21 Temas</span>
+            </div>
+
+            <div class="flagship-actions">
+              <a href="https://github.com/NachoFari/NaTex" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                <span>Ver Repositorio</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+              <a href="https://github.com/NachoFari/NaTex/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+                <span>Descargar v1.3.1 (.exe)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Visor interactivo de capturas de NaTex -->
+          <div class="flagship-media">
+            <div class="preview-window">
+              <div class="preview-topbar">
+                <div class="preview-dots"><span></span><span></span><span></span></div>
+                <span class="preview-filename" id="natexPreviewLabel">showcase_editor_fox.png</span>
+                <button type="button" class="preview-zoom-btn" id="natexZoomBtn" title="Ampliar captura">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                </button>
+              </div>
+              <div class="preview-stage">
+                <img src="assets/screenshots/natex-editor-fox.png" alt="NaTex Studio Editor Tema Zorro" id="natexActiveImg" />
+              </div>
+            </div>
+
+            <div class="preview-thumbs" role="tablist" aria-label="Capturas de NaTex Studio">
+              <button type="button" class="thumb-btn active" data-src="assets/screenshots/natex-editor-fox.png" data-label="Editor LaTeX · Tema Zorro">
+                <img src="assets/screenshots/natex-editor-fox.png" alt="Editor Tema Zorro" />
+                <span>Editor Fox</span>
+              </button>
+              <button type="button" class="thumb-btn" data-src="assets/screenshots/natex-home-fox.png" data-label="Dashboard de Inicio">
+                <img src="assets/screenshots/natex-home-fox.png" alt="Inicio Fox" />
+                <span>Inicio</span>
+              </button>
+              <button type="button" class="thumb-btn" data-src="assets/screenshots/natex-math-keyboard.png" data-label="Constructor Matemático KaTeX">
+                <img src="assets/screenshots/natex-math-keyboard.png" alt="Teclado Matemático" />
+                <span>KaTeX</span>
+              </button>
+              <button type="button" class="thumb-btn" data-src="assets/screenshots/natex-table-builder.png" data-label="Editor Visual de Tablas">
+                <img src="assets/screenshots/natex-table-builder.png" alt="Editor de Tablas" />
+                <span>Tablas</span>
+              </button>
+              <button type="button" class="thumb-btn" data-src="assets/screenshots/natex-theme-catalog.png" data-label="Catálogo de 21 Temas">
+                <img src="assets/screenshots/natex-theme-catalog.png" alt="Catálogo de Temas" />
+                <span>Temas</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- GALERÍA DE REPOSITORIOS PÚBLICOS -->
+    <section id="proyectos" class="section">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag">Repositorios Públicos</div>
+            <h2 class="section-title">Galería de Proyectos</h2>
+            <p class="section-subtitle">
+              Solo repositorios públicos de <code>github.com/NachoFari</code>, documentados desde sus READMEs oficiales con sus íconos, vistas previas y enlaces directos.
+            </p>
+          </div>
+
+          <div class="filter-tabs" role="tablist" aria-label="Filtrar proyectos">
+            <button type="button" class="filter-btn active" data-filter="all">Todos (5)</button>
+            <button type="button" class="filter-btn" data-filter="visual">Con Íconos / Imágenes</button>
+            <button type="button" class="filter-btn" data-filter="pages">Con GitHub Page</button>
+            <button type="button" class="filter-btn" data-filter="ai">IA &amp; Visión</button>
+          </div>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Renderizado dinámico desde js/projects.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN QSTATE -->
+    <section id="qstate" class="section">
+      <div class="container">
+        <div class="qstate-card">
+          <div class="qstate-glow" aria-hidden="true"></div>
+          <div class="qstate-layout">
+            <div class="qstate-logo-panel">
+              <div class="qstate-logo-box">
+                <img src="assets/img/qstate-logo.png" alt="Logo QState — Quantum Systems Theory And Technology" class="qstate-logo-img" />
+              </div>
+              <div class="qstate-braket-pill" aria-label="Q State ket">
+                <span class="q-sym">Q</span>
+                <span class="ket-angle">|</span>
+                <span class="q-core">State</span>
+                <span class="ket-angle">⟩</span>
+              </div>
+            </div>
+
+            <div class="qstate-content">
+              <div class="section-tag">Computación &amp; Software Científico</div>
+              <h2 class="qstate-title">
+                Miembro de <span class="q-braket-inline">Q|State⟩</span>
+              </h2>
+              <p class="qstate-subtitle">
+                Quantum Systems Theory and Technology · Universidad Técnica Federico Santa María (UTFSM)
+              </p>
+              <p class="qstate-desc">
+                Formo parte del grupo <strong>Q|State⟩</strong> en el Departamento de Física de la UTFSM, aportando desde el área computacional en el desarrollo de software científico, herramientas de automatización, visión por computador e inteligencia artificial aplicada.
+              </p>
+
+              <div class="qstate-areas">
+                <span class="area-tag">Desarrollo Computacional</span>
+                <span class="area-tag">Software Científico</span>
+                <span class="area-tag">Visión por Computador</span>
+                <span class="area-tag">IA &amp; Automatización</span>
+              </div>
+
+              <div class="qstate-actions">
+                <a href="https://qstate.cl/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                  <span>Visitar qstate.cl</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+                </a>
+                <a href="https://qstate.cl/" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+                  <span>Ver Grupo y Proyectos</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES Y DIVULGACIÓN -->
+    <section id="actividades" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Divulgación &amp; Participación</div>
+          <h2 class="section-title">Actividades y Eventos</h2>
+          <p class="section-subtitle">
+            Charlas, instancias de divulgación científica, ferias tecnológicas y noticias en las que he participado junto a la USM y Q|State⟩.
+          </p>
+        </div>
+
+        <div class="activities-grid" id="activitiesGrid">
+          <!-- Renderizado dinámico desde js/projects.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section section-contact">
+      <div class="container">
+        <div class="contact-card">
+          <div class="contact-header">
+            <img src="assets/img/fox-avatar.png" alt="Zorro NachoFari" class="contact-fox" />
+            <div>
+              <div class="section-tag">Conecta conmigo</div>
+              <h2 class="section-title">¿Trabajamos en algo juntos?</h2>
+              <p class="section-subtitle">
+                Abierto a colaboraciones en física computacional, desarrollo de herramientas científicas, IA aplicada y proyectos open source.
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <a href="https://github.com/NachoFari" target="_blank" rel="noopener noreferrer" class="contact-tile">
+              <div class="contact-tile-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.295 24 17.798 24 12.5 24 5.87 18.63.5 12 .5z"/></svg>
+              </div>
+              <div class="contact-tile-text">
+                <span class="tile-label">GitHub</span>
+                <span class="tile-value">github.com/NachoFari</span>
+              </div>
+              <span class="tile-arrow">↗</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/ignacio-farias-61a6b1273/" target="_blank" rel="noopener noreferrer" class="contact-tile">
+              <div class="contact-tile-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              </div>
+              <div class="contact-tile-text">
+                <span class="tile-label">LinkedIn</span>
+                <span class="tile-value">Ignacio Farías</span>
+              </div>
+              <span class="tile-arrow">↗</span>
+            </a>
+
+            <a href="mailto:ifarias@usm.cl" class="contact-tile">
+              <div class="contact-tile-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div class="contact-tile-text">
+                <span class="tile-label">Correo Institucional</span>
+                <span class="tile-value">ifarias@usm.cl</span>
+              </div>
+              <span class="tile-arrow">✉</span>
+            </a>
+
+            <a href="https://qstate.cl/" target="_blank" rel="noopener noreferrer" class="contact-tile">
+              <div class="contact-tile-icon qstate-mini-ket">Q|⟩</div>
+              <div class="contact-tile-text">
+                <span class="tile-label">Grupo de Investigación</span>
+                <span class="tile-value">qstate.cl · UTFSM</span>
+              </div>
+              <span class="tile-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <img src="assets/img/fox-avatar.png" alt="Zorro NachoFari" class="footer-fox" />
+        <span><strong>NachoFari</strong> · Ignacio Farías · Ingeniería Civil Física UTFSM</span>
+      </div>
+      <div class="footer-right">
+        <span>Inspirado en <a href="https://qstate.cl/" target="_blank" rel="noopener noreferrer">qstate.cl</a> · Paleta Fox Naranjo 🦊</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox para ampliar imágenes/capturas -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada" hidden>
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-dialog">
+      <div class="lightbox-header">
+        <span id="lightboxCaption">Vista previa</span>
+        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar vista ampliada">✕</button>
+      </div>
+      <div class="lightbox-body">
+        <img src="" alt="" id="lightboxImg" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de notificación -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/background.js"></script>
+  <script src="js/projects.js"></script>
+</body>
+</html>
