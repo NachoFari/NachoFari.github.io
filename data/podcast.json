@@ -1,0 +1,23 @@
+{
+  "channelId": "UCdXzaSn8VZ5DjH3FlvcpUWA",
+  "channelUrl": "https://www.youtube.com/@Stemos.Hablando",
+  "episodes": [
+    {
+      "label": "Ep. 01",
+      "windowTitle": "Stemos Hablando · Ep. 01 (08:45)",
+      "badgePrimary": "🎙️ Próximamente Nuevos Episodios",
+      "badgeSecondary": "Episodio 01 · Divulgación STEM",
+      "title": "Conversando de Ciencia y Vida con David Zambrano",
+      "description": "En este episodio inaugural de Stemos Hablando conversamos con el Dr. David Zambrano, investigador y profesor del Departamento de Física de la UTFSM especializado en materia condensada, explorando su trayectoria académica, la investigación científica en Chile, anécdotas y hobbies.",
+      "tags": [
+        "Podcast STEM",
+        "Divulgación Científica",
+        "UTFSM",
+        "@stemos.hablando"
+      ],
+      "embedUrl": "https://www.youtube-nocookie.com/embed/HGELD0yvy4c?start=525&rel=0",
+      "watchUrl": "https://www.youtube.com/watch?v=HGELD0yvy4c&t=525s",
+      "videoId": "HGELD0yvy4c"
+    }
+  ]
+}

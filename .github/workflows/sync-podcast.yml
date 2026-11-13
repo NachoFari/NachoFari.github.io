@@ -1,0 +1,37 @@
+name: Sync Stemos Hablando Podcast
+
+on:
+  schedule:
+    # Ejecuta todos los días a las 12:00 UTC (08:00/09:00 Chile)
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-youtube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Sync podcast episodes from YouTube
+        run: python scripts/sync_podcast.py
+
+      - name: Commit updated data/podcast.json
+        run: |
+          if [ -n "$(git status --porcelain data/podcast.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/podcast.json
+            git commit -m "chore: sincronizar episodios de Stemos Hablando desde YouTube"
+            git push
+          else
+            echo "Sin cambios nuevos en Stemos Hablando."
+          fi

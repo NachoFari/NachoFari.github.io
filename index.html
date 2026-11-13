@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20261113b" />
 </head>
 <body>
   <!-- Fondo animado tecnológico (inspirado en qstate.cl + paleta Fox Naranjo) -->
@@ -46,6 +46,7 @@
         <a href="#proyectos" class="nav-link">Mis Proyectos</a>
         <a href="#qstate" class="nav-link">Q|State⟩</a>
         <a href="#actividades" class="nav-link">Actividades</a>
+        <a href="#podcast" class="nav-link">Stemos Hablando</a>
         <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
 
@@ -70,6 +71,7 @@
       <a href="#proyectos" class="mobile-link">Mis Proyectos</a>
       <a href="#qstate" class="mobile-link">Miembro Q|State⟩</a>
       <a href="#actividades" class="mobile-link">Actividades</a>
+      <a href="#podcast" class="mobile-link">Stemos Hablando</a>
       <a href="#contacto" class="mobile-link">Contacto</a>
     </div>
   </header>
@@ -334,20 +336,63 @@
       </div>
     </section>
 
-    <!-- ACTIVIDADES Y DIVULGACIÓN -->
+    <!-- ACTIVIDADES Y DIVULGACIÓN (Carrusel horizontal estilo Netflix) -->
     <section id="actividades" class="section">
       <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Divulgación &amp; Participación</div>
-          <h2 class="section-title">Actividades y Eventos</h2>
-          <p class="section-subtitle">
-            Charlas, instancias de divulgación científica, ferias tecnológicas y noticias en las que he participado junto a la USM y Q|State⟩.
-          </p>
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag">Divulgación &amp; Participación</div>
+            <h2 class="section-title">Actividades y Eventos</h2>
+            <p class="section-subtitle">
+              Charlas, instancias de divulgación científica y noticias junto a la USM y Q|State⟩.
+            </p>
+          </div>
+
+          <div class="podcast-carousel-controls" aria-label="Desplazar actividades">
+            <button type="button" class="carousel-btn" id="activitiesPrevBtn" aria-label="Actividades anteriores">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <span class="carousel-counter" id="activitiesCount">4 eventos</span>
+            <button type="button" class="carousel-btn" id="activitiesNextBtn" aria-label="Siguientes actividades">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
         </div>
 
-        <div class="activities-grid" id="activitiesGrid">
+        <div class="activities-track" id="activitiesGrid" tabindex="0" aria-label="Carrusel de actividades y eventos">
           <!-- Renderizado dinámico desde js/projects.js -->
         </div>
+      </div>
+    </section>
+
+    <!-- PODCAST: STEMOS HABLANDO (Carrusel de episodios) -->
+    <section id="podcast" class="section">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag">🎙️ Divulgación STEM · Podcast</div>
+            <h2 class="section-title">Stemos Hablando</h2>
+            <p class="section-subtitle">
+              Proyecto de entrevistas y conversaciones cercanas sobre ciencia, tecnología, investigación en Chile y el lado humano detrás de quienes hacen ciencia.
+            </p>
+          </div>
+
+          <div class="podcast-carousel-controls" aria-label="Controles del carrusel de episodios">
+            <button type="button" class="carousel-btn" id="podcastPrevBtn" aria-label="Episodio anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <span class="carousel-counter" id="podcastCounter">01 / 01</span>
+            <button type="button" class="carousel-btn" id="podcastNextBtn" aria-label="Siguiente episodio">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <article class="podcast-card" id="podcastCard">
+          <!-- Renderizado dinámico como carrusel desde js/projects.js -->
+        </article>
+
+        <div class="podcast-dots" id="podcastDots" role="tablist" aria-label="Selector de episodios"></div>
       </div>
     </section>
 
@@ -443,7 +488,7 @@
   <!-- Toast de notificación -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/background.js"></script>
-  <script src="js/projects.js"></script>
+  <script src="js/background.js?v=20261113b"></script>
+  <script src="js/projects.js?v=20261113b"></script>
 </body>
 </html>

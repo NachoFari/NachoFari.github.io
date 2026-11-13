@@ -167,8 +167,33 @@
     },
   ];
 
+  // Agrega aquí más episodios o deja que GitHub Actions actualice data/podcast.json automáticamente
+  let PODCAST_EPISODES = [
+    {
+      label: 'Ep. 01',
+      windowTitle: 'Stemos Hablando · Ep. 01 (08:45)',
+      badgePrimary: '🎙️ Próximamente Nuevos Episodios',
+      badgeSecondary: 'Episodio 01 · Divulgación STEM',
+      title: 'Conversando de Ciencia y Vida con David Zambrano',
+      description:
+        'En este episodio inaugural de Stemos Hablando conversamos con el Dr. David Zambrano, investigador y profesor del Departamento de Física de la UTFSM especializado en materia condensada, explorando su trayectoria académica, la investigación científica en Chile, anécdotas y hobbies.',
+      tags: ['Podcast STEM', 'Divulgación Científica', 'UTFSM', '@stemos.hablando'],
+      embedUrl: 'https://www.youtube-nocookie.com/embed/HGELD0yvy4c?start=525&rel=0',
+      watchUrl: 'https://www.youtube.com/watch?v=HGELD0yvy4c&t=525s',
+    },
+  ];
+
   const projectsGrid = document.getElementById('projectsGrid');
   const activitiesGrid = document.getElementById('activitiesGrid');
+  const activitiesPrevBtn = document.getElementById('activitiesPrevBtn');
+  const activitiesNextBtn = document.getElementById('activitiesNextBtn');
+  const activitiesCount = document.getElementById('activitiesCount');
+  const podcastCard = document.getElementById('podcastCard');
+  const podcastDots = document.getElementById('podcastDots');
+  const podcastCounter = document.getElementById('podcastCounter');
+  const podcastPrevBtn = document.getElementById('podcastPrevBtn');
+  const podcastNextBtn = document.getElementById('podcastNextBtn');
+  let activeEpisodeIdx = 0;
   const filterBtns = document.querySelectorAll('.filter-btn');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
@@ -291,22 +316,23 @@
 
   function renderActivities() {
     if (!activitiesGrid) return;
+    if (activitiesCount) {
+      activitiesCount.textContent = `${ACTIVITIES.length} eventos`;
+    }
     activitiesGrid.innerHTML = ACTIVITIES.map((act) => {
       const tagsHtml = act.tags.map((t) => `<span class="project-tag">${t}</span>`).join('');
       return `
         <article class="activity-card">
-          <div class="activity-media" style="${act.imageBg ? `background: ${act.imageBg};` : ''}${act.imageFit === 'contain' ? ' padding: 46px 12px 12px;' : ''}">
+          <div class="activity-media" style="${act.imageBg ? `background: ${act.imageBg};` : ''}${act.imageFit === 'contain' ? ' padding: 40px 10px 10px;' : ''}">
             <img src="${act.image}" alt="${act.imageAlt}" style="object-fit: ${act.imageFit || 'cover'}; object-position: ${act.imagePosition || 'center center'};${act.imageFit === 'contain' ? ' border-radius: 8px;' : ''}" data-zoom-src="${act.image}" data-zoom-caption="${act.title}" loading="lazy" />
             <span class="activity-badge">${act.badge}</span>
           </div>
           <div class="activity-body">
             <div class="activity-meta">
-              <span>🏛️ ${act.source}</span>
-              <span>•</span>
               <span>📍 ${act.place}</span>
             </div>
             <h3 class="activity-title">${act.title}</h3>
-            <p class="activity-desc">${act.summary}</p>
+            <p class="activity-desc" title="${act.summary}">${act.summary}</p>
             <div class="activity-tags">${tagsHtml}</div>
             <div class="activity-actions">
               <a href="${act.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
@@ -314,7 +340,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
               </a>
               <button type="button" class="btn btn-glass" data-zoom-src="${act.image}" data-zoom-caption="${act.title}">
-                <span>Ver Fotografía</span>
+                <span>Ver Foto</span>
               </button>
             </div>
           </div>
@@ -327,6 +353,105 @@
         openLightbox(el.dataset.zoomSrc, el.dataset.zoomCaption);
       });
     });
+  }
+
+  if (activitiesPrevBtn && activitiesGrid) {
+    activitiesPrevBtn.addEventListener('click', () => {
+      activitiesGrid.scrollBy({ left: -365, behavior: 'smooth' });
+    });
+  }
+  if (activitiesNextBtn && activitiesGrid) {
+    activitiesNextBtn.addEventListener('click', () => {
+      activitiesGrid.scrollBy({ left: 365, behavior: 'smooth' });
+    });
+  }
+
+  function renderPodcastCarousel(index = 0) {
+    if (!podcastCard || PODCAST_EPISODES.length === 0) return;
+
+    const total = PODCAST_EPISODES.length;
+    activeEpisodeIdx = ((index % total) + total) % total;
+    const ep = PODCAST_EPISODES[activeEpisodeIdx];
+
+    const tagsHtml = ep.tags.map((t) => `<span class="tech-pill">${t}</span>`).join('');
+
+    podcastCard.innerHTML = `
+      <div class="podcast-video-wrap">
+        <div class="preview-window">
+          <div class="preview-topbar">
+            <div class="preview-dots"><span></span><span></span><span></span></div>
+            <span class="preview-filename">${ep.windowTitle}</span>
+            <span class="podcast-live-tag">▶ YouTube</span>
+          </div>
+          <div class="podcast-frame">
+            <iframe
+              src="${ep.embedUrl}"
+              title="Stemos Hablando — ${ep.title}"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="podcast-info">
+        <div class="podcast-badges">
+          <span class="badge-star">${ep.badgePrimary}</span>
+          <span class="badge-version">${ep.badgeSecondary}</span>
+        </div>
+
+        <h3 class="podcast-title">${ep.title}</h3>
+        <p class="podcast-desc">${ep.description}</p>
+        <div class="podcast-tags">${tagsHtml}</div>
+
+        <div class="podcast-actions">
+          <a href="${ep.watchUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <span>Ver Episodio en YouTube</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@Stemos.Hablando" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+            <span>Canal @Stemos.Hablando</span>
+          </a>
+          <a href="https://www.instagram.com/stemos.hablando/" target="_blank" rel="noopener noreferrer" class="btn btn-subtle">
+            <span>Instagram</span>
+          </a>
+        </div>
+      </div>
+    `;
+
+    if (podcastCounter) {
+      const curStr = String(activeEpisodeIdx + 1).padStart(2, '0');
+      const totStr = String(total).padStart(2, '0');
+      podcastCounter.textContent = `${curStr} / ${totStr}`;
+    }
+
+    if (podcastPrevBtn) podcastPrevBtn.disabled = total <= 1;
+    if (podcastNextBtn) podcastNextBtn.disabled = total <= 1;
+
+    if (podcastDots) {
+      podcastDots.innerHTML = PODCAST_EPISODES.map(
+        (item, idx) => `
+          <button type="button" class="podcast-dot-btn ${idx === activeEpisodeIdx ? 'active' : ''}" data-ep-idx="${idx}" role="tab" aria-selected="${idx === activeEpisodeIdx}">
+            <span>${item.label}</span>
+          </button>
+        `
+      ).join('');
+
+      podcastDots.querySelectorAll('[data-ep-idx]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          renderPodcastCarousel(Number(btn.dataset.epIdx));
+        });
+      });
+    }
+  }
+
+  if (podcastPrevBtn) {
+    podcastPrevBtn.addEventListener('click', () => renderPodcastCarousel(activeEpisodeIdx - 1));
+  }
+  if (podcastNextBtn) {
+    podcastNextBtn.addEventListener('click', () => renderPodcastCarousel(activeEpisodeIdx + 1));
   }
 
   // Filtros de galería
@@ -454,7 +579,23 @@
     }
   }
 
+  async function loadSyncedPodcast() {
+    try {
+      const res = await fetch('data/podcast.json', { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (Array.isArray(data.episodes) && data.episodes.length > 0) {
+        PODCAST_EPISODES = data.episodes;
+        renderPodcastCarousel(0);
+      }
+    } catch {
+      // Usa los episodios locales integrados si falla el JSON
+    }
+  }
+
   renderProjects('all');
   renderActivities();
+  renderPodcastCarousel(0);
+  loadSyncedPodcast();
   refreshGitHubStars();
 })();

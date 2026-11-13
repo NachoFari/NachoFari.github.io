@@ -1277,19 +1277,44 @@ code {
 }
 
 /* ==========================================================================
-   Actividades y Divulgación
+   Actividades y Divulgación (Carrusel Compacto Estilo Netflix)
    ========================================================================== */
 
-.activities-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.4rem;
+.activities-track {
+  display: flex;
+  gap: 1.15rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.35rem 0.15rem 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 107, 53, 0.5) rgba(255, 255, 255, 0.04);
+}
+
+.activities-track::-webkit-scrollbar {
+  height: 7px;
+}
+
+.activities-track::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+}
+
+.activities-track::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 53, 0.45);
+  border-radius: 999px;
+}
+
+.activities-track::-webkit-scrollbar-thumb:hover {
+  background: var(--fox-orange);
 }
 
 .activity-card {
+  flex: 0 0 345px;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--bg-glass);
   border: 1px solid var(--border-subtle);
@@ -1300,12 +1325,12 @@ code {
 .activity-card:hover {
   transform: translateY(-4px);
   border-color: var(--border-fox);
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 107, 53, 0.12);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 107, 53, 0.12);
 }
 
 .activity-media {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   background: radial-gradient(circle at 50% 45%, rgba(255, 107, 53, 0.12), #0d0e14 78%);
   border-bottom: 1px solid var(--border-subtle);
   overflow: hidden;
@@ -1325,62 +1350,235 @@ code {
 
 .activity-badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 0.26rem 0.68rem;
+  top: 10px;
+  left: 10px;
+  padding: 0.2rem 0.58rem;
   border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.67rem;
   font-weight: 600;
-  background: rgba(16, 17, 22, 0.86);
+  background: rgba(16, 17, 22, 0.88);
   border: 1px solid rgba(255, 107, 53, 0.5);
   color: #ffc5ae;
   backdrop-filter: blur(8px);
 }
 
 .activity-body {
-  padding: 1.45rem 1.55rem 1.55rem;
+  padding: 1rem 1.1rem 1.15rem;
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 0.75rem;
+  gap: 0.52rem;
 }
 
 .activity-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.68rem;
   color: var(--fox-amber);
 }
 
 .activity-title {
   font-family: var(--font-display);
-  font-size: 1.28rem;
+  font-size: 1.03rem;
   font-weight: 700;
   line-height: 1.25;
 }
 
 .activity-desc {
   color: var(--text-secondary);
-  font-size: 0.92rem;
+  font-size: 0.84rem;
+  line-height: 1.48;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   flex: 1;
 }
 
 .activity-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.42rem;
+  gap: 0.34rem;
 }
 
 .activity-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
+  gap: 0.5rem;
   margin-top: auto;
-  padding-top: 0.35rem;
+  padding-top: 0.25rem;
+}
+
+.activity-actions .btn {
+  padding: 0.5rem 0.78rem;
+  font-size: 0.79rem;
+  border-radius: 9px;
+}
+
+/* ==========================================================================
+   Podcast: Stemos Hablando
+   ========================================================================== */
+
+.podcast-card {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(24, 26, 36, 0.92) 55%, rgba(16, 17, 22, 0.96) 100%);
+  border: 1px solid var(--border-fox);
+  box-shadow: var(--shadow-card), var(--shadow-fox);
+  align-items: center;
+}
+
+.podcast-video-wrap {
+  min-width: 0;
+}
+
+.podcast-live-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--fox-amber);
+}
+
+.podcast-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #090a0e;
+}
+
+.podcast-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.podcast-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.podcast-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.podcast-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.podcast-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.podcast-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.podcast-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.25rem;
+}
+
+.podcast-carousel-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(24, 26, 36, 0.8);
+  border: 1px solid var(--border-subtle);
+}
+
+.carousel-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.carousel-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: var(--fox-orange);
+  border-color: var(--fox-orange);
+  color: #101116;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.carousel-counter {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fox-amber);
+  min-width: 58px;
+  text-align: center;
+}
+
+.podcast-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.podcast-dot-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.36rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.podcast-dot-btn:hover {
+  border-color: var(--border-fox);
+  color: var(--text-main);
+}
+
+.podcast-dot-btn.active {
+  border-color: var(--fox-orange);
+  background: rgba(255, 107, 53, 0.14);
+  color: #ffd7c7;
 }
 
 /* ==========================================================================
@@ -1624,15 +1822,12 @@ code {
 
 @media (max-width: 1040px) {
   .hero-grid,
-  .flagship-card {
+  .flagship-card,
+  .podcast-card {
     grid-template-columns: 1fr;
   }
 
   .projects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .activities-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1660,15 +1855,15 @@ code {
   .qstate-actions {
     justify-content: center;
   }
-
-  .activities-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 640px) {
   .hero {
     padding: 2.5rem 0 2.25rem;
+  }
+
+  .activity-card {
+    flex: 0 0 295px;
   }
 
   .hero-links .btn {
@@ -1692,6 +1887,7 @@ code {
 
   .flagship-card,
   .qstate-card,
+  .podcast-card,
   .contact-card {
     padding: 1.35rem;
   }
