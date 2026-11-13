@@ -314,54 +314,126 @@
     });
   }
 
+  function renderActivityCard(act, isClone = false) {
+    const tagsHtml = act.tags.map((t) => `<span class="project-tag">${t}</span>`).join('');
+    const cloneAttrs = isClone ? ' aria-hidden="true"' : '';
+    const tabAttr = isClone ? ' tabindex="-1"' : '';
+    return `
+      <article class="activity-card"${cloneAttrs}>
+        <div class="activity-media" style="${act.imageBg ? `background: ${act.imageBg};` : ''}${act.imageFit === 'contain' ? ' padding: 40px 10px 10px;' : ''}">
+          <img src="${act.image}" alt="${act.imageAlt}" style="object-fit: ${act.imageFit || 'cover'}; object-position: ${act.imagePosition || 'center center'};${act.imageFit === 'contain' ? ' border-radius: 8px;' : ''}" data-zoom-src="${act.image}" data-zoom-caption="${act.title}" loading="lazy" />
+          <span class="activity-badge">${act.badge}</span>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span>📍 ${act.place}</span>
+          </div>
+          <h3 class="activity-title">${act.title}</h3>
+          <p class="activity-desc" title="${act.summary}">${act.summary}</p>
+          <div class="activity-tags">${tagsHtml}</div>
+          <div class="activity-actions">
+            <a href="${act.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"${tabAttr}>
+              <span>${act.urlLabel}</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+            <button type="button" class="btn btn-glass" data-zoom-src="${act.image}" data-zoom-caption="${act.title}"${tabAttr}>
+              <span>Ver Foto</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  let activitiesAutoPaused = false;
+  let activitiesPauseUntil = 0;
+  let activitiesVirtualScroll = 0;
+  let activitiesTickerStarted = false;
+
+  function startActivitiesAutoScroll() {
+    if (activitiesTickerStarted || !activitiesGrid) return;
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    activitiesTickerStarted = true;
+    const SPEED_PX_PER_SEC = 28;
+    let lastTime = performance.now();
+
+    const step = (now) => {
+      const dt = Math.min(0.05, Math.max(0, (now - lastTime) / 1000));
+      lastTime = now;
+
+      if (!activitiesAutoPaused && !document.hidden && now >= activitiesPauseUntil) {
+        const halfWidth = activitiesGrid.scrollWidth / 2;
+        if (halfWidth > 0) {
+          if (Math.abs(activitiesVirtualScroll - activitiesGrid.scrollLeft) > 3) {
+            activitiesVirtualScroll = activitiesGrid.scrollLeft;
+          }
+          activitiesVirtualScroll += SPEED_PX_PER_SEC * dt;
+          if (activitiesVirtualScroll >= halfWidth) {
+            activitiesVirtualScroll -= halfWidth;
+          }
+          activitiesGrid.scrollLeft = activitiesVirtualScroll;
+        }
+      } else {
+        activitiesVirtualScroll = activitiesGrid.scrollLeft;
+      }
+
+      requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+  }
+
   function renderActivities() {
     if (!activitiesGrid) return;
     if (activitiesCount) {
       activitiesCount.textContent = `${ACTIVITIES.length} eventos`;
     }
-    activitiesGrid.innerHTML = ACTIVITIES.map((act) => {
-      const tagsHtml = act.tags.map((t) => `<span class="project-tag">${t}</span>`).join('');
-      return `
-        <article class="activity-card">
-          <div class="activity-media" style="${act.imageBg ? `background: ${act.imageBg};` : ''}${act.imageFit === 'contain' ? ' padding: 40px 10px 10px;' : ''}">
-            <img src="${act.image}" alt="${act.imageAlt}" style="object-fit: ${act.imageFit || 'cover'}; object-position: ${act.imagePosition || 'center center'};${act.imageFit === 'contain' ? ' border-radius: 8px;' : ''}" data-zoom-src="${act.image}" data-zoom-caption="${act.title}" loading="lazy" />
-            <span class="activity-badge">${act.badge}</span>
-          </div>
-          <div class="activity-body">
-            <div class="activity-meta">
-              <span>📍 ${act.place}</span>
-            </div>
-            <h3 class="activity-title">${act.title}</h3>
-            <p class="activity-desc" title="${act.summary}">${act.summary}</p>
-            <div class="activity-tags">${tagsHtml}</div>
-            <div class="activity-actions">
-              <a href="${act.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                <span>${act.urlLabel}</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
-              </a>
-              <button type="button" class="btn btn-glass" data-zoom-src="${act.image}" data-zoom-caption="${act.title}">
-                <span>Ver Foto</span>
-              </button>
-            </div>
-          </div>
-        </article>
-      `;
-    }).join('');
+    const primaryCards = ACTIVITIES.map((act) => renderActivityCard(act, false)).join('');
+    const cloneCards = ACTIVITIES.map((act) => renderActivityCard(act, true)).join('');
+    activitiesGrid.innerHTML = primaryCards + cloneCards;
 
     activitiesGrid.querySelectorAll('[data-zoom-src]').forEach((el) => {
       el.addEventListener('click', () => {
         openLightbox(el.dataset.zoomSrc, el.dataset.zoomCaption);
       });
     });
+
+    startActivitiesAutoScroll();
+  }
+
+  if (activitiesGrid) {
+    activitiesGrid.addEventListener('mouseenter', () => { activitiesAutoPaused = true; });
+    activitiesGrid.addEventListener('mouseleave', () => { activitiesAutoPaused = false; });
+    activitiesGrid.addEventListener('focusin', () => { activitiesAutoPaused = true; });
+    activitiesGrid.addEventListener('focusout', () => { activitiesAutoPaused = false; });
+    activitiesGrid.addEventListener('pointerdown', () => { activitiesAutoPaused = true; });
+    window.addEventListener('pointerup', () => {
+      if (activitiesAutoPaused) {
+        activitiesAutoPaused = false;
+        activitiesPauseUntil = performance.now() + 900;
+      }
+    });
   }
 
   if (activitiesPrevBtn && activitiesGrid) {
     activitiesPrevBtn.addEventListener('click', () => {
+      const halfWidth = activitiesGrid.scrollWidth / 2;
+      if (halfWidth > 0 && activitiesGrid.scrollLeft <= 12) {
+        activitiesGrid.scrollLeft += halfWidth;
+      }
+      activitiesPauseUntil = performance.now() + 1200;
       activitiesGrid.scrollBy({ left: -365, behavior: 'smooth' });
     });
   }
   if (activitiesNextBtn && activitiesGrid) {
     activitiesNextBtn.addEventListener('click', () => {
+      const halfWidth = activitiesGrid.scrollWidth / 2;
+      if (halfWidth > 0 && activitiesGrid.scrollLeft >= halfWidth) {
+        activitiesGrid.scrollLeft -= halfWidth;
+      }
+      activitiesPauseUntil = performance.now() + 1200;
       activitiesGrid.scrollBy({ left: 365, behavior: 'smooth' });
     });
   }
@@ -475,22 +547,22 @@
       btn.classList.add('active');
       if (natexActiveImg) {
         natexActiveImg.src = btn.dataset.src;
-        natexActiveImg.alt = btn.dataset.label || 'Captura NaTex Studio';
+        natexActiveImg.alt = btn.dataset.label || 'NaTex';
       }
       if (natexPreviewLabel) {
-        natexPreviewLabel.textContent = btn.dataset.label || 'NaTex Studio';
+        natexPreviewLabel.textContent = 'NaTex';
       }
     });
   });
 
   if (natexActiveImg) {
     natexActiveImg.addEventListener('click', () => {
-      openLightbox(natexActiveImg.src, natexPreviewLabel ? natexPreviewLabel.textContent : 'NaTex Studio');
+      openLightbox(natexActiveImg.src, natexActiveImg.alt || 'NaTex');
     });
   }
   if (natexZoomBtn && natexActiveImg) {
     natexZoomBtn.addEventListener('click', () => {
-      openLightbox(natexActiveImg.src, natexPreviewLabel ? natexPreviewLabel.textContent : 'NaTex Studio');
+      openLightbox(natexActiveImg.src, natexActiveImg.alt || 'NaTex');
     });
   }
 

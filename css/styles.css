@@ -1284,8 +1284,7 @@ code {
   display: flex;
   gap: 1.15rem;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   padding: 0.35rem 0.15rem 1rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 107, 53, 0.5) rgba(255, 255, 255, 0.04);
