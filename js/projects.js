@@ -691,7 +691,256 @@
   const foxSpeechBubble = document.getElementById('foxSpeechBubble');
   const foxSpeechText = document.getElementById('foxSpeechText');
   const foxFrameTrigger = document.getElementById('foxFrameTrigger');
+  const foxOrbCard = document.querySelector('.fox-orb-card');
+  const gravityResetBar = document.getElementById('gravityResetBar');
+  const gravityResetBtn = document.getElementById('gravityResetBtn');
   let activeFoxQuote = '';
+  let foxClickStreak = 0;
+  let lastFoxClickAt = 0;
+  let gravityActive = false;
+  let gravityRafId = 0;
+  let gravityBodies = [];
+  let draggedBody = null;
+  let dragLastX = 0;
+  let dragLastY = 0;
+  let dragMoved = false;
+
+  const FOX_CHARGE_HINTS = {
+    11: '¿Mmm? ¿Sentiste esa vibración...?',
+    12: 'Oye, estás alterando la constante gravitacional...',
+    13: '¡Cuidado! El sistema está perdiendo equilibrio...',
+    14: '¡Última advertencia antes de romper g!'
+  };
+
+  function spawnShockwave(x, y) {
+    const wave1 = document.createElement('div');
+    wave1.className = 'gravity-shockwave';
+    wave1.style.left = `${x}px`;
+    wave1.style.top = `${y}px`;
+    document.body.appendChild(wave1);
+
+    const wave2 = document.createElement('div');
+    wave2.className = 'gravity-shockwave is-secondary';
+    wave2.style.left = `${x}px`;
+    wave2.style.top = `${y}px`;
+    document.body.appendChild(wave2);
+
+    setTimeout(() => {
+      wave1.remove();
+      wave2.remove();
+    }, 1150);
+  }
+
+  function restoreGravityWorld() {
+    if (!gravityActive) return;
+    gravityActive = false;
+    cancelAnimationFrame(gravityRafId);
+    draggedBody = null;
+
+    if (gravityResetBar) gravityResetBar.hidden = true;
+    document.body.classList.remove('gravity-active', 'gravity-rumble');
+
+    gravityBodies.forEach((b) => {
+      b.el.classList.remove('gravity-falling');
+      b.el.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+      b.el.style.transform = '';
+      b.el.style.zIndex = '';
+      setTimeout(() => {
+        if (!gravityActive) b.el.style.transition = '';
+      }, 650);
+    });
+    gravityBodies = [];
+    activitiesAutoPaused = false;
+    foxClickStreak = 0;
+    updateFoxQuote(true);
+  }
+
+  function triggerGravityCollapse() {
+    if (gravityActive) return;
+    gravityActive = true;
+    activitiesAutoPaused = true;
+
+    const triggerRect = (foxFrameTrigger || foxOrbCard || document.body).getBoundingClientRect();
+    const ox = triggerRect.left + triggerRect.width / 2;
+    const oy = triggerRect.top + triggerRect.height / 2;
+
+    if (foxSpeechText) {
+      foxSpeechText.textContent = '¡Colapso gravitacional! Alguien encendió g = 9.8 m/s² 💥';
+    }
+
+    spawnShockwave(ox, oy);
+    document.body.classList.add('gravity-active', 'gravity-rumble');
+    setTimeout(() => document.body.classList.remove('gravity-rumble'), 380);
+    if (gravityResetBar) gravityResetBar.hidden = false;
+
+    const selector = [
+      '.navbar .brand',
+      '.navbar .nav-link',
+      '.navbar .nav-actions > *',
+      '.hero-kicker',
+      '.hero-title',
+      '.hero-handle',
+      '.hero-bio',
+      '.hero-pill',
+      '.hero-links .btn',
+      '.metric-card',
+      '.fox-speech-bubble',
+      '.fox-orb-card',
+      '#estrella .section-header',
+      '#estrella .flagship-card',
+      '#proyectos .section-header',
+      '.project-card',
+      '#qstate .qstate-card',
+      '#actividades .section-header-row',
+      '.activity-card',
+      '#podcast .section-header-row',
+      '.podcast-card',
+      '#contacto .contact-card',
+      'footer'
+    ].join(', ');
+
+    const candidates = Array.from(document.querySelectorAll(selector));
+    const rects = candidates.map((el) => el.getBoundingClientRect());
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+
+    gravityBodies = [];
+    candidates.forEach((el, idx) => {
+      const rect = rects[idx];
+      if (rect.width <= 0 || rect.height <= 0) return;
+      if (rect.bottom < -40 || rect.top > vh + 180) return;
+
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const rx = cx - ox;
+      const ry = cy - oy;
+      const dist = Math.hypot(rx, ry) || 1;
+      const force = Math.max(180, 950 - dist * 0.65);
+
+      const elWidthFactor = rect.width > 420 ? 0.65 : 1;
+      const vx = (rx / dist) * force * 0.72 * elWidthFactor + (Math.random() - 0.5) * 90;
+      const vy = (ry / dist) * force * 0.55 - 240 - Math.random() * 140;
+      const va = (vx >= 0 ? 1 : -1) * (20 + Math.random() * 55) * elWidthFactor;
+
+      el.style.transition = 'none';
+      el.classList.add('gravity-falling');
+
+      gravityBodies.push({
+        el,
+        rect,
+        dx: 0,
+        dy: 0,
+        vx,
+        vy,
+        angle: 0,
+        va,
+        restitution: 0.42 + Math.random() * 0.14,
+        minDx: -rect.left + 6,
+        maxDx: vw - rect.right - 6,
+        minDy: -rect.top + 6,
+        maxDy: Math.max(20, vh - rect.bottom - 8)
+      });
+    });
+
+    const GRAVITY = 2100;
+    let lastTs = performance.now();
+
+    const stepPhysics = (now) => {
+      if (!gravityActive) return;
+      const dt = Math.min(0.04, Math.max(0.001, (now - lastTs) / 1000));
+      lastTs = now;
+
+      for (const b of gravityBodies) {
+        if (b === draggedBody) continue;
+
+        b.vy += GRAVITY * dt;
+        b.dx += b.vx * dt;
+        b.dy += b.vy * dt;
+        b.angle += b.va * dt;
+
+        if (b.dx < b.minDx) {
+          b.dx = b.minDx;
+          b.vx = Math.abs(b.vx) * 0.55;
+        } else if (b.dx > b.maxDx) {
+          b.dx = b.maxDx;
+          b.vx = -Math.abs(b.vx) * 0.55;
+        }
+
+        if (b.dy < b.minDy) {
+          b.dy = b.minDy;
+          b.vy = Math.abs(b.vy) * 0.45;
+        } else if (b.dy >= b.maxDy) {
+          b.dy = b.maxDy;
+          if (Math.abs(b.vy) > 90) {
+            b.vy = -b.vy * b.restitution;
+          } else {
+            b.vy = 0;
+          }
+          b.vx *= 0.84;
+          b.va *= 0.78;
+          if (Math.abs(b.vx) < 4) b.vx = 0;
+          if (Math.abs(b.va) < 2) b.va = 0;
+        }
+
+        b.el.style.transform = `translate3d(${b.dx.toFixed(1)}px, ${b.dy.toFixed(1)}px, 0) rotate(${b.angle.toFixed(1)}deg)`;
+      }
+
+      gravityRafId = requestAnimationFrame(stepPhysics);
+    };
+
+    gravityRafId = requestAnimationFrame(stepPhysics);
+  }
+
+  document.addEventListener('pointerdown', (e) => {
+    if (!gravityActive) return;
+    if (e.target.closest('#gravityResetBar')) return;
+    const targetEl = e.target.closest('.gravity-falling');
+    if (!targetEl) return;
+    const body = gravityBodies.find((b) => b.el === targetEl);
+    if (!body) return;
+
+    draggedBody = body;
+    dragLastX = e.clientX;
+    dragLastY = e.clientY;
+    dragMoved = false;
+    body.vx = 0;
+    body.vy = 0;
+    body.va = 0;
+    e.preventDefault();
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    if (!gravityActive || !draggedBody) return;
+    const mx = e.clientX - dragLastX;
+    const my = e.clientY - dragLastY;
+    if (Math.abs(mx) > 2 || Math.abs(my) > 2) dragMoved = true;
+    draggedBody.dx = Math.max(draggedBody.minDx, Math.min(draggedBody.maxDx, draggedBody.dx + mx));
+    draggedBody.dy = Math.max(draggedBody.minDy, Math.min(draggedBody.maxDy, draggedBody.dy + my));
+    draggedBody.vx = mx * 28;
+    draggedBody.vy = my * 28;
+    draggedBody.el.style.transform = `translate3d(${draggedBody.dx.toFixed(1)}px, ${draggedBody.dy.toFixed(1)}px, 0) rotate(${draggedBody.angle.toFixed(1)}deg)`;
+    dragLastX = e.clientX;
+    dragLastY = e.clientY;
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (draggedBody) {
+      draggedBody = null;
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!gravityActive) return;
+    if (e.target.closest('#gravityResetBar')) return;
+    if (e.target.closest('.gravity-falling')) {
+      e.preventDefault();
+      if (dragMoved) e.stopPropagation();
+    }
+  }, true);
+
+  if (gravityResetBtn) {
+    gravityResetBtn.addEventListener('click', restoreGravityWorld);
+  }
 
   function shuffleArray(list) {
     const arr = [...list];
@@ -757,6 +1006,38 @@
     }
   }
 
+  function handleFoxInteraction() {
+    if (gravityActive) return;
+    const now = performance.now();
+    if (now - lastFoxClickAt > 4500) {
+      foxClickStreak = 0;
+    }
+    lastFoxClickAt = now;
+    foxClickStreak += 1;
+
+    if (foxClickStreak >= 15) {
+      triggerGravityCollapse();
+      return;
+    }
+
+    if (FOX_CHARGE_HINTS[foxClickStreak] && foxSpeechText) {
+      foxSpeechText.textContent = FOX_CHARGE_HINTS[foxClickStreak];
+      if (foxSpeechBubble) {
+        foxSpeechBubble.classList.remove('is-popping');
+        void foxSpeechBubble.offsetWidth;
+        foxSpeechBubble.classList.add('is-popping');
+      }
+    } else {
+      updateFoxQuote(true);
+    }
+
+    if (foxClickStreak >= 10 && foxOrbCard) {
+      foxOrbCard.classList.remove('is-charging');
+      void foxOrbCard.offsetWidth;
+      foxOrbCard.classList.add('is-charging');
+    }
+  }
+
   if (foxSpeechText) {
     updateFoxQuote(false);
   }
@@ -764,11 +1045,11 @@
     foxSpeechBubble.addEventListener('click', () => updateFoxQuote(true));
   }
   if (foxFrameTrigger) {
-    foxFrameTrigger.addEventListener('click', () => updateFoxQuote(true));
+    foxFrameTrigger.addEventListener('click', handleFoxInteraction);
     foxFrameTrigger.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        updateFoxQuote(true);
+        handleFoxInteraction();
       }
     });
   }
