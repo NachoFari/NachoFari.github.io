@@ -194,7 +194,6 @@
   const podcastPrevBtn = document.getElementById('podcastPrevBtn');
   const podcastNextBtn = document.getElementById('podcastNextBtn');
   let activeEpisodeIdx = 0;
-  const filterBtns = document.querySelectorAll('.filter-btn');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxCaption = document.getElementById('lightboxCaption');
@@ -543,15 +542,6 @@
     podcastNextBtn.addEventListener('click', () => renderPodcastCarousel(activeEpisodeIdx + 1));
   }
 
-  // Filtros de galería
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderProjects(btn.dataset.filter || 'all');
-    });
-  });
-
   // Switcher de capturas de NaTex (Proyecto Estrella)
   const natexActiveImg = document.getElementById('natexActiveImg');
   const natexPreviewLabel = document.getElementById('natexPreviewLabel');
@@ -660,8 +650,7 @@
         }
       });
       if (updated) {
-        const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
-        renderProjects(activeFilter);
+        renderProjects('all');
       }
     } catch {
       // Mantiene los datos estáticos verificados si no hay red o hay rate-limit

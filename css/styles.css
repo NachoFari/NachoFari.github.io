@@ -545,12 +545,12 @@ code {
 
 .fox-frame {
   position: relative;
-  width: 175px;
-  height: 175px;
+  width: 58%;
+  height: 58%;
   border-radius: 26px;
   background: rgba(16, 17, 22, 0.9);
   border: 2px solid rgba(255, 107, 53, 0.45);
-  padding: 20px;
+  padding: clamp(10px, 1.1vw, 14px);
   box-shadow: 0 0 38px rgba(255, 107, 53, 0.28);
   animation: floatFox 5s ease-in-out infinite;
 }
@@ -1312,7 +1312,7 @@ code {
 }
 
 .activity-card {
-  flex: 0 0 max(290px, 36.5%);
+  flex: 0 0 max(295px, 35%);
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-md);
@@ -1331,7 +1331,7 @@ code {
 
 .activity-media {
   position: relative;
-  height: clamp(155px, 13vw, 195px);
+  aspect-ratio: 16 / 9;
   background: radial-gradient(circle at 50% 45%, rgba(255, 107, 53, 0.12), #0d0e14 78%);
   border-bottom: 1px solid var(--border-subtle);
   overflow: hidden;
@@ -1905,9 +1905,9 @@ code {
   }
 
   .fox-frame {
-    width: 136px;
-    height: 136px;
-    padding: 16px;
+    width: 60%;
+    height: 60%;
+    padding: 12px;
   }
 
   .qstate-logo-box {
