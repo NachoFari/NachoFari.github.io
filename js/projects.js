@@ -706,10 +706,9 @@
   let dragMoved = false;
 
   const FOX_CHARGE_HINTS = {
-    11: '¿Mmm? ¿Sentiste esa vibración...?',
-    12: 'Oye, estás alterando la constante gravitacional...',
-    13: '¡Cuidado! El sistema está perdiendo equilibrio...',
-    14: '¡Última advertencia antes de romper g!'
+    12: '¿Mmm? ¿Sentiste esa vibración...?',
+    13: 'Detente... Algo terrible está por pasar.',
+    14: '¡No sigas!'
   };
 
   function spawnShockwave(x, y) {
@@ -765,7 +764,7 @@
     const oy = triggerRect.top + triggerRect.height / 2;
 
     if (foxSpeechText) {
-      foxSpeechText.textContent = '¡Colapso gravitacional! Alguien encendió g = 9.8 m/s² 💥';
+      foxSpeechText.textContent = '¡Te dije que no siguieras! 💥';
     }
 
     spawnShockwave(ox, oy);
@@ -1031,7 +1030,7 @@
       updateFoxQuote(true);
     }
 
-    if (foxClickStreak >= 10 && foxOrbCard) {
+    if (foxClickStreak >= 12 && foxOrbCard) {
       foxOrbCard.classList.remove('is-charging');
       void foxOrbCard.offsetWidth;
       foxOrbCard.classList.add('is-charging');
