@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=20261113g" />
+  <link rel="stylesheet" href="css/styles.css?v=20261113h" />
 </head>
 <body>
   <!-- Fondo animado tecnológico (inspirado en qstate.cl + paleta Fox Naranjo) -->
@@ -141,12 +141,17 @@
           </div>
         </div>
 
-        <!-- Tarjeta visual del Zorro (Emblema + HUD tecnológico) -->
+        <!-- Tarjeta visual del Zorro (Burbuja pixel-art + Emblema HUD) -->
         <div class="hero-visual">
+          <button type="button" class="fox-speech-bubble" id="foxSpeechBubble" title="Haz clic para cambiar la frase del zorro" aria-live="polite">
+            <span class="fox-speech-tag">🦊 Zorro.exe</span>
+            <span class="fox-speech-text" id="foxSpeechText">Vibe codeando</span>
+          </button>
+
           <div class="fox-orb-card">
             <div class="orb-ring orb-ring-outer"></div>
             <div class="orb-ring orb-ring-inner"></div>
-            <div class="fox-frame">
+            <div class="fox-frame" id="foxFrameTrigger" role="button" tabindex="0" title="Toca al zorro para otra frase" aria-label="Cambiar frase del zorro">
               <img src="assets/img/fox-avatar.png" alt="Emblema Zorro NachoFari" class="fox-hero-img" />
             </div>
             <div class="fox-hud-badge hud-bottom">
@@ -479,7 +484,7 @@
   <!-- Toast de notificación -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/background.js?v=20261113g"></script>
-  <script src="js/projects.js?v=20261113g"></script>
+  <script src="js/background.js?v=20261113h"></script>
+  <script src="js/projects.js?v=20261113h"></script>
 </body>
 </html>

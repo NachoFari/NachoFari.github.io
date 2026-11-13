@@ -671,6 +671,108 @@
     }
   }
 
+  const FOX_QUOTES = [
+    'Si se puede automatizar, mejor.',
+    'Vibe codeando',
+    '¡Hey! Qué bueno verte por acá.',
+    'Guarda la página, siempre aparece algo nuevo.',
+    'Asumiendo una vaca esférica y sin roce...',
+    'Probabilidad de encontrar errores: baja, pero nunca nula.',
+    'Si algo no cuadra, faltó multiplicar por π o por un signo menos.',
+    'El orden de magnitud está bueno… el resto es detalle.',
+    'sin(x) ≈ x y con fe.',
+    'En condiciones ideales, esto compila a la primera.',
+    'Automatizar 5 minutos una tarea de 2: valió cada segundo.',
+    'Si funciona en local, ya es física experimental.',
+    'Abriendo una nueva pestaña… otra vez.',
+    'Nivel de entropía actual: estable (por ahora).'
+  ];
+
+  const foxSpeechBubble = document.getElementById('foxSpeechBubble');
+  const foxSpeechText = document.getElementById('foxSpeechText');
+  const foxFrameTrigger = document.getElementById('foxFrameTrigger');
+  let activeFoxQuote = '';
+
+  function shuffleArray(list) {
+    const arr = [...list];
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function pickNextFoxQuote() {
+    if (FOX_QUOTES.length === 0) return '';
+    const BAG_KEY = 'nachofari_fox_quote_bag';
+    const LAST_KEY = 'nachofari_last_fox_quote';
+    let lastQuote = activeFoxQuote;
+    let bag = [];
+
+    try {
+      lastQuote = lastQuote || localStorage.getItem(LAST_KEY) || '';
+      const raw = localStorage.getItem(BAG_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          bag = parsed.filter((q) => FOX_QUOTES.includes(q));
+        }
+      }
+    } catch {
+      bag = [];
+    }
+
+    if (bag.length === 0) {
+      bag = shuffleArray(FOX_QUOTES);
+      // Evita repetir la última frase inmediatamente al reiniciar el ciclo
+      if (bag.length > 1 && bag[0] === lastQuote) {
+        bag.push(bag.shift());
+      }
+    }
+
+    let chosen = bag.shift();
+    if (chosen === lastQuote && bag.length > 0) {
+      const alt = bag.shift();
+      bag.push(chosen);
+      chosen = alt;
+    }
+
+    activeFoxQuote = chosen;
+    try {
+      localStorage.setItem(BAG_KEY, JSON.stringify(bag));
+      localStorage.setItem(LAST_KEY, chosen);
+    } catch {
+      // Ignora si el navegador bloquea localStorage
+    }
+    return chosen;
+  }
+
+  function updateFoxQuote(animate = false) {
+    if (!foxSpeechText) return;
+    foxSpeechText.textContent = pickNextFoxQuote();
+    if (animate && foxSpeechBubble) {
+      foxSpeechBubble.classList.remove('is-popping');
+      void foxSpeechBubble.offsetWidth;
+      foxSpeechBubble.classList.add('is-popping');
+    }
+  }
+
+  if (foxSpeechText) {
+    updateFoxQuote(false);
+  }
+  if (foxSpeechBubble) {
+    foxSpeechBubble.addEventListener('click', () => updateFoxQuote(true));
+  }
+  if (foxFrameTrigger) {
+    foxFrameTrigger.addEventListener('click', () => updateFoxQuote(true));
+    foxFrameTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        updateFoxQuote(true);
+      }
+    });
+  }
+
   renderProjects('all');
   renderActivities();
   renderPodcastCarousel(0);
