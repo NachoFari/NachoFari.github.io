@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20261115a" />
+  <link rel="stylesheet" href="css/styles.css?v=20261115b" />
 </head>
 <body>
   <div class="bg-atmosphere" aria-hidden="true"></div>
@@ -19,37 +19,45 @@
 
   <header class="navbar">
     <div class="container nav-inner">
-      <a href="index.html" class="brand" aria-label="Inicio NachoFari">
+      <a href="index.html" data-portfolio-link class="brand" aria-label="Inicio NachoFari">
         <div class="brand-avatar-wrap">
           <img src="assets/img/fox-avatar.png" alt="Natu NachoFari" class="brand-avatar" />
         </div>
         <div class="brand-text">
           <span class="brand-name">Natu.exe</span>
-          <span class="brand-sub">Mascota Oficial · NachoFari</span>
+          <span class="brand-sub" data-i18n="natu.nav.brandSub">Mascota Oficial · NachoFari</span>
         </div>
       </a>
 
       <nav class="nav-links" aria-label="Navegación de Natu">
-        <a href="#lore" class="nav-link active">Lore de Natu</a>
-        <a href="#wallpapers" class="nav-link">Wallpapers</a>
-        <a href="#whatsapp" class="nav-link">Stickers WhatsApp</a>
-        <a href="#imprimir" class="nav-link">Para Imprimir</a>
+        <a href="#lore" class="nav-link active" data-i18n="natu.nav.lore">Lore de Natu</a>
+        <a href="#wallpapers" class="nav-link" data-i18n="natu.nav.wallpapers">Wallpapers</a>
+        <a href="#whatsapp" class="nav-link" data-i18n="natu.nav.whatsapp">Stickers WhatsApp</a>
+        <a href="#imprimir" class="nav-link" data-i18n="natu.nav.print">Para Imprimir</a>
       </nav>
 
       <div class="nav-actions">
-        <a href="index.html" class="btn-nav-cta">← Portafolio</a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
+        <button type="button" class="lang-toggle-btn" id="langToggleBtn" aria-label="Cambiar idioma entre Español e Inglés" title="Switch to English">
+          <span class="lang-opt is-active" data-lang-opt="es">ES</span>
+          <span class="lang-opt" data-lang-opt="en">EN</span>
+        </button>
+        <a href="index.html" data-portfolio-link class="btn-nav-cta" data-i18n="natu.nav.back">← Portafolio</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" data-i18n-aria="nav.openMenu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
 
     <div class="mobile-drawer" id="mobileDrawer">
-      <a href="#lore" class="mobile-link">Lore de Natu</a>
-      <a href="#wallpapers" class="mobile-link">Wallpapers</a>
-      <a href="#whatsapp" class="mobile-link">Stickers WhatsApp</a>
-      <a href="#imprimir" class="mobile-link">Para Imprimir</a>
-      <a href="index.html" class="mobile-link">← Volver al Portafolio</a>
+      <a href="#lore" class="mobile-link" data-i18n="natu.nav.lore">Lore de Natu</a>
+      <a href="#wallpapers" class="mobile-link" data-i18n="natu.nav.wallpapers">Wallpapers</a>
+      <a href="#whatsapp" class="mobile-link" data-i18n="natu.nav.whatsapp">Stickers WhatsApp</a>
+      <a href="#imprimir" class="mobile-link" data-i18n="natu.nav.print">Para Imprimir</a>
+      <a href="index.html" data-portfolio-link class="mobile-link" data-i18n="natu.nav.backMobile">← Volver al Portafolio</a>
+      <button type="button" class="lang-toggle-btn lang-toggle-mobile" aria-label="Cambiar idioma entre Español e Inglés">
+        <span class="lang-opt is-active" data-lang-opt="es">ES</span>
+        <span class="lang-opt" data-lang-opt="en">EN</span>
+      </button>
     </div>
   </header>
 
@@ -58,9 +66,9 @@
     <section id="lore" class="section">
       <div class="container">
         <div class="section-header">
-          <div class="section-tag">🦊 Bitácora #00 · Conoce a Natu</div>
+          <div class="section-tag" data-i18n="natu.header.tag">🦊 Bitácora #00 · Conoce a Natu</div>
           <h1 class="section-title">Natu <span class="text-gradient">(Natu.exe)</span></h1>
-          <p class="section-subtitle">
+          <p class="section-subtitle" data-i18n="natu.header.subtitle">
             La historia detrás del zorrito pixel-art que acompaña los proyectos de NachoFari — más sus wallpapers y stickers oficiales de descarga libre.
           </p>
         </div>
@@ -72,7 +80,7 @@
               <div class="preview-topbar">
                 <div class="preview-dots"><span></span><span></span><span></span></div>
                 <span class="preview-filename" id="natuPreviewLabel">Natu · Estado Fundamental (Bolita #5)</span>
-                <button type="button" class="preview-zoom-btn" id="natuZoomBtn" title="Ampliar sprite de Natu">
+                <button type="button" class="preview-zoom-btn" id="natuZoomBtn" title="Ampliar sprite de Natu" data-i18n-title="natu.zoomTitle">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
                 </button>
               </div>
@@ -89,42 +97,57 @@
               <button type="button" class="thumb-btn active"
                 data-src="assets/brand/natu_sprites/01_bolita.png"
                 data-label="Natu · Estado Fundamental (Bolita #5)"
+                data-label-en="Natu · Ground State (Loaf #5)"
                 data-state="|bolita⟩"
-                data-note="Configuración de mínima energía potencial entre compilaciones.">
+                data-state-en="|loaf⟩"
+                data-note="Configuración de mínima energía potencial entre compilaciones."
+                data-note-en="Lowest potential energy configuration between builds.">
                 <img src="assets/brand/natu_sprites/01_bolita.png" alt="Bolita" />
-                <span>Bolita</span>
+                <span data-i18n="natu.pose.bolita">Bolita</span>
               </button>
               <button type="button" class="thumb-btn"
                 data-src="assets/brand/natu_sprites/02_cuadrupedo.png"
                 data-label="Natu · Patrulla Culpeo (4 Patas #3)"
+                data-label-en="Natu · Culpeo Patrol (4-Legged #3)"
                 data-state="|explorando⟩"
-                data-note="Rastreando bugs sueltos y apuntes perdidos por el campus.">
+                data-state-en="|roaming⟩"
+                data-note="Rastreando bugs sueltos y apuntes perdidos entre repositorios."
+                data-note-en="Tracking stray bugs and lost notes across repositories.">
                 <img src="assets/brand/natu_sprites/02_cuadrupedo.png" alt="4 Patas" />
-                <span>4 Patas</span>
+                <span data-i18n="natu.pose.cuadrupedo">4 Patas</span>
               </button>
               <button type="button" class="thumb-btn"
                 data-src="assets/brand/natu_sprites/03_sentado.png"
                 data-label="Natu · Modo Observador (Sentado #6)"
+                data-label-en="Natu · Observer Mode (Sitting #6)"
                 data-state="|midiendo⟩"
-                data-note="Observando si el experimento colapsa o funciona a la primera.">
+                data-state-en="|measuring⟩"
+                data-note="Observando si el experimento colapsa o funciona a la primera."
+                data-note-en="Watching whether the experiment collapses or works first try.">
                 <img src="assets/brand/natu_sprites/03_sentado.png" alt="Sentado" />
-                <span>Sentado</span>
+                <span data-i18n="natu.pose.sentado">Sentado</span>
               </button>
               <button type="button" class="thumb-btn"
                 data-src="assets/brand/natu_sprites/04_saltando.png"
                 data-label="Natu · Compiló Sin Warnings (Saltando #9)"
-                data-state="|excitado⟩"
-                data-note="Salto cuántico cuando el script pasa a la primera sin errores.">
+                data-label-en="Natu · Zero-Warning Build (Leaping #9)"
+                data-state="|salto⟩"
+                data-state-en="|leap⟩"
+                data-note="Salto cuántico cuando el script pasa a la primera sin errores."
+                data-note-en="Quantum leap whenever the script runs cleanly with zero errors.">
                 <img src="assets/brand/natu_sprites/04_saltando.png" alt="Saltando" />
-                <span>Saltando</span>
+                <span data-i18n="natu.pose.saltando">Saltando</span>
               </button>
               <button type="button" class="thumb-btn"
                 data-src="assets/brand/natu_sprites/05_cafe.png"
                 data-label="Natu · Modo Cafeína (03:00 AM)"
+                data-label-en="Natu · Caffeine Mode (03:00 AM)"
                 data-state="|cafeína⟩"
-                data-note="Combustible estándar de laboratorio, LaTeX y trasnoches.">
+                data-state-en="|caffeine⟩"
+                data-note="Combustible estándar de laboratorio, LaTeX y trasnoches."
+                data-note-en="Standard fuel for lab work, LaTeX documents and all-nighters.">
                 <img src="assets/brand/natu_sprites/05_cafe.png" alt="Café" />
-                <span>Café</span>
+                <span data-i18n="natu.pose.cafe">Café</span>
               </button>
             </div>
           </div>
@@ -135,55 +158,55 @@
               <img src="assets/img/fox-avatar.png" alt="Avatar de Natu" class="flagship-logo fox-logo-pixel" />
               <div>
                 <div class="flagship-badges">
-                  <span class="badge-star">🦊 Lore Oficial</span>
-                  <span class="badge-version">v1.0 · Localhost</span>
+                  <span class="badge-star" data-i18n="natu.badgeLore">🦊 Lore Oficial</span>
+                  <span class="badge-version" data-i18n="natu.badgeVersion">v1.0 · Cafeína Pura</span>
                   <span class="badge-license">#FF6B35</span>
                 </div>
-                <h2 class="flagship-name">¿Quién es Natu?</h2>
-                <p class="flagship-tagline">Un zorro culpeo pixelado atrapado entre física, código y LaTeX</p>
+                <h2 class="flagship-name" data-i18n="natu.whoTitle">¿Quién es Natu?</h2>
+                <p class="flagship-tagline" data-i18n="natu.whoTagline">Un zorro culpeo pixelado atrapado entre física, código y LaTeX</p>
               </div>
             </div>
 
-            <p class="flagship-description">
+            <p class="flagship-description" data-i18n-html="natu.loreP1Html">
               <strong>Natu</strong> emergió por accidente una madrugada frente al terminal cuando una compilación de <strong>NaTex Studio</strong> y una simulación en Python convergieron en el mismo puerto local. En lugar de tirar un error, apareció este zorrito naranja pixelado inspirado en el zorro culpeo chileno.
             </p>
-            <p class="flagship-description">
+            <p class="flagship-description" data-i18n-html="natu.loreP2Html">
               Vive entre repositorios open source, pantallas oscuras y tazas de café. Pasa el día alternando entre su estado de mínima energía (<code>|bolita⟩</code>), supervisando ecuaciones sospechosas sin paréntesis y recordando que todo mejora si se puede automatizar.
             </p>
 
-            <div class="natu-lore-quote" id="natuLoreQuote" role="button" tabindex="0" title="Haz clic para cambiar la frase de Natu">
+            <div class="natu-lore-quote" id="natuLoreQuote" role="button" tabindex="0" title="Haz clic para cambiar la frase de Natu" data-i18n-title="natu.quoteTitle">
               <span id="natuLoreQuoteText">«En condiciones ideales, esto compila a la primera.»</span>
-              <span class="natu-lore-quote-hint">↻ Otra frase</span>
+              <span class="natu-lore-quote-hint" data-i18n="natu.quoteHint">↻ Otra frase</span>
             </div>
 
             <div class="natu-stats-grid">
               <div class="natu-stat-box">
-                <span class="natu-stat-label">Especie</span>
-                <span class="natu-stat-value">Vulpes pixelata · Culpeo Cuántico</span>
+                <span class="natu-stat-label" data-i18n="natu.stat1Label">Especie</span>
+                <span class="natu-stat-value" data-i18n="natu.stat1Val">Vulpes pixelata · Culpeo Cuántico</span>
               </div>
               <div class="natu-stat-box">
-                <span class="natu-stat-label">Combustible</span>
-                <span class="natu-stat-value">Café negro, <code>\frac&#123;&#125;&#123;&#125;</code> y modo oscuro</span>
+                <span class="natu-stat-label" data-i18n="natu.stat2Label">Combustible</span>
+                <span class="natu-stat-value" data-i18n-html="natu.stat2ValHtml">Café negro, <code>\frac&#123;&#125;&#123;&#125;</code> y modo oscuro</span>
               </div>
               <div class="natu-stat-box">
-                <span class="natu-stat-label">Debilidad</span>
-                <span class="natu-stat-value">Olvidar multiplicar por <code>π</code> o un <code>(−)</code></span>
+                <span class="natu-stat-label" data-i18n="natu.stat3Label">Debilidad</span>
+                <span class="natu-stat-value" data-i18n-html="natu.stat3ValHtml">Olvidar multiplicar por <code>π</code> o un <code>(−)</code></span>
               </div>
               <div class="natu-stat-box">
-                <span class="natu-stat-label">Superpoder</span>
-                <span class="natu-stat-value">Aproximar <code>sin(x) ≈ x</code> con absoluta fe</span>
+                <span class="natu-stat-label" data-i18n="natu.stat4Label">Superpoder</span>
+                <span class="natu-stat-value" data-i18n-html="natu.stat4ValHtml">Aproximar <code>sin(x) ≈ x</code> con absoluta fe</span>
               </div>
             </div>
 
             <div class="flagship-actions">
               <a href="#wallpapers" class="btn btn-primary">
-                <span>🖼️ Ver Wallpapers (10)</span>
+                <span data-i18n="natu.ctaWp">🖼️ Ver Wallpapers (10)</span>
               </a>
               <a href="#whatsapp" class="btn btn-glass">
-                <span>💬 Stickers WhatsApp (20)</span>
+                <span data-i18n="natu.ctaWa">💬 Stickers WhatsApp (20)</span>
               </a>
               <a href="#imprimir" class="btn btn-glass">
-                <span>🖨️ Para Imprimir (18)</span>
+                <span data-i18n="natu.ctaPrint">🖨️ Para Imprimir (18)</span>
               </a>
             </div>
           </div>
@@ -194,23 +217,23 @@
     <!-- SELECTOR DE DESCARGAS -->
     <section class="dl-hero">
       <div class="container">
-        <div class="section-tag">📦 Llévate a Natu contigo</div>
-        <h2 class="section-title">Descargas Oficiales de Natu</h2>
-        <p class="section-subtitle">
+        <div class="section-tag" data-i18n="natu.dl.tag">📦 Llévate a Natu contigo</div>
+        <h2 class="section-title" data-i18n="natu.dl.title">Descargas Oficiales de Natu</h2>
+        <p class="section-subtitle" data-i18n="natu.dl.subtitle">
           Elige qué pack quieres bajar y sigue las instrucciones paso a paso para instalarlo en tu PC, celular, WhatsApp o llevarlo a imprenta.
         </p>
 
         <div class="dl-switcher" role="tablist" aria-label="Filtrar descargas de Natu">
-          <button type="button" class="dl-filter-btn active" data-filter="all">
+          <button type="button" class="dl-filter-btn active" data-filter="all" data-i18n-html="natu.dl.filterAllHtml">
             ✨ Ver Todo <span class="dl-count-pill">48</span>
           </button>
-          <button type="button" class="dl-filter-btn" data-filter="wallpapers">
+          <button type="button" class="dl-filter-btn" data-filter="wallpapers" data-i18n-html="natu.dl.filterWpHtml">
             🖼️ Wallpapers PC &amp; Celular <span class="dl-count-pill">10</span>
           </button>
-          <button type="button" class="dl-filter-btn" data-filter="whatsapp">
+          <button type="button" class="dl-filter-btn" data-filter="whatsapp" data-i18n-html="natu.dl.filterWaHtml">
             💬 Stickers WhatsApp <span class="dl-count-pill">20</span>
           </button>
-          <button type="button" class="dl-filter-btn" data-filter="imprimir">
+          <button type="button" class="dl-filter-btn" data-filter="imprimir" data-i18n-html="natu.dl.filterPrintHtml">
             🖨️ Stickers para Imprimir <span class="dl-count-pill">18</span>
           </button>
         </div>
@@ -223,27 +246,27 @@
         <div class="dl-card">
           <div class="dl-card-head">
             <div>
-              <div class="section-tag">🖼️ Fondos de Pantalla</div>
-              <h2 class="section-title">Wallpapers de Natu · PC (4K) &amp; Celular</h2>
-              <p class="section-subtitle">Diseñados con espacio despejado para los íconos del escritorio y el reloj de la pantalla de bloqueo.</p>
+              <div class="section-tag" data-i18n="natu.wp.tag">🖼️ Fondos de Pantalla</div>
+              <h2 class="section-title" data-i18n="natu.wp.title">Wallpapers de Natu · PC (4K) &amp; Celular</h2>
+              <p class="section-subtitle" data-i18n="natu.wp.subtitle">Diseñados con espacio despejado para los íconos del escritorio y el reloj de la pantalla de bloqueo.</p>
             </div>
           </div>
 
           <div class="install-guide" aria-label="Instrucciones para instalar wallpapers">
             <div class="install-step">
-              <span class="install-step-badge">En tu PC (Windows / macOS)</span>
-              <h4>1. Descarga e instala en 2 clics</h4>
-              <p>Pulsa <strong>⬇ 4K PNG</strong> en tu favorito. En Windows haz <strong>clic derecho → «Establecer como fondo de escritorio»</strong>; en Mac arrástralo a <em>Ajustes → Fondo de pantalla</em>.</p>
+              <span class="install-step-badge" data-i18n="natu.wp.pcBadge">En tu PC (Windows / macOS)</span>
+              <h4 data-i18n="natu.wp.pcTitle">1. Descarga e instala en 2 clics</h4>
+              <p data-i18n-html="natu.wp.pcDescHtml">Pulsa <strong>⬇ 4K PNG</strong> en tu favorito. En Windows haz <strong>clic derecho → «Establecer como fondo de escritorio»</strong>; en Mac arrástralo a <em>Ajustes → Fondo de pantalla</em>.</p>
             </div>
             <div class="install-step">
-              <span class="install-step-badge">En tu Celular (Android / iPhone)</span>
-              <h4>2. Aplica en Bloqueo o Inicio</h4>
-              <p>Desde tu teléfono toca <strong>⬇ PNG Celular</strong>, abre la foto en Galería/Fotos y elige <strong>«Usar como fondo de pantalla»</strong> (el #05 trae el QR listo para eventos).</p>
+              <span class="install-step-badge" data-i18n="natu.wp.mobBadge">En tu Celular (Android / iPhone)</span>
+              <h4 data-i18n="natu.wp.mobTitle">2. Aplica en Bloqueo o Inicio</h4>
+              <p data-i18n-html="natu.wp.mobDescHtml">Desde tu teléfono toca <strong>⬇ PNG Celular</strong>, abre la foto en Galería/Fotos y elige <strong>«Usar como fondo de pantalla»</strong> (el #05 trae el QR listo para eventos).</p>
             </div>
           </div>
 
           <div class="wallpapers-subhead">
-            <span>🖥️ PC Escritorio · Ultra HD 4K</span>
+            <span data-i18n="natu.wp.pcSubhead">🖥️ PC Escritorio · Ultra HD 4K</span>
             <span class="mono-badge">3840 × 2160 px</span>
           </div>
           <div class="wallpapers-pc-grid">
@@ -254,7 +277,7 @@
               <div class="wp-footer">
                 <span class="wp-title">PC 4K Minimalista Zorro Bolita</span>
                 <div class="wp-actions">
-                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/01_PC_4K_Minimalista_Zorro_Bolita.png" data-lightbox-title="PC 4K · PC 4K Minimalista Zorro Bolita">Ver</button>
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/01_PC_4K_Minimalista_Zorro_Bolita.png" data-lightbox-title="PC 4K · PC 4K Minimalista Zorro Bolita" data-i18n="natu.wp.viewBtn">Ver</button>
                   <a href="assets/brand/wallpapers_pc/01_PC_4K_Minimalista_Zorro_Bolita.png" download="01_PC_4K_Minimalista_Zorro_Bolita.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
                 </div>
               </div>
@@ -266,7 +289,7 @@
               <div class="wp-footer">
                 <span class="wp-title">PC 4K PixelArt Noche Fogata</span>
                 <div class="wp-actions">
-                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/02_PC_4K_PixelArt_Noche_Fogata.png" data-lightbox-title="PC 4K · PC 4K PixelArt Noche Fogata">Ver</button>
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/02_PC_4K_PixelArt_Noche_Fogata.png" data-lightbox-title="PC 4K · PC 4K PixelArt Noche Fogata" data-i18n="natu.wp.viewBtn">Ver</button>
                   <a href="assets/brand/wallpapers_pc/02_PC_4K_PixelArt_Noche_Fogata.png" download="02_PC_4K_PixelArt_Noche_Fogata.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
                 </div>
               </div>
@@ -278,7 +301,7 @@
               <div class="wp-footer">
                 <span class="wp-title">PC 4K Quantum Physics HUD</span>
                 <div class="wp-actions">
-                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/03_PC_4K_Quantum_Physics_HUD.png" data-lightbox-title="PC 4K · PC 4K Quantum Physics HUD">Ver</button>
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/03_PC_4K_Quantum_Physics_HUD.png" data-lightbox-title="PC 4K · PC 4K Quantum Physics HUD" data-i18n="natu.wp.viewBtn">Ver</button>
                   <a href="assets/brand/wallpapers_pc/03_PC_4K_Quantum_Physics_HUD.png" download="03_PC_4K_Quantum_Physics_HUD.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
                 </div>
               </div>
@@ -290,7 +313,7 @@
               <div class="wp-footer">
                 <span class="wp-title">PC 4K Developer Café Code</span>
                 <div class="wp-actions">
-                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/04_PC_4K_Developer_Cafe_Code.png" data-lightbox-title="PC 4K · PC 4K Developer Café Code">Ver</button>
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/04_PC_4K_Developer_Cafe_Code.png" data-lightbox-title="PC 4K · PC 4K Developer Café Code" data-i18n="natu.wp.viewBtn">Ver</button>
                   <a href="assets/brand/wallpapers_pc/04_PC_4K_Developer_Cafe_Code.png" download="04_PC_4K_Developer_Cafe_Code.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
                 </div>
               </div>
@@ -302,7 +325,7 @@
               <div class="wp-footer">
                 <span class="wp-title">PC 4K Synth Horizon 4 Patas</span>
                 <div class="wp-actions">
-                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/05_PC_4K_Synth_Horizon_4Patas.png" data-lightbox-title="PC 4K · PC 4K Synth Horizon 4 Patas">Ver</button>
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/05_PC_4K_Synth_Horizon_4Patas.png" data-lightbox-title="PC 4K · PC 4K Synth Horizon 4 Patas" data-i18n="natu.wp.viewBtn">Ver</button>
                   <a href="assets/brand/wallpapers_pc/05_PC_4K_Synth_Horizon_4Patas.png" download="05_PC_4K_Synth_Horizon_4Patas.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
                 </div>
               </div>
@@ -310,7 +333,7 @@
           </div>
 
           <div class="wallpapers-subhead">
-            <span>📱 Celular · Pantalla OLED 20:9</span>
+            <span data-i18n="natu.wp.mobSubhead">📱 Celular · Pantalla OLED 20:9</span>
             <span class="mono-badge">1080 × 2400 px</span>
           </div>
           <div class="wallpapers-mobile-grid">
@@ -321,7 +344,7 @@
               <div class="wp-footer">
                 <span class="wp-title">Celular Minimalista OLED Bolita</span>
                 <div class="wp-actions">
-                  <a href="assets/brand/wallpapers_mobile/01_Celular_Minimalista_OLED_Bolita.png" download="01_Celular_Minimalista_OLED_Bolita.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                  <a href="assets/brand/wallpapers_mobile/01_Celular_Minimalista_OLED_Bolita.png" download="01_Celular_Minimalista_OLED_Bolita.png" class="btn btn-primary btn-sm" data-i18n="natu.wp.dlMobBtn">⬇ PNG Celular</a>
                 </div>
               </div>
             </div>
@@ -332,7 +355,7 @@
               <div class="wp-footer">
                 <span class="wp-title">Celular PixelArt Noche Fogata</span>
                 <div class="wp-actions">
-                  <a href="assets/brand/wallpapers_mobile/02_Celular_PixelArt_Noche_Fogata.png" download="02_Celular_PixelArt_Noche_Fogata.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                  <a href="assets/brand/wallpapers_mobile/02_Celular_PixelArt_Noche_Fogata.png" download="02_Celular_PixelArt_Noche_Fogata.png" class="btn btn-primary btn-sm" data-i18n="natu.wp.dlMobBtn">⬇ PNG Celular</a>
                 </div>
               </div>
             </div>
@@ -343,7 +366,7 @@
               <div class="wp-footer">
                 <span class="wp-title">Celular Quantum HUD Física</span>
                 <div class="wp-actions">
-                  <a href="assets/brand/wallpapers_mobile/03_Celular_Quantum_HUD_Fisica.png" download="03_Celular_Quantum_HUD_Fisica.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                  <a href="assets/brand/wallpapers_mobile/03_Celular_Quantum_HUD_Fisica.png" download="03_Celular_Quantum_HUD_Fisica.png" class="btn btn-primary btn-sm" data-i18n="natu.wp.dlMobBtn">⬇ PNG Celular</a>
                 </div>
               </div>
             </div>
@@ -354,7 +377,7 @@
               <div class="wp-footer">
                 <span class="wp-title">Celular Café Física Code</span>
                 <div class="wp-actions">
-                  <a href="assets/brand/wallpapers_mobile/04_Celular_Cafe_Fisica_Code.png" download="04_Celular_Cafe_Fisica_Code.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                  <a href="assets/brand/wallpapers_mobile/04_Celular_Cafe_Fisica_Code.png" download="04_Celular_Cafe_Fisica_Code.png" class="btn btn-primary btn-sm" data-i18n="natu.wp.dlMobBtn">⬇ PNG Celular</a>
                 </div>
               </div>
             </div>
@@ -365,7 +388,7 @@
               <div class="wp-footer">
                 <span class="wp-title">Celular Lockscreen QR Congreso</span>
                 <div class="wp-actions">
-                  <a href="assets/brand/wallpapers_mobile/05_Celular_Lockscreen_QR_Congreso.png" download="05_Celular_Lockscreen_QR_Congreso.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                  <a href="assets/brand/wallpapers_mobile/05_Celular_Lockscreen_QR_Congreso.png" download="05_Celular_Lockscreen_QR_Congreso.png" class="btn btn-primary btn-sm" data-i18n="natu.wp.dlMobBtn">⬇ PNG Celular</a>
                 </div>
               </div>
             </div>
@@ -380,31 +403,31 @@
         <div class="dl-card">
           <div class="dl-card-head">
             <div>
-              <div class="section-tag">💬 Pack Oficial Animado</div>
-              <h2 class="section-title">20 Stickers de Natu para WhatsApp</h2>
-              <p class="section-subtitle">Todas las reacciones pixel-art animadas de Natu para tus chats.</p>
+              <div class="section-tag" data-i18n="natu.wa.tag">💬 Pack Oficial Animado</div>
+              <h2 class="section-title" data-i18n="natu.wa.title">20 Stickers de Natu para WhatsApp</h2>
+              <p class="section-subtitle" data-i18n="natu.wa.subtitle">Todas las reacciones pixel-art animadas de Natu para tus chats.</p>
             </div>
             <div class="dl-card-actions">
-              <a href="assets/brand/whatsapp/NachoFari_Zorro_20_Reacciones.wastickers" download="Natu_NachoFari_20_Reacciones.wastickers" class="btn btn-primary btn-sm">⬇ Descargar Pack (.wastickers)</a>
-              <a href="assets/brand/whatsapp/NachoFari_20_GIFs_Universales.zip" download="Natu_20_GIFs_Universales.zip" class="btn btn-glass btn-sm">📦 20 GIFs (.zip)</a>
+              <a href="assets/brand/whatsapp/NachoFari_Zorro_20_Reacciones.wastickers" download="Natu_NachoFari_20_Reacciones.wastickers" class="btn btn-primary btn-sm" data-i18n="natu.wa.dlPack">⬇ Descargar Pack (.wastickers)</a>
+              <a href="assets/brand/whatsapp/NachoFari_20_GIFs_Universales.zip" download="Natu_20_GIFs_Universales.zip" class="btn btn-glass btn-sm" data-i18n="natu.wa.dlZip">📦 20 GIFs (.zip)</a>
             </div>
           </div>
 
           <div class="install-guide" aria-label="Instrucciones para instalar stickers en WhatsApp">
             <div class="install-step">
-              <span class="install-step-badge">Paso 1 · Android &amp; iPhone</span>
-              <h4>Instala «Sticker Maker»</h4>
-              <p>Baja gratis la app <strong>Sticker Maker</strong> (por Viko &amp; Co) desde Google Play o App Store.</p>
+              <span class="install-step-badge" data-i18n="natu.wa.step1Badge">Paso 1 · Android &amp; iPhone</span>
+              <h4 data-i18n="natu.wa.step1Title">Instala «Sticker Maker»</h4>
+              <p data-i18n-html="natu.wa.step1DescHtml">Baja gratis la app <strong>Sticker Maker</strong> (por Viko &amp; Co) desde Google Play o App Store.</p>
             </div>
             <div class="install-step">
-              <span class="install-step-badge">Paso 2 · Pack de 20 en 1 toque</span>
-              <h4>Abre el archivo <code>.wastickers</code></h4>
-              <p>Toca el botón naranjo <strong>Descargar Pack (.wastickers)</strong>, ábrelo con <em>Sticker Maker</em> y pulsa <strong>«Añadir a WhatsApp»</strong>.</p>
+              <span class="install-step-badge" data-i18n="natu.wa.step2Badge">Paso 2 · Pack de 20 en 1 toque</span>
+              <h4 data-i18n-html="natu.wa.step2TitleHtml">Abre el archivo <code>.wastickers</code></h4>
+              <p data-i18n-html="natu.wa.step2DescHtml">Toca el botón naranjo <strong>Descargar Pack (.wastickers)</strong>, ábrelo con <em>Sticker Maker</em> y pulsa <strong>«Añadir a WhatsApp»</strong>.</p>
             </div>
             <div class="install-step">
-              <span class="install-step-badge">Alternativa · WhatsApp Web</span>
-              <h4>Baja uno por uno en PC</h4>
-              <p>Descarga cualquier <code>.webp</code> con el botón <code>⬇</code> o el <code>.zip</code> de GIFs y súbelo desde <strong>+ → Crear sticker</strong> en WhatsApp Web.</p>
+              <span class="install-step-badge" data-i18n="natu.wa.step3Badge">Alternativa · WhatsApp Web</span>
+              <h4 data-i18n="natu.wa.step3Title">Baja uno por uno en PC</h4>
+              <p data-i18n-html="natu.wa.step3DescHtml">Descarga cualquier <code>.webp</code> con el botón <code>⬇</code> o el <code>.zip</code> de GIFs y súbelo desde <strong>+ → Crear sticker</strong> en WhatsApp Web.</p>
             </div>
           </div>
 
@@ -600,27 +623,27 @@
         <div class="dl-card">
           <div class="dl-card-head">
             <div>
-              <div class="section-tag">🖨️ Alta Resolución · 300 DPI</div>
-              <h2 class="section-title">18 Stickers de Natu para Imprimir</h2>
-              <p class="section-subtitle">Incluye las 4 poses elegidas de Natu (Bolita #5, 4 Patas #3, Sentado #6, Saltando #9), café, code y QRs escaneables.</p>
+              <div class="section-tag" data-i18n="natu.pr.tag">🖨️ Alta Resolución · 300 DPI</div>
+              <h2 class="section-title" data-i18n="natu.pr.title">18 Stickers de Natu para Imprimir</h2>
+              <p class="section-subtitle" data-i18n="natu.pr.subtitle">Incluye las 4 poses elegidas de Natu (Bolita #5, 4 Patas #3, Sentado #6, Saltando #9), café, code y QRs escaneables.</p>
             </div>
             <div class="dl-card-actions">
-              <a href="assets/brand/stickers_print/02_Pliego_Unico_100_Stickers_Plotter_1m2.pdf" download="Natu_Pliego_100_Stickers_1m2.pdf" class="btn btn-primary btn-sm">⬇ PDF Pliego 100 u. (1m²)</a>
-              <a href="assets/brand/stickers_print/01_Todos_Los_Stickers_2_Hojas_Carta.pdf" download="Natu_Stickers_2_Hojas_Carta.pdf" class="btn btn-glass btn-sm">📄 PDF 2 Hojas Carta</a>
-              <a href="assets/brand/stickers_print/Pack_18_Stickers_Individuales_PNG.zip" download="Natu_18_Stickers_PNG.zip" class="btn btn-glass btn-sm">📦 18 PNGs (.zip)</a>
+              <a href="assets/brand/stickers_print/02_Pliego_Unico_100_Stickers_Plotter_1m2.pdf" download="Natu_Pliego_100_Stickers_1m2.pdf" class="btn btn-primary btn-sm" data-i18n="natu.pr.dlSheet">⬇ PDF Pliego 100 u. (1m²)</a>
+              <a href="assets/brand/stickers_print/01_Todos_Los_Stickers_2_Hojas_Carta.pdf" download="Natu_Stickers_2_Hojas_Carta.pdf" class="btn btn-glass btn-sm" data-i18n="natu.pr.dlLetter">📄 PDF 2 Hojas Carta</a>
+              <a href="assets/brand/stickers_print/Pack_18_Stickers_Individuales_PNG.zip" download="Natu_18_Stickers_PNG.zip" class="btn btn-glass btn-sm" data-i18n="natu.pr.dlZip">📦 18 PNGs (.zip)</a>
             </div>
           </div>
 
           <div class="install-guide" aria-label="Instrucciones para imprimir stickers">
             <div class="install-step">
-              <span class="install-step-badge">Opción Imprenta · Vinilo PVC</span>
-              <h4>Pliego 1 m² (100 stickers)</h4>
-              <p>Descarga el <strong>PDF Pliego 100 u. (1m²)</strong> y pide en imprenta <em>«vinilo adhesivo con medio corte»</em>. Al ir todo en 1 archivo no cobran recargo por variedad.</p>
+              <span class="install-step-badge" data-i18n="natu.pr.opt1Badge">Opción Imprenta · Vinilo PVC</span>
+              <h4 data-i18n="natu.pr.opt1Title">Pliego 1 m² (100 stickers)</h4>
+              <p data-i18n-html="natu.pr.opt1DescHtml">Descarga el <strong>PDF Pliego 100 u. (1m²)</strong> y pide en imprenta <em>«vinilo adhesivo con medio corte»</em>. Al ir todo en 1 archivo no cobran recargo por variedad.</p>
             </div>
             <div class="install-step">
-              <span class="install-step-badge">Opción Casa · Papel Adhesivo</span>
-              <h4>Hojas Carta al 100%</h4>
-              <p>Descarga <strong>PDF 2 Hojas Carta</strong>, imprime en tamaño real (<strong>100% sin escalar</strong>) y recorta siguiendo el contorno blanco de Natu.</p>
+              <span class="install-step-badge" data-i18n="natu.pr.opt2Badge">Opción Casa · Papel Adhesivo</span>
+              <h4 data-i18n="natu.pr.opt2Title">Hojas Carta al 100%</h4>
+              <p data-i18n-html="natu.pr.opt2DescHtml">Descarga <strong>PDF 2 Hojas Carta</strong>, imprime en tamaño real (<strong>100% sin escalar</strong>) y recorta siguiendo el contorno blanco de Natu.</p>
             </div>
           </div>
 
@@ -797,9 +820,9 @@
     <div class="container footer-inner">
       <div class="footer-left">
         <img src="assets/img/fox-avatar.png" alt="Natu" class="footer-fox" />
-        <span><strong>Natu.exe</strong> · Mascota oficial de <strong>NachoFari</strong></span>
+        <span data-i18n-html="natu.footerHtml"><strong>Natu.exe</strong> · Mascota oficial de <strong>NachoFari</strong></span>
       </div>
-      <a href="index.html" class="btn btn-glass btn-sm">← Volver al Portafolio</a>
+      <a href="index.html" data-portfolio-link class="btn btn-glass btn-sm" data-i18n="natu.nav.backMobile">← Volver al Portafolio</a>
     </div>
   </footer>
 
@@ -807,8 +830,8 @@
     <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
     <div class="lightbox-dialog">
       <div class="lightbox-header">
-        <span id="lightboxCaption">Vista previa</span>
-        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar vista ampliada">✕</button>
+        <span id="lightboxCaption" data-i18n="lightbox.default">Vista previa</span>
+        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar vista ampliada" data-i18n-aria="lightbox.closeAria">✕</button>
       </div>
       <div class="lightbox-body">
         <img src="" alt="" id="lightboxImg" />
@@ -818,7 +841,8 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/background.js?v=20261115a"></script>
-  <script src="js/projects.js?v=20261115a"></script>
+  <script src="js/background.js?v=20261115b"></script>
+  <script src="js/i18n.js?v=20261115b"></script>
+  <script src="js/projects.js?v=20261115b"></script>
 </body>
 </html>

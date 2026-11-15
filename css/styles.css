@@ -2716,3 +2716,51 @@ body.gravity-active .natu-hero-btn {
   border-color: var(--fox-orange);
   color: #101116;
 }
+
+
+/* ==========================================================================
+   Selector de Idioma (ES / EN) en Navbar y Drawer Móvil
+   ========================================================================== */
+
+.lang-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 38px;
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.lang-toggle-btn:hover {
+  border-color: var(--border-fox);
+  background: rgba(255, 107, 53, 0.09);
+  transform: translateY(-1px);
+}
+
+.lang-opt {
+  padding: 0.24rem 0.48rem;
+  border-radius: 7px;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-opt.is-active {
+  background: var(--fox-orange);
+  color: #101116;
+  box-shadow: 0 2px 10px rgba(255, 107, 53, 0.35);
+}
+
+.lang-toggle-mobile {
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.25rem;
+}
