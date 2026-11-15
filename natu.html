@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101116" />
+  <title>Conoce a Natu (Natu.exe) — Lore, Wallpapers &amp; Stickers · NachoFari</title>
+  <meta name="description" content="Historia y lore oficial de Natu, el zorro pixel-art de NachoFari. Descarga wallpapers en 4K / celular y stickers para WhatsApp o imprimir." />
+  <link rel="icon" type="image/png" href="assets/img/fox-avatar.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=20261115a" />
+</head>
+<body>
+  <div class="bg-atmosphere" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <canvas id="tech-canvas" aria-hidden="true"></canvas>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand" aria-label="Inicio NachoFari">
+        <div class="brand-avatar-wrap">
+          <img src="assets/img/fox-avatar.png" alt="Natu NachoFari" class="brand-avatar" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Natu.exe</span>
+          <span class="brand-sub">Mascota Oficial · NachoFari</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Navegación de Natu">
+        <a href="#lore" class="nav-link active">Lore de Natu</a>
+        <a href="#wallpapers" class="nav-link">Wallpapers</a>
+        <a href="#whatsapp" class="nav-link">Stickers WhatsApp</a>
+        <a href="#imprimir" class="nav-link">Para Imprimir</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn-nav-cta">← Portafolio</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+      <a href="#lore" class="mobile-link">Lore de Natu</a>
+      <a href="#wallpapers" class="mobile-link">Wallpapers</a>
+      <a href="#whatsapp" class="mobile-link">Stickers WhatsApp</a>
+      <a href="#imprimir" class="mobile-link">Para Imprimir</a>
+      <a href="index.html" class="mobile-link">← Volver al Portafolio</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- TARJETA PRINCIPAL DE NATU: VISOR IZQUIERDA (POSES) / LORE DERECHA -->
+    <section id="lore" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">🦊 Bitácora #00 · Conoce a Natu</div>
+          <h1 class="section-title">Natu <span class="text-gradient">(Natu.exe)</span></h1>
+          <p class="section-subtitle">
+            La historia detrás del zorrito pixel-art que acompaña los proyectos de NachoFari — más sus wallpapers y stickers oficiales de descarga libre.
+          </p>
+        </div>
+
+        <article class="flagship-card flagship-card--reversed">
+          <!-- VISOR DE FORMAS DE NATU EN EL LADO IZQUIERDO -->
+          <div class="flagship-media">
+            <div class="preview-window">
+              <div class="preview-topbar">
+                <div class="preview-dots"><span></span><span></span><span></span></div>
+                <span class="preview-filename" id="natuPreviewLabel">Natu · Estado Fundamental (Bolita #5)</span>
+                <button type="button" class="preview-zoom-btn" id="natuZoomBtn" title="Ampliar sprite de Natu">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                </button>
+              </div>
+              <div class="natu-stage">
+                <img src="assets/brand/natu_sprites/01_bolita.png" alt="Natu Modo Bolita" id="natuActiveImg" />
+                <div class="natu-stage-caption">
+                  <span class="natu-stage-state" id="natuStageState">|bolita⟩</span>
+                  <span id="natuStageNote">Configuración de mínima energía potencial entre compilaciones.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preview-thumbs natu-thumbs" id="natuThumbs" role="tablist" aria-label="Poses oficiales de Natu">
+              <button type="button" class="thumb-btn active"
+                data-src="assets/brand/natu_sprites/01_bolita.png"
+                data-label="Natu · Estado Fundamental (Bolita #5)"
+                data-state="|bolita⟩"
+                data-note="Configuración de mínima energía potencial entre compilaciones.">
+                <img src="assets/brand/natu_sprites/01_bolita.png" alt="Bolita" />
+                <span>Bolita</span>
+              </button>
+              <button type="button" class="thumb-btn"
+                data-src="assets/brand/natu_sprites/02_cuadrupedo.png"
+                data-label="Natu · Patrulla Culpeo (4 Patas #3)"
+                data-state="|explorando⟩"
+                data-note="Rastreando bugs sueltos y apuntes perdidos por el campus.">
+                <img src="assets/brand/natu_sprites/02_cuadrupedo.png" alt="4 Patas" />
+                <span>4 Patas</span>
+              </button>
+              <button type="button" class="thumb-btn"
+                data-src="assets/brand/natu_sprites/03_sentado.png"
+                data-label="Natu · Modo Observador (Sentado #6)"
+                data-state="|midiendo⟩"
+                data-note="Observando si el experimento colapsa o funciona a la primera.">
+                <img src="assets/brand/natu_sprites/03_sentado.png" alt="Sentado" />
+                <span>Sentado</span>
+              </button>
+              <button type="button" class="thumb-btn"
+                data-src="assets/brand/natu_sprites/04_saltando.png"
+                data-label="Natu · Compiló Sin Warnings (Saltando #9)"
+                data-state="|excitado⟩"
+                data-note="Salto cuántico cuando el script pasa a la primera sin errores.">
+                <img src="assets/brand/natu_sprites/04_saltando.png" alt="Saltando" />
+                <span>Saltando</span>
+              </button>
+              <button type="button" class="thumb-btn"
+                data-src="assets/brand/natu_sprites/05_cafe.png"
+                data-label="Natu · Modo Cafeína (03:00 AM)"
+                data-state="|cafeína⟩"
+                data-note="Combustible estándar de laboratorio, LaTeX y trasnoches.">
+                <img src="assets/brand/natu_sprites/05_cafe.png" alt="Café" />
+                <span>Café</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- LORE + FICHA + ACCESOS EN EL LADO DERECHO -->
+          <div class="flagship-info">
+            <div class="flagship-brand-row">
+              <img src="assets/img/fox-avatar.png" alt="Avatar de Natu" class="flagship-logo fox-logo-pixel" />
+              <div>
+                <div class="flagship-badges">
+                  <span class="badge-star">🦊 Lore Oficial</span>
+                  <span class="badge-version">v1.0 · Localhost</span>
+                  <span class="badge-license">#FF6B35</span>
+                </div>
+                <h2 class="flagship-name">¿Quién es Natu?</h2>
+                <p class="flagship-tagline">Un zorro culpeo pixelado atrapado entre física, código y LaTeX</p>
+              </div>
+            </div>
+
+            <p class="flagship-description">
+              <strong>Natu</strong> emergió por accidente una madrugada frente al terminal cuando una compilación de <strong>NaTex Studio</strong> y una simulación en Python convergieron en el mismo puerto local. En lugar de tirar un error, apareció este zorrito naranja pixelado inspirado en el zorro culpeo chileno.
+            </p>
+            <p class="flagship-description">
+              Vive entre repositorios open source, pantallas oscuras y tazas de café. Pasa el día alternando entre su estado de mínima energía (<code>|bolita⟩</code>), supervisando ecuaciones sospechosas sin paréntesis y recordando que todo mejora si se puede automatizar.
+            </p>
+
+            <div class="natu-lore-quote" id="natuLoreQuote" role="button" tabindex="0" title="Haz clic para cambiar la frase de Natu">
+              <span id="natuLoreQuoteText">«En condiciones ideales, esto compila a la primera.»</span>
+              <span class="natu-lore-quote-hint">↻ Otra frase</span>
+            </div>
+
+            <div class="natu-stats-grid">
+              <div class="natu-stat-box">
+                <span class="natu-stat-label">Especie</span>
+                <span class="natu-stat-value">Vulpes pixelata · Culpeo Cuántico</span>
+              </div>
+              <div class="natu-stat-box">
+                <span class="natu-stat-label">Combustible</span>
+                <span class="natu-stat-value">Café negro, <code>\frac&#123;&#125;&#123;&#125;</code> y modo oscuro</span>
+              </div>
+              <div class="natu-stat-box">
+                <span class="natu-stat-label">Debilidad</span>
+                <span class="natu-stat-value">Olvidar multiplicar por <code>π</code> o un <code>(−)</code></span>
+              </div>
+              <div class="natu-stat-box">
+                <span class="natu-stat-label">Superpoder</span>
+                <span class="natu-stat-value">Aproximar <code>sin(x) ≈ x</code> con absoluta fe</span>
+              </div>
+            </div>
+
+            <div class="flagship-actions">
+              <a href="#wallpapers" class="btn btn-primary">
+                <span>🖼️ Ver Wallpapers (10)</span>
+              </a>
+              <a href="#whatsapp" class="btn btn-glass">
+                <span>💬 Stickers WhatsApp (20)</span>
+              </a>
+              <a href="#imprimir" class="btn btn-glass">
+                <span>🖨️ Para Imprimir (18)</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SELECTOR DE DESCARGAS -->
+    <section class="dl-hero">
+      <div class="container">
+        <div class="section-tag">📦 Llévate a Natu contigo</div>
+        <h2 class="section-title">Descargas Oficiales de Natu</h2>
+        <p class="section-subtitle">
+          Elige qué pack quieres bajar y sigue las instrucciones paso a paso para instalarlo en tu PC, celular, WhatsApp o llevarlo a imprenta.
+        </p>
+
+        <div class="dl-switcher" role="tablist" aria-label="Filtrar descargas de Natu">
+          <button type="button" class="dl-filter-btn active" data-filter="all">
+            ✨ Ver Todo <span class="dl-count-pill">48</span>
+          </button>
+          <button type="button" class="dl-filter-btn" data-filter="wallpapers">
+            🖼️ Wallpapers PC &amp; Celular <span class="dl-count-pill">10</span>
+          </button>
+          <button type="button" class="dl-filter-btn" data-filter="whatsapp">
+            💬 Stickers WhatsApp <span class="dl-count-pill">20</span>
+          </button>
+          <button type="button" class="dl-filter-btn" data-filter="imprimir">
+            🖨️ Stickers para Imprimir <span class="dl-count-pill">18</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. WALLPAPERS PC 4K Y CELULAR -->
+    <section id="wallpapers" class="dl-group-section" data-group="wallpapers">
+      <div class="container">
+        <div class="dl-card">
+          <div class="dl-card-head">
+            <div>
+              <div class="section-tag">🖼️ Fondos de Pantalla</div>
+              <h2 class="section-title">Wallpapers de Natu · PC (4K) &amp; Celular</h2>
+              <p class="section-subtitle">Diseñados con espacio despejado para los íconos del escritorio y el reloj de la pantalla de bloqueo.</p>
+            </div>
+          </div>
+
+          <div class="install-guide" aria-label="Instrucciones para instalar wallpapers">
+            <div class="install-step">
+              <span class="install-step-badge">En tu PC (Windows / macOS)</span>
+              <h4>1. Descarga e instala en 2 clics</h4>
+              <p>Pulsa <strong>⬇ 4K PNG</strong> en tu favorito. En Windows haz <strong>clic derecho → «Establecer como fondo de escritorio»</strong>; en Mac arrástralo a <em>Ajustes → Fondo de pantalla</em>.</p>
+            </div>
+            <div class="install-step">
+              <span class="install-step-badge">En tu Celular (Android / iPhone)</span>
+              <h4>2. Aplica en Bloqueo o Inicio</h4>
+              <p>Desde tu teléfono toca <strong>⬇ PNG Celular</strong>, abre la foto en Galería/Fotos y elige <strong>«Usar como fondo de pantalla»</strong> (el #05 trae el QR listo para eventos).</p>
+            </div>
+          </div>
+
+          <div class="wallpapers-subhead">
+            <span>🖥️ PC Escritorio · Ultra HD 4K</span>
+            <span class="mono-badge">3840 × 2160 px</span>
+          </div>
+          <div class="wallpapers-pc-grid">
+            <div class="wp-card">
+              <div class="wp-media-pc" data-lightbox-src="assets/brand/wallpapers_pc/01_PC_4K_Minimalista_Zorro_Bolita.png" data-lightbox-title="PC 4K (3840×2160) · PC 4K Minimalista Zorro Bolita">
+                <img src="assets/brand/wallpapers_pc/01_PC_4K_Minimalista_Zorro_Bolita.png" alt="PC 4K Minimalista Zorro Bolita" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">PC 4K Minimalista Zorro Bolita</span>
+                <div class="wp-actions">
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/01_PC_4K_Minimalista_Zorro_Bolita.png" data-lightbox-title="PC 4K · PC 4K Minimalista Zorro Bolita">Ver</button>
+                  <a href="assets/brand/wallpapers_pc/01_PC_4K_Minimalista_Zorro_Bolita.png" download="01_PC_4K_Minimalista_Zorro_Bolita.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-pc" data-lightbox-src="assets/brand/wallpapers_pc/02_PC_4K_PixelArt_Noche_Fogata.png" data-lightbox-title="PC 4K (3840×2160) · PC 4K PixelArt Noche Fogata">
+                <img src="assets/brand/wallpapers_pc/02_PC_4K_PixelArt_Noche_Fogata.png" alt="PC 4K PixelArt Noche Fogata" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">PC 4K PixelArt Noche Fogata</span>
+                <div class="wp-actions">
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/02_PC_4K_PixelArt_Noche_Fogata.png" data-lightbox-title="PC 4K · PC 4K PixelArt Noche Fogata">Ver</button>
+                  <a href="assets/brand/wallpapers_pc/02_PC_4K_PixelArt_Noche_Fogata.png" download="02_PC_4K_PixelArt_Noche_Fogata.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-pc" data-lightbox-src="assets/brand/wallpapers_pc/03_PC_4K_Quantum_Physics_HUD.png" data-lightbox-title="PC 4K (3840×2160) · PC 4K Quantum Physics HUD">
+                <img src="assets/brand/wallpapers_pc/03_PC_4K_Quantum_Physics_HUD.png" alt="PC 4K Quantum Physics HUD" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">PC 4K Quantum Physics HUD</span>
+                <div class="wp-actions">
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/03_PC_4K_Quantum_Physics_HUD.png" data-lightbox-title="PC 4K · PC 4K Quantum Physics HUD">Ver</button>
+                  <a href="assets/brand/wallpapers_pc/03_PC_4K_Quantum_Physics_HUD.png" download="03_PC_4K_Quantum_Physics_HUD.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-pc" data-lightbox-src="assets/brand/wallpapers_pc/04_PC_4K_Developer_Cafe_Code.png" data-lightbox-title="PC 4K (3840×2160) · PC 4K Developer Café Code">
+                <img src="assets/brand/wallpapers_pc/04_PC_4K_Developer_Cafe_Code.png" alt="PC 4K Developer Café Code" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">PC 4K Developer Café Code</span>
+                <div class="wp-actions">
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/04_PC_4K_Developer_Cafe_Code.png" data-lightbox-title="PC 4K · PC 4K Developer Café Code">Ver</button>
+                  <a href="assets/brand/wallpapers_pc/04_PC_4K_Developer_Cafe_Code.png" download="04_PC_4K_Developer_Cafe_Code.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-pc" data-lightbox-src="assets/brand/wallpapers_pc/05_PC_4K_Synth_Horizon_4Patas.png" data-lightbox-title="PC 4K (3840×2160) · PC 4K Synth Horizon 4 Patas">
+                <img src="assets/brand/wallpapers_pc/05_PC_4K_Synth_Horizon_4Patas.png" alt="PC 4K Synth Horizon 4 Patas" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">PC 4K Synth Horizon 4 Patas</span>
+                <div class="wp-actions">
+                  <button type="button" class="btn btn-glass btn-sm" data-lightbox-src="assets/brand/wallpapers_pc/05_PC_4K_Synth_Horizon_4Patas.png" data-lightbox-title="PC 4K · PC 4K Synth Horizon 4 Patas">Ver</button>
+                  <a href="assets/brand/wallpapers_pc/05_PC_4K_Synth_Horizon_4Patas.png" download="05_PC_4K_Synth_Horizon_4Patas.png" class="btn btn-primary btn-sm">⬇ 4K PNG</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wallpapers-subhead">
+            <span>📱 Celular · Pantalla OLED 20:9</span>
+            <span class="mono-badge">1080 × 2400 px</span>
+          </div>
+          <div class="wallpapers-mobile-grid">
+            <div class="wp-card">
+              <div class="wp-media-mobile" data-lightbox-src="assets/brand/wallpapers_mobile/01_Celular_Minimalista_OLED_Bolita.png" data-lightbox-title="Celular (1080×2400) · Celular Minimalista OLED Bolita">
+                <img src="assets/brand/wallpapers_mobile/01_Celular_Minimalista_OLED_Bolita.png" alt="Celular Minimalista OLED Bolita" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">Celular Minimalista OLED Bolita</span>
+                <div class="wp-actions">
+                  <a href="assets/brand/wallpapers_mobile/01_Celular_Minimalista_OLED_Bolita.png" download="01_Celular_Minimalista_OLED_Bolita.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-mobile" data-lightbox-src="assets/brand/wallpapers_mobile/02_Celular_PixelArt_Noche_Fogata.png" data-lightbox-title="Celular (1080×2400) · Celular PixelArt Noche Fogata">
+                <img src="assets/brand/wallpapers_mobile/02_Celular_PixelArt_Noche_Fogata.png" alt="Celular PixelArt Noche Fogata" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">Celular PixelArt Noche Fogata</span>
+                <div class="wp-actions">
+                  <a href="assets/brand/wallpapers_mobile/02_Celular_PixelArt_Noche_Fogata.png" download="02_Celular_PixelArt_Noche_Fogata.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-mobile" data-lightbox-src="assets/brand/wallpapers_mobile/03_Celular_Quantum_HUD_Fisica.png" data-lightbox-title="Celular (1080×2400) · Celular Quantum HUD Física">
+                <img src="assets/brand/wallpapers_mobile/03_Celular_Quantum_HUD_Fisica.png" alt="Celular Quantum HUD Física" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">Celular Quantum HUD Física</span>
+                <div class="wp-actions">
+                  <a href="assets/brand/wallpapers_mobile/03_Celular_Quantum_HUD_Fisica.png" download="03_Celular_Quantum_HUD_Fisica.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-mobile" data-lightbox-src="assets/brand/wallpapers_mobile/04_Celular_Cafe_Fisica_Code.png" data-lightbox-title="Celular (1080×2400) · Celular Café Física Code">
+                <img src="assets/brand/wallpapers_mobile/04_Celular_Cafe_Fisica_Code.png" alt="Celular Café Física Code" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">Celular Café Física Code</span>
+                <div class="wp-actions">
+                  <a href="assets/brand/wallpapers_mobile/04_Celular_Cafe_Fisica_Code.png" download="04_Celular_Cafe_Fisica_Code.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                </div>
+              </div>
+            </div>
+            <div class="wp-card">
+              <div class="wp-media-mobile" data-lightbox-src="assets/brand/wallpapers_mobile/05_Celular_Lockscreen_QR_Congreso.png" data-lightbox-title="Celular (1080×2400) · Celular Lockscreen QR Congreso">
+                <img src="assets/brand/wallpapers_mobile/05_Celular_Lockscreen_QR_Congreso.png" alt="Celular Lockscreen QR Congreso" loading="lazy" />
+              </div>
+              <div class="wp-footer">
+                <span class="wp-title">Celular Lockscreen QR Congreso</span>
+                <div class="wp-actions">
+                  <a href="assets/brand/wallpapers_mobile/05_Celular_Lockscreen_QR_Congreso.png" download="05_Celular_Lockscreen_QR_Congreso.png" class="btn btn-primary btn-sm">⬇ PNG Celular</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. STICKERS WHATSAPP ANIMADOS -->
+    <section id="whatsapp" class="dl-group-section" data-group="whatsapp">
+      <div class="container">
+        <div class="dl-card">
+          <div class="dl-card-head">
+            <div>
+              <div class="section-tag">💬 Pack Oficial Animado</div>
+              <h2 class="section-title">20 Stickers de Natu para WhatsApp</h2>
+              <p class="section-subtitle">Todas las reacciones pixel-art animadas de Natu para tus chats.</p>
+            </div>
+            <div class="dl-card-actions">
+              <a href="assets/brand/whatsapp/NachoFari_Zorro_20_Reacciones.wastickers" download="Natu_NachoFari_20_Reacciones.wastickers" class="btn btn-primary btn-sm">⬇ Descargar Pack (.wastickers)</a>
+              <a href="assets/brand/whatsapp/NachoFari_20_GIFs_Universales.zip" download="Natu_20_GIFs_Universales.zip" class="btn btn-glass btn-sm">📦 20 GIFs (.zip)</a>
+            </div>
+          </div>
+
+          <div class="install-guide" aria-label="Instrucciones para instalar stickers en WhatsApp">
+            <div class="install-step">
+              <span class="install-step-badge">Paso 1 · Android &amp; iPhone</span>
+              <h4>Instala «Sticker Maker»</h4>
+              <p>Baja gratis la app <strong>Sticker Maker</strong> (por Viko &amp; Co) desde Google Play o App Store.</p>
+            </div>
+            <div class="install-step">
+              <span class="install-step-badge">Paso 2 · Pack de 20 en 1 toque</span>
+              <h4>Abre el archivo <code>.wastickers</code></h4>
+              <p>Toca el botón naranjo <strong>Descargar Pack (.wastickers)</strong>, ábrelo con <em>Sticker Maker</em> y pulsa <strong>«Añadir a WhatsApp»</strong>.</p>
+            </div>
+            <div class="install-step">
+              <span class="install-step-badge">Alternativa · WhatsApp Web</span>
+              <h4>Baja uno por uno en PC</h4>
+              <p>Descarga cualquier <code>.webp</code> con el botón <code>⬇</code> o el <code>.zip</code> de GIFs y súbelo desde <strong>+ → Crear sticker</strong> en WhatsApp Web.</p>
+            </div>
+          </div>
+
+          <div class="stickers-grid">
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/01_Hola_Saludando.webp" data-lightbox-title="Natu WhatsApp · Hola Saludando">
+                <img src="assets/brand/whatsapp/01_Hola_Saludando.webp" alt="Sticker Hola Saludando" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Hola Saludando">Hola Saludando</span>
+                <a href="assets/brand/whatsapp/01_Hola_Saludando.webp" download="01_Hola_Saludando.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/02_Jajaja_Risa.webp" data-lightbox-title="Natu WhatsApp · Jajaja Risa">
+                <img src="assets/brand/whatsapp/02_Jajaja_Risa.webp" alt="Sticker Jajaja Risa" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Jajaja Risa">Jajaja Risa</span>
+                <a href="assets/brand/whatsapp/02_Jajaja_Risa.webp" download="02_Jajaja_Risa.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/03_Corazon_Love.webp" data-lightbox-title="Natu WhatsApp · Corazón Love">
+                <img src="assets/brand/whatsapp/03_Corazon_Love.webp" alt="Sticker Corazón Love" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Corazón Love">Corazón Love</span>
+                <a href="assets/brand/whatsapp/03_Corazon_Love.webp" download="03_Corazon_Love.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/04_Like_Genial.webp" data-lightbox-title="Natu WhatsApp · Like Genial">
+                <img src="assets/brand/whatsapp/04_Like_Genial.webp" alt="Sticker Like Genial" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Like Genial">Like Genial</span>
+                <a href="assets/brand/whatsapp/04_Like_Genial.webp" download="04_Like_Genial.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/05_Aplausos_Bravo.webp" data-lightbox-title="Natu WhatsApp · Aplausos Bravo">
+                <img src="assets/brand/whatsapp/05_Aplausos_Bravo.webp" alt="Sticker Aplausos Bravo" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Aplausos Bravo">Aplausos Bravo</span>
+                <a href="assets/brand/whatsapp/05_Aplausos_Bravo.webp" download="05_Aplausos_Bravo.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/06_Fuego_Epic.webp" data-lightbox-title="Natu WhatsApp · Fuego Epic">
+                <img src="assets/brand/whatsapp/06_Fuego_Epic.webp" alt="Sticker Fuego Epic" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Fuego Epic">Fuego Epic</span>
+                <a href="assets/brand/whatsapp/06_Fuego_Epic.webp" download="06_Fuego_Epic.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/07_Celebracion_GG.webp" data-lightbox-title="Natu WhatsApp · Celebración GG">
+                <img src="assets/brand/whatsapp/07_Celebracion_GG.webp" alt="Sticker Celebración GG" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Celebración GG">Celebración GG</span>
+                <a href="assets/brand/whatsapp/07_Celebracion_GG.webp" download="07_Celebracion_GG.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/08_Sorpresa_Mindblown.webp" data-lightbox-title="Natu WhatsApp · Sorpresa Mindblown">
+                <img src="assets/brand/whatsapp/08_Sorpresa_Mindblown.webp" alt="Sticker Sorpresa Mindblown" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Sorpresa Mindblown">Sorpresa Mindblown</span>
+                <a href="assets/brand/whatsapp/08_Sorpresa_Mindblown.webp" download="08_Sorpresa_Mindblown.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/09_Pensando_Hmm.webp" data-lightbox-title="Natu WhatsApp · Pensando Hmm">
+                <img src="assets/brand/whatsapp/09_Pensando_Hmm.webp" alt="Sticker Pensando Hmm" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Pensando Hmm">Pensando Hmm</span>
+                <a href="assets/brand/whatsapp/09_Pensando_Hmm.webp" download="09_Pensando_Hmm.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/10_Cool_Lentes.webp" data-lightbox-title="Natu WhatsApp · Cool Lentes">
+                <img src="assets/brand/whatsapp/10_Cool_Lentes.webp" alt="Sticker Cool Lentes" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Cool Lentes">Cool Lentes</span>
+                <a href="assets/brand/whatsapp/10_Cool_Lentes.webp" download="10_Cool_Lentes.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/11_Triste_F.webp" data-lightbox-title="Natu WhatsApp · Triste F">
+                <img src="assets/brand/whatsapp/11_Triste_F.webp" alt="Sticker Triste F" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Triste F">Triste F</span>
+                <a href="assets/brand/whatsapp/11_Triste_F.webp" download="11_Triste_F.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/12_Enojado_Rage.webp" data-lightbox-title="Natu WhatsApp · Enojado Rage">
+                <img src="assets/brand/whatsapp/12_Enojado_Rage.webp" alt="Sticker Enojado Rage" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Enojado Rage">Enojado Rage</span>
+                <a href="assets/brand/whatsapp/12_Enojado_Rage.webp" download="12_Enojado_Rage.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/13_Sueno_Zzz.webp" data-lightbox-title="Natu WhatsApp · Sueño Zzz">
+                <img src="assets/brand/whatsapp/13_Sueno_Zzz.webp" alt="Sticker Sueño Zzz" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Sueño Zzz">Sueño Zzz</span>
+                <a href="assets/brand/whatsapp/13_Sueno_Zzz.webp" download="13_Sueno_Zzz.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/14_Cafe_Energia.webp" data-lightbox-title="Natu WhatsApp · Café Energía">
+                <img src="assets/brand/whatsapp/14_Cafe_Energia.webp" alt="Sticker Café Energía" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Café Energía">Café Energía</span>
+                <a href="assets/brand/whatsapp/14_Cafe_Energia.webp" download="14_Cafe_Energia.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/15_Cargando_Spinner.webp" data-lightbox-title="Natu WhatsApp · Cargando Spinner">
+                <img src="assets/brand/whatsapp/15_Cargando_Spinner.webp" alt="Sticker Cargando Spinner" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Cargando Spinner">Cargando Spinner</span>
+                <a href="assets/brand/whatsapp/15_Cargando_Spinner.webp" download="15_Cargando_Spinner.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/16_Check_Aprobado.webp" data-lightbox-title="Natu WhatsApp · Check Aprobado">
+                <img src="assets/brand/whatsapp/16_Check_Aprobado.webp" alt="Sticker Check Aprobado" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Check Aprobado">Check Aprobado</span>
+                <a href="assets/brand/whatsapp/16_Check_Aprobado.webp" download="16_Check_Aprobado.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/17_Error_Bug.webp" data-lightbox-title="Natu WhatsApp · Error Bug">
+                <img src="assets/brand/whatsapp/17_Error_Bug.webp" alt="Sticker Error Bug" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Error Bug">Error Bug</span>
+                <a href="assets/brand/whatsapp/17_Error_Bug.webp" download="17_Error_Bug.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/18_Vibe_Codeando.webp" data-lightbox-title="Natu WhatsApp · Vibe Codeando">
+                <img src="assets/brand/whatsapp/18_Vibe_Codeando.webp" alt="Sticker Vibe Codeando" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Vibe Codeando">Vibe Codeando</span>
+                <a href="assets/brand/whatsapp/18_Vibe_Codeando.webp" download="18_Vibe_Codeando.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/19_Fisica_Eureka.webp" data-lightbox-title="Natu WhatsApp · Física Eureka">
+                <img src="assets/brand/whatsapp/19_Fisica_Eureka.webp" alt="Sticker Física Eureka" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Física Eureka">Física Eureka</span>
+                <a href="assets/brand/whatsapp/19_Fisica_Eureka.webp" download="19_Fisica_Eureka.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/whatsapp/20_Guino_Complice.webp" data-lightbox-title="Natu WhatsApp · Guiño Cómplice">
+                <img src="assets/brand/whatsapp/20_Guino_Complice.webp" alt="Sticker Guiño Cómplice" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Guiño Cómplice">Guiño Cómplice</span>
+                <a href="assets/brand/whatsapp/20_Guino_Complice.webp" download="20_Guino_Complice.webp" class="sticker-dl" title="Descargar WebP animado">⬇</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. STICKERS TROQUELADOS PARA IMPRIMIR -->
+    <section id="imprimir" class="dl-group-section" data-group="imprimir">
+      <div class="container">
+        <div class="dl-card">
+          <div class="dl-card-head">
+            <div>
+              <div class="section-tag">🖨️ Alta Resolución · 300 DPI</div>
+              <h2 class="section-title">18 Stickers de Natu para Imprimir</h2>
+              <p class="section-subtitle">Incluye las 4 poses elegidas de Natu (Bolita #5, 4 Patas #3, Sentado #6, Saltando #9), café, code y QRs escaneables.</p>
+            </div>
+            <div class="dl-card-actions">
+              <a href="assets/brand/stickers_print/02_Pliego_Unico_100_Stickers_Plotter_1m2.pdf" download="Natu_Pliego_100_Stickers_1m2.pdf" class="btn btn-primary btn-sm">⬇ PDF Pliego 100 u. (1m²)</a>
+              <a href="assets/brand/stickers_print/01_Todos_Los_Stickers_2_Hojas_Carta.pdf" download="Natu_Stickers_2_Hojas_Carta.pdf" class="btn btn-glass btn-sm">📄 PDF 2 Hojas Carta</a>
+              <a href="assets/brand/stickers_print/Pack_18_Stickers_Individuales_PNG.zip" download="Natu_18_Stickers_PNG.zip" class="btn btn-glass btn-sm">📦 18 PNGs (.zip)</a>
+            </div>
+          </div>
+
+          <div class="install-guide" aria-label="Instrucciones para imprimir stickers">
+            <div class="install-step">
+              <span class="install-step-badge">Opción Imprenta · Vinilo PVC</span>
+              <h4>Pliego 1 m² (100 stickers)</h4>
+              <p>Descarga el <strong>PDF Pliego 100 u. (1m²)</strong> y pide en imprenta <em>«vinilo adhesivo con medio corte»</em>. Al ir todo en 1 archivo no cobran recargo por variedad.</p>
+            </div>
+            <div class="install-step">
+              <span class="install-step-badge">Opción Casa · Papel Adhesivo</span>
+              <h4>Hojas Carta al 100%</h4>
+              <p>Descarga <strong>PDF 2 Hojas Carta</strong>, imprime en tamaño real (<strong>100% sin escalar</strong>) y recorta siguiendo el contorno blanco de Natu.</p>
+            </div>
+          </div>
+
+          <div class="stickers-grid stickers-grid--print">
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/01_Zorro_Bolita_Puro.png" data-lightbox-title="Natu Sticker Die-Cut · Zorro Bolita Puro">
+                <img src="assets/brand/stickers_print/01_Zorro_Bolita_Puro.png" alt="Sticker Zorro Bolita Puro" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Zorro Bolita Puro">Zorro Bolita Puro</span>
+                <a href="assets/brand/stickers_print/01_Zorro_Bolita_Puro.png" download="01_Zorro_Bolita_Puro.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/02_Zorro_Bolita_NachoFari.png" data-lightbox-title="Natu Sticker Die-Cut · Zorro Bolita NachoFari">
+                <img src="assets/brand/stickers_print/02_Zorro_Bolita_NachoFari.png" alt="Sticker Zorro Bolita NachoFari" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Zorro Bolita NachoFari">Zorro Bolita NachoFari</span>
+                <a href="assets/brand/stickers_print/02_Zorro_Bolita_NachoFari.png" download="02_Zorro_Bolita_NachoFari.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/03_Zorro_4Patas_NachoFari.png" data-lightbox-title="Natu Sticker Die-Cut · Zorro 4 Patas NachoFari">
+                <img src="assets/brand/stickers_print/03_Zorro_4Patas_NachoFari.png" alt="Sticker Zorro 4 Patas NachoFari" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Zorro 4 Patas NachoFari">Zorro 4 Patas NachoFari</span>
+                <a href="assets/brand/stickers_print/03_Zorro_4Patas_NachoFari.png" download="03_Zorro_4Patas_NachoFari.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/04_Zorro_Sentado_Erguido_Web.png" data-lightbox-title="Natu Sticker Die-Cut · Zorro Sentado Erguido Web">
+                <img src="assets/brand/stickers_print/04_Zorro_Sentado_Erguido_Web.png" alt="Sticker Zorro Sentado Erguido Web" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Zorro Sentado Erguido Web">Zorro Sentado Erguido Web</span>
+                <a href="assets/brand/stickers_print/04_Zorro_Sentado_Erguido_Web.png" download="04_Zorro_Sentado_Erguido_Web.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/05_Zorro_Saltando_NachoFari.png" data-lightbox-title="Natu Sticker Die-Cut · Zorro Saltando NachoFari">
+                <img src="assets/brand/stickers_print/05_Zorro_Saltando_NachoFari.png" alt="Sticker Zorro Saltando NachoFari" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Zorro Saltando NachoFari">Zorro Saltando NachoFari</span>
+                <a href="assets/brand/stickers_print/05_Zorro_Saltando_NachoFari.png" download="05_Zorro_Saltando_NachoFari.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/06_IG_Zorro_Saludando.png" data-lightbox-title="Natu Sticker Die-Cut · IG Zorro Saludando">
+                <img src="assets/brand/stickers_print/06_IG_Zorro_Saludando.png" alt="Sticker IG Zorro Saludando" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="IG Zorro Saludando">IG Zorro Saludando</span>
+                <a href="assets/brand/stickers_print/06_IG_Zorro_Saludando.png" download="06_IG_Zorro_Saludando.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/07_IG_Zorro_Echado.png" data-lightbox-title="Natu Sticker Die-Cut · IG Zorro Echado">
+                <img src="assets/brand/stickers_print/07_IG_Zorro_Echado.png" alt="Sticker IG Zorro Echado" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="IG Zorro Echado">IG Zorro Echado</span>
+                <a href="assets/brand/stickers_print/07_IG_Zorro_Echado.png" download="07_IG_Zorro_Echado.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/08_GitHub_Zorro_Durmiendo.png" data-lightbox-title="Natu Sticker Die-Cut · GitHub Zorro Durmiendo">
+                <img src="assets/brand/stickers_print/08_GitHub_Zorro_Durmiendo.png" alt="Sticker GitHub Zorro Durmiendo" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="GitHub Zorro Durmiendo">GitHub Zorro Durmiendo</span>
+                <a href="assets/brand/stickers_print/08_GitHub_Zorro_Durmiendo.png" download="08_GitHub_Zorro_Durmiendo.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/09_Cafe_Zorro_NachoFari.png" data-lightbox-title="Natu Sticker Die-Cut · Café Zorro NachoFari">
+                <img src="assets/brand/stickers_print/09_Cafe_Zorro_NachoFari.png" alt="Sticker Café Zorro NachoFari" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Café Zorro NachoFari">Café Zorro NachoFari</span>
+                <a href="assets/brand/stickers_print/09_Cafe_Zorro_NachoFari.png" download="09_Cafe_Zorro_NachoFari.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/10_GitHub_Zorro_Cafe.png" data-lightbox-title="Natu Sticker Die-Cut · GitHub Zorro Café">
+                <img src="assets/brand/stickers_print/10_GitHub_Zorro_Cafe.png" alt="Sticker GitHub Zorro Café" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="GitHub Zorro Café">GitHub Zorro Café</span>
+                <a href="assets/brand/stickers_print/10_GitHub_Zorro_Cafe.png" download="10_GitHub_Zorro_Cafe.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/11_GitHub_Zorro_Codeando.png" data-lightbox-title="Natu Sticker Die-Cut · GitHub Zorro Codeando">
+                <img src="assets/brand/stickers_print/11_GitHub_Zorro_Codeando.png" alt="Sticker GitHub Zorro Codeando" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="GitHub Zorro Codeando">GitHub Zorro Codeando</span>
+                <a href="assets/brand/stickers_print/11_GitHub_Zorro_Codeando.png" download="11_GitHub_Zorro_Codeando.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/12_LinkedIn_Zorro_Sentado.png" data-lightbox-title="Natu Sticker Die-Cut · LinkedIn Zorro Sentado">
+                <img src="assets/brand/stickers_print/12_LinkedIn_Zorro_Sentado.png" alt="Sticker LinkedIn Zorro Sentado" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="LinkedIn Zorro Sentado">LinkedIn Zorro Sentado</span>
+                <a href="assets/brand/stickers_print/12_LinkedIn_Zorro_Sentado.png" download="12_LinkedIn_Zorro_Sentado.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/13_QR_LinkedIn_Zorro.png" data-lightbox-title="Natu Sticker Die-Cut · QR LinkedIn Zorro">
+                <img src="assets/brand/stickers_print/13_QR_LinkedIn_Zorro.png" alt="Sticker QR LinkedIn Zorro" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="QR LinkedIn Zorro">QR LinkedIn Zorro</span>
+                <a href="assets/brand/stickers_print/13_QR_LinkedIn_Zorro.png" download="13_QR_LinkedIn_Zorro.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/14_QR_GitPages_Zorro.png" data-lightbox-title="Natu Sticker Die-Cut · QR GitPages Zorro">
+                <img src="assets/brand/stickers_print/14_QR_GitPages_Zorro.png" alt="Sticker QR GitPages Zorro" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="QR GitPages Zorro">QR GitPages Zorro</span>
+                <a href="assets/brand/stickers_print/14_QR_GitPages_Zorro.png" download="14_QR_GitPages_Zorro.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/15_QR_GitHub_Zorro.png" data-lightbox-title="Natu Sticker Die-Cut · QR GitHub Zorro">
+                <img src="assets/brand/stickers_print/15_QR_GitHub_Zorro.png" alt="Sticker QR GitHub Zorro" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="QR GitHub Zorro">QR GitHub Zorro</span>
+                <a href="assets/brand/stickers_print/15_QR_GitHub_Zorro.png" download="15_QR_GitHub_Zorro.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/16_Hexagono_Fisica_IA_Code.png" data-lightbox-title="Natu Sticker Die-Cut · Hexagono Física IA Code">
+                <img src="assets/brand/stickers_print/16_Hexagono_Fisica_IA_Code.png" alt="Sticker Hexagono Física IA Code" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Hexagono Física IA Code">Hexagono Física IA Code</span>
+                <a href="assets/brand/stickers_print/16_Hexagono_Fisica_IA_Code.png" download="16_Hexagono_Fisica_IA_Code.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/17_Circular_Code_Research.png" data-lightbox-title="Natu Sticker Die-Cut · Circular Code Research">
+                <img src="assets/brand/stickers_print/17_Circular_Code_Research.png" alt="Sticker Circular Code Research" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Circular Code Research">Circular Code Research</span>
+                <a href="assets/brand/stickers_print/17_Circular_Code_Research.png" download="17_Circular_Code_Research.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+            <div class="sticker-tile">
+              <div class="sticker-thumb-box" data-lightbox-src="assets/brand/stickers_print/18_Badge_HUD_Zorro.png" data-lightbox-title="Natu Sticker Die-Cut · Badge HUD Zorro">
+                <img src="assets/brand/stickers_print/18_Badge_HUD_Zorro.png" alt="Sticker Badge HUD Zorro" loading="lazy" />
+              </div>
+              <div class="sticker-meta">
+                <span class="sticker-name" title="Badge HUD Zorro">Badge HUD Zorro</span>
+                <a href="assets/brand/stickers_print/18_Badge_HUD_Zorro.png" download="18_Badge_HUD_Zorro.png" class="sticker-dl" title="Descargar PNG 1024px">⬇</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <img src="assets/img/fox-avatar.png" alt="Natu" class="footer-fox" />
+        <span><strong>Natu.exe</strong> · Mascota oficial de <strong>NachoFari</strong></span>
+      </div>
+      <a href="index.html" class="btn btn-glass btn-sm">← Volver al Portafolio</a>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada" hidden>
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-dialog">
+      <div class="lightbox-header">
+        <span id="lightboxCaption">Vista previa</span>
+        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar vista ampliada">✕</button>
+      </div>
+      <div class="lightbox-body">
+        <img src="" alt="" id="lightboxImg" />
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/background.js?v=20261115a"></script>
+  <script src="js/projects.js?v=20261115a"></script>
+</body>
+</html>

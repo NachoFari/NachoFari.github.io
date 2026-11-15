@@ -785,6 +785,7 @@
       '.metric-card',
       '.fox-speech-bubble',
       '.fox-orb-card',
+      '.natu-hero-btn',
       '#estrella .section-header',
       '#estrella .flagship-card',
       '#proyectos .section-header',
@@ -1058,4 +1059,96 @@
   renderPodcastCarousel(0);
   loadSyncedPodcast();
   refreshGitHubStars();
+})();
+
+// Lógica dedicada para la pestaña natu.html (visor de poses, frases de lore y descargas)
+(function () {
+  const natuActiveImg = document.getElementById('natuActiveImg');
+  const natuLabel = document.getElementById('natuPreviewLabel');
+  const natuState = document.getElementById('natuStageState');
+  const natuNote = document.getElementById('natuStageNote');
+  const natuThumbs = document.querySelectorAll('#natuThumbs .thumb-btn');
+  const natuZoomBtn = document.getElementById('natuZoomBtn');
+
+  natuThumbs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      natuThumbs.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (natuActiveImg) {
+        natuActiveImg.src = btn.dataset.src;
+        natuActiveImg.alt = btn.dataset.label || 'Natu';
+      }
+      if (natuLabel) natuLabel.textContent = btn.dataset.label || 'Natu.exe';
+      if (natuState) natuState.textContent = btn.dataset.state || '|bolita⟩';
+      if (natuNote) natuNote.textContent = btn.dataset.note || '';
+    });
+  });
+
+  const natuQuoteBox = document.getElementById('natuLoreQuote');
+  const natuQuoteText = document.getElementById('natuLoreQuoteText');
+  const NATU_QUOTES = [
+    '«En condiciones ideales, esto compila a la primera.»',
+    '«sin(x) ≈ x y con fe.»',
+    '«Asumiendo una vaca esférica y sin roce...»',
+    '«Nivel de entropía actual: estable (por ahora).»',
+    '«Si funciona en local, ya es física experimental.»',
+    '«Si algo no cuadra, faltó multiplicar por π o por un (−).»',
+    '«El orden de magnitud está bueno… el resto es detalle.»',
+    '«Automatizar 5 minutos una tarea de 2: valió cada segundo.»',
+  ];
+  let qIdx = 0;
+  if (natuQuoteBox && natuQuoteText) {
+    natuQuoteBox.addEventListener('click', () => {
+      qIdx = (qIdx + 1) % NATU_QUOTES.length;
+      natuQuoteText.textContent = NATU_QUOTES[qIdx];
+    });
+  }
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+
+  function openLightbox(src, title) {
+    if (!lightbox || !lightboxImg) return;
+    lightboxImg.src = src;
+    lightboxImg.alt = title || '';
+    if (lightboxCaption) lightboxCaption.textContent = title || 'Vista previa';
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  if (natuActiveImg) {
+    natuActiveImg.addEventListener('click', () => {
+      openLightbox(natuActiveImg.src, natuLabel ? natuLabel.textContent : 'Natu');
+    });
+  }
+  if (natuZoomBtn && natuActiveImg) {
+    natuZoomBtn.addEventListener('click', () => {
+      openLightbox(natuActiveImg.src, natuLabel ? natuLabel.textContent : 'Natu');
+    });
+  }
+
+  document.querySelectorAll('[data-lightbox-src]').forEach((el) => {
+    el.addEventListener('click', () => {
+      openLightbox(el.dataset.lightboxSrc, el.dataset.lightboxTitle);
+    });
+  });
+
+  const filterBtns = document.querySelectorAll('.dl-filter-btn');
+  const dlSections = document.querySelectorAll('.dl-group-section');
+  if (filterBtns.length && dlSections.length) {
+    function applyFilter(cat) {
+      filterBtns.forEach((b) => b.classList.toggle('active', b.dataset.filter === cat));
+      dlSections.forEach((sec) => {
+        sec.hidden = !(cat === 'all' || sec.dataset.group === cat);
+      });
+    }
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+    });
+    const hash = window.location.hash.replace('#', '');
+    if (['wallpapers', 'whatsapp', 'imprimir'].includes(hash)) {
+      applyFilter(hash);
+    }
+  }
 })();

@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=20261113l" />
+  <link rel="stylesheet" href="css/styles.css?v=20261115a" />
 </head>
 <body>
   <!-- Fondo animado tecnológico (inspirado en qstate.cl + paleta Fox Naranjo) -->
@@ -143,22 +143,30 @@
 
         <!-- Tarjeta visual del Zorro (Burbuja pixel-art + Emblema HUD) -->
         <div class="hero-visual">
-          <button type="button" class="fox-speech-bubble" id="foxSpeechBubble" title="Haz clic para cambiar la frase del zorro" aria-live="polite">
-            <span class="fox-speech-tag">🦊 Zorro.exe</span>
+          <button type="button" class="fox-speech-bubble" id="foxSpeechBubble" title="Haz clic para cambiar la frase de Natu" aria-live="polite">
+            <span class="fox-speech-tag">🦊 Natu.exe</span>
             <span class="fox-speech-text" id="foxSpeechText">Vibe codeando</span>
           </button>
 
           <div class="fox-orb-card">
             <div class="orb-ring orb-ring-outer"></div>
             <div class="orb-ring orb-ring-inner"></div>
-            <div class="fox-frame" id="foxFrameTrigger" role="button" tabindex="0" title="Toca al zorro para otra frase" aria-label="Cambiar frase del zorro">
-              <img src="assets/img/fox-avatar.png" alt="Emblema Zorro NachoFari" class="fox-hero-img" />
+            <div class="fox-frame" id="foxFrameTrigger" role="button" tabindex="0" title="Toca a Natu para otra frase" aria-label="Cambiar frase de Natu">
+              <img src="assets/img/fox-avatar.png" alt="Emblema Natu NachoFari" class="fox-hero-img" />
             </div>
             <div class="fox-hud-badge hud-bottom">
               <img src="assets/img/fox-icon.svg" alt="" class="hud-svg-icon" />
               <span>NaTex Creator · Q|State⟩ Member</span>
             </div>
           </div>
+
+          <a href="natu.html" target="_blank" rel="noopener noreferrer" class="btn btn-glass natu-hero-btn" title="Abre una nueva pestaña con el lore de Natu, wallpapers y stickers">
+            <span class="natu-hero-btn-left">
+              <img src="assets/brand/natu_sprites/01_bolita.png" alt="" class="natu-mini-sprite" />
+              <span>Conoce a Natu</span>
+            </span>
+            <span class="natu-btn-badge">Lore &amp; Kit ↗</span>
+          </a>
         </div>
       </div>
     </section>
@@ -487,7 +495,7 @@
   <!-- Toast de notificación -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/background.js?v=20261113l"></script>
-  <script src="js/projects.js?v=20261113l"></script>
+  <script src="js/background.js?v=20261115a"></script>
+  <script src="js/projects.js?v=20261115a"></script>
 </body>
 </html>
