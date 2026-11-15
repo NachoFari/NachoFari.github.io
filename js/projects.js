@@ -1664,20 +1664,53 @@
 
   const sliceBtns = document.querySelectorAll('.slice-filter-btn');
   const sliceBlocks = document.querySelectorAll('.sticker-slice-block');
-  if (sliceBtns.length && sliceBlocks.length) {
-    function applySliceFilter(sliceId) {
+  const sliceTrack = document.getElementById('sliceTrack');
+  const sliceCounter = document.getElementById('sliceCounter');
+  const slicePrevBtns = [document.getElementById('slicePrevBtn'), document.getElementById('sliceSidePrevBtn')].filter(Boolean);
+  const sliceNextBtns = [document.getElementById('sliceNextBtn'), document.getElementById('sliceSideNextBtn')].filter(Boolean);
+
+  if (sliceTrack && sliceBlocks.length) {
+    let activeSliceIdx = 0;
+    const totalSlices = sliceBlocks.length;
+
+    function goToSlice(rawIdx) {
+      activeSliceIdx = ((rawIdx % totalSlices) + totalSlices) % totalSlices;
+      const targetId = String(activeSliceIdx + 1);
+      sliceTrack.style.transform = `translate3d(-${activeSliceIdx * 100}%, 0, 0)`;
+      if (sliceCounter) sliceCounter.textContent = `${activeSliceIdx + 1} / ${totalSlices}`;
       sliceBtns.forEach((b) => {
-        const active = b.dataset.slice === sliceId;
+        const active = b.dataset.slice === targetId;
         b.classList.toggle('active', active);
         b.setAttribute('aria-selected', active ? 'true' : 'false');
       });
-      sliceBlocks.forEach((blk) => {
-        blk.hidden = !(sliceId === 'all' || blk.dataset.slice === sliceId);
-      });
     }
+
     sliceBtns.forEach((btn) => {
-      btn.addEventListener('click', () => applySliceFilter(btn.dataset.slice));
+      btn.addEventListener('click', () => {
+        const parsed = parseInt(btn.dataset.slice || '1', 10);
+        if (!Number.isNaN(parsed)) goToSlice(parsed - 1);
+      });
     });
+
+    slicePrevBtns.forEach((btn) => btn.addEventListener('click', () => goToSlice(activeSliceIdx - 1)));
+    sliceNextBtns.forEach((btn) => btn.addEventListener('click', () => goToSlice(activeSliceIdx + 1)));
+
+    const sliceViewport = sliceTrack.parentElement;
+    if (sliceViewport) {
+      let touchStartX = 0;
+      sliceViewport.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      sliceViewport.addEventListener('touchend', (e) => {
+        if (!e.changedTouches.length) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 48) {
+          goToSlice(activeSliceIdx + (dx < 0 ? 1 : -1));
+        }
+      }, { passive: true });
+    }
+
+    goToSlice(0);
   }
 })();
 
@@ -1797,7 +1830,7 @@
     });
   }
 
-  const INTERACTIVE_SEL = 'button, a.btn, a.btn-nav-cta, a.btn-icon, a.nav-link, a.mobile-link, .thumb-btn, .carousel-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab, .sticker-dl, .natu-lore-quote, .fox-frame, .fox-speech, [data-zoom-src], [data-lightbox-src]';
+  const INTERACTIVE_SEL = 'button, a.btn, a.btn-nav-cta, a.btn-icon, a.nav-link, a.mobile-link, .thumb-btn, .carousel-btn, .slice-side-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab, .sticker-dl, .natu-lore-quote, .fox-frame, .fox-speech, [data-zoom-src], [data-lightbox-src]';
 
   document.addEventListener('pointerdown', (e) => {
     if (e.target.closest(INTERACTIVE_SEL)) {
@@ -1812,7 +1845,7 @@
       play('fox');
     } else if (target.matches('[download], .sticker-dl, #copyEmailBtn')) {
       play('download');
-    } else if (target.matches('.carousel-btn, .thumb-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab, .podcast-dot-btn, .nav-link, .mobile-link, .lang-toggle-btn')) {
+    } else if (target.matches('.carousel-btn, .slice-side-btn, .thumb-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab, .podcast-dot-btn, .nav-link, .mobile-link, .lang-toggle-btn')) {
       play('nav');
     } else if (target.matches('.lightbox-close')) {
       play('close');
@@ -1823,7 +1856,7 @@
 
   document.addEventListener('pointerover', (e) => {
     if (e.pointerType && e.pointerType !== 'mouse') return;
-    const target = e.target.closest('button, a.btn, a.btn-nav-cta, a.btn-icon, .thumb-btn, .carousel-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab');
+    const target = e.target.closest('button, a.btn, a.btn-nav-cta, a.btn-icon, .thumb-btn, .carousel-btn, .slice-side-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab');
     if (!target) return;
     if (e.relatedTarget && target.contains(e.relatedTarget)) return;
     play('hover');

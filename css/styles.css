@@ -2932,11 +2932,25 @@ body.gravity-active .natu-hero-btn {
   color: #101116;
 }
 
+.slice-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
 .slice-switcher {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  margin-bottom: 1.35rem;
+}
+
+.slice-nav-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 .slice-filter-btn {
@@ -2981,10 +2995,63 @@ body.gravity-active .natu-hero-btn {
   color: #101116;
 }
 
-.sticker-slice-block + .sticker-slice-block {
-  margin-top: 1.75rem;
-  padding-top: 1.45rem;
-  border-top: 1px dashed rgba(148, 163, 184, 0.22);
+.slice-slider-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.slice-side-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 76px;
+  border-radius: 14px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(20, 23, 31, 0.85);
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+}
+
+.slice-side-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.slice-side-btn:hover {
+  border-color: var(--fox-orange);
+  background: rgba(255, 107, 53, 0.18);
+  color: var(--fox-amber);
+  transform: translateY(-2px);
+}
+
+.slice-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.slice-track {
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.sticker-slice-block {
+  flex: 0 0 100%;
+  min-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .slice-side-btn {
+    display: none;
+  }
 }
 
 .sticker-slice-head {
