@@ -2932,6 +2932,116 @@ body.gravity-active .natu-hero-btn {
   color: #101116;
 }
 
+.slice-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 1.35rem;
+}
+
+.slice-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.52rem 0.92rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slice-filter-btn:hover {
+  border-color: var(--border-fox);
+  color: var(--text-primary);
+  background: rgba(255, 107, 53, 0.08);
+}
+
+.slice-filter-btn.active {
+  background: rgba(255, 107, 53, 0.16);
+  border-color: var(--fox-orange);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.18);
+}
+
+.slice-filter-btn .dl-count-pill {
+  padding: 0.1rem 0.44rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.slice-filter-btn.active .dl-count-pill {
+  background: var(--fox-orange);
+  color: #101116;
+}
+
+.sticker-slice-block + .sticker-slice-block {
+  margin-top: 1.75rem;
+  padding-top: 1.45rem;
+  border-top: 1px dashed rgba(148, 163, 184, 0.22);
+}
+
+.sticker-slice-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  margin-bottom: 0.95rem;
+}
+
+.sticker-slice-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.sticker-slice-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.68rem;
+  border-radius: 999px;
+  background: rgba(255, 107, 53, 0.16);
+  border: 1px solid rgba(255, 107, 53, 0.45);
+  color: var(--fox-amber);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.sticker-slice-badge--cyan {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #7dd3fc;
+}
+
+.sticker-slice-badge--purple {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.42);
+  color: #d8b4fe;
+}
+
+.sticker-slice-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sticker-slice-meta {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
 
 /* ==========================================================================
    Selector de Idioma (ES / EN) en Navbar y Drawer Móvil

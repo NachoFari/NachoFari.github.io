@@ -1661,6 +1661,24 @@
       applyFilter(hash);
     }
   }
+
+  const sliceBtns = document.querySelectorAll('.slice-filter-btn');
+  const sliceBlocks = document.querySelectorAll('.sticker-slice-block');
+  if (sliceBtns.length && sliceBlocks.length) {
+    function applySliceFilter(sliceId) {
+      sliceBtns.forEach((b) => {
+        const active = b.dataset.slice === sliceId;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      sliceBlocks.forEach((blk) => {
+        blk.hidden = !(sliceId === 'all' || blk.dataset.slice === sliceId);
+      });
+    }
+    sliceBtns.forEach((btn) => {
+      btn.addEventListener('click', () => applySliceFilter(btn.dataset.slice));
+    });
+  }
 })();
 
 // ==========================================================================
@@ -1779,7 +1797,7 @@
     });
   }
 
-  const INTERACTIVE_SEL = 'button, a.btn, a.btn-nav-cta, a.btn-icon, a.nav-link, a.mobile-link, .thumb-btn, .carousel-btn, .dl-filter-btn, .filter-tab, .sticker-dl, .natu-lore-quote, .fox-frame, .fox-speech, [data-zoom-src], [data-lightbox-src]';
+  const INTERACTIVE_SEL = 'button, a.btn, a.btn-nav-cta, a.btn-icon, a.nav-link, a.mobile-link, .thumb-btn, .carousel-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab, .sticker-dl, .natu-lore-quote, .fox-frame, .fox-speech, [data-zoom-src], [data-lightbox-src]';
 
   document.addEventListener('pointerdown', (e) => {
     if (e.target.closest(INTERACTIVE_SEL)) {
@@ -1794,7 +1812,7 @@
       play('fox');
     } else if (target.matches('[download], .sticker-dl, #copyEmailBtn')) {
       play('download');
-    } else if (target.matches('.carousel-btn, .thumb-btn, .dl-filter-btn, .filter-tab, .podcast-dot-btn, .nav-link, .mobile-link, .lang-toggle-btn')) {
+    } else if (target.matches('.carousel-btn, .thumb-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab, .podcast-dot-btn, .nav-link, .mobile-link, .lang-toggle-btn')) {
       play('nav');
     } else if (target.matches('.lightbox-close')) {
       play('close');
@@ -1805,7 +1823,7 @@
 
   document.addEventListener('pointerover', (e) => {
     if (e.pointerType && e.pointerType !== 'mouse') return;
-    const target = e.target.closest('button, a.btn, a.btn-nav-cta, a.btn-icon, .thumb-btn, .carousel-btn, .dl-filter-btn, .filter-tab');
+    const target = e.target.closest('button, a.btn, a.btn-nav-cta, a.btn-icon, .thumb-btn, .carousel-btn, .dl-filter-btn, .slice-filter-btn, .filter-tab');
     if (!target) return;
     if (e.relatedTarget && target.contains(e.relatedTarget)) return;
     play('hover');

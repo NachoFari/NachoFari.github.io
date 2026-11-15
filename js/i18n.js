@@ -160,7 +160,7 @@
       'natu.stat4ValHtml': 'Aproximar <code>sin(x) ≈ x</code> con absoluta fe',
       'natu.ctaWp': '🖼️ Ver Wallpapers (10)',
       'natu.ctaWa': '💬 Stickers WhatsApp (20)',
-      'natu.ctaPrint': '🖨️ Para Imprimir (18)',
+      'natu.ctaPrint': '🖨️ Para Imprimir (54)',
       'natu.nav.reels': 'Reels @natu.phy',
 
       // Natu Reels (@natu.phy)
@@ -178,10 +178,10 @@
       'natu.dl.title': 'Descargas Oficiales de Natu',
       'natu.dl.subtitle':
         'Elige qué pack quieres bajar y sigue las instrucciones paso a paso para instalarlo en tu PC, celular, WhatsApp o llevarlo a imprenta.',
-      'natu.dl.filterAllHtml': '✨ Ver Todo <span class="dl-count-pill">48</span>',
+      'natu.dl.filterAllHtml': '✨ Ver Todo <span class="dl-count-pill">84</span>',
       'natu.dl.filterWpHtml': '🖼️ Wallpapers PC &amp; Celular <span class="dl-count-pill">10</span>',
       'natu.dl.filterWaHtml': '💬 Stickers WhatsApp <span class="dl-count-pill">20</span>',
-      'natu.dl.filterPrintHtml': '🖨️ Stickers para Imprimir <span class="dl-count-pill">18</span>',
+      'natu.dl.filterPrintHtml': '🖨️ Stickers para Imprimir <span class="dl-count-pill">54</span>',
 
       // Natu Wallpapers
       'natu.wp.tag': '🖼️ Fondos de Pantalla',
@@ -221,21 +221,35 @@
         'Descarga cualquier <code>.webp</code> con el botón <code>⬇</code> o el <code>.zip</code> de GIFs y súbelo desde <strong>+ → Crear sticker</strong> en WhatsApp Web.',
 
       // Natu Print
-      'natu.pr.tag': '🖨️ Alta Resolución · 300 DPI',
-      'natu.pr.title': '18 Stickers de Natu para Imprimir',
+      'natu.pr.tag': '🖨️ Alta Resolución · 300 DPI · 3 Slices',
+      'natu.pr.title': '54 Stickers en 3 Slices para Imprimir',
       'natu.pr.subtitle':
-        'Incluye las 4 poses elegidas de Natu (Bolita #5, 4 Patas #3, Sentado #6, Saltando #9), café, code y QRs escaneables.',
-      'natu.pr.dlSheet': '⬇ PDF Pliego 100 u. (1m²)',
-      'natu.pr.dlLetter': '📄 PDF 2 Hojas Carta',
-      'natu.pr.dlZip': '📦 18 PNGs (.zip)',
+        '3 slices de 18 diseños cada uno: Slice 1 Clásicos (@Nacho__Fari / GitHub / Web), Slice 2 Promo @Natu.Phy + QRs y Slice 3 Nuevo Vestuario.',
+      'natu.pr.dlSheet': '⬇ Pliego 108 u. (1m²)',
+      'natu.pr.dlSlices': '🖨️ PDF 3 Slices (54 u.)',
+      'natu.pr.dlLetter': '📄 PDF 6 Hojas Carta',
+      'natu.pr.dlZip': '📦 54 PNGs (.zip)',
       'natu.pr.opt1Badge': 'Opción Imprenta · Vinilo PVC',
-      'natu.pr.opt1Title': 'Pliego 1 m² (100 stickers)',
+      'natu.pr.opt1Title': 'Pliego 1 m² (108 stickers · 2×54)',
       'natu.pr.opt1DescHtml':
-        'Descarga el <strong>PDF Pliego 100 u. (1m²)</strong> y pide en imprenta <em>«vinilo adhesivo con medio corte»</em>. Al ir todo en 1 archivo no cobran recargo por variedad.',
+        'Descarga el <strong>PDF Pliego 108 u. (1m²)</strong> con 2 copias de los 54 diseños y pide <em>«vinilo adhesivo con medio corte»</em>. Todo en 1 archivo sin recargo por variedad.',
       'natu.pr.opt2Badge': 'Opción Casa · Papel Adhesivo',
-      'natu.pr.opt2Title': 'Hojas Carta al 100%',
+      'natu.pr.opt2Title': '3 Slices Carta o 6 Hojas al 100%',
       'natu.pr.opt2DescHtml':
-        'Descarga <strong>PDF 2 Hojas Carta</strong>, imprime en tamaño real (<strong>100% sin escalar</strong>) y recorta siguiendo el contorno blanco de Natu.',
+        'Descarga <strong>PDF 3 Slices (54 u.)</strong> (18 diseños por hoja horizontal) o <strong>PDF 6 Hojas Carta</strong> (9 grandes por hoja), imprime al <strong>100% sin escalar</strong> y recorta el borde blanco.',
+      'natu.pr.sliceAllHtml': '✨ Todos los Slices <span class="dl-count-pill">54</span>',
+      'natu.pr.slice1BtnHtml': 'Slice 1 · Clásicos <span class="dl-count-pill">18</span>',
+      'natu.pr.slice2BtnHtml': 'Slice 2 · @Natu.Phy &amp; QRs <span class="dl-count-pill">18</span>',
+      'natu.pr.slice3BtnHtml': 'Slice 3 · Nuevo Vestuario <span class="dl-count-pill">18</span>',
+      'natu.pr.s1Badge': 'SLICE 1 / 3',
+      'natu.pr.s1Title': 'Clásicos @Nacho__Fari, GitHub & Web',
+      'natu.pr.s1Meta': '#01–#18 · 18 stickers',
+      'natu.pr.s2Badge': 'SLICE 2 / 3',
+      'natu.pr.s2Title': '@Natu.Phy Reels, @Nacho__Fari & QRs Escaneables',
+      'natu.pr.s2Meta': '#19–#36 · 18 stickers',
+      'natu.pr.s3Badge': 'SLICE 3 / 3',
+      'natu.pr.s3Title': 'Nuevo Vestuario · Lab, Héroe, Astronauta, Escolar, Barista & Playero',
+      'natu.pr.s3Meta': '#37–#54 · 18 stickers',
 
       'natu.footerHtml': '<strong>Natu.exe</strong> · Mascota oficial de <strong>NachoFari</strong>',
     },
@@ -393,7 +407,7 @@
       'natu.stat4ValHtml': 'Approximating <code>sin(x) ≈ x</code> with pure faith',
       'natu.ctaWp': '🖼️ View Wallpapers (10)',
       'natu.ctaWa': '💬 WhatsApp Stickers (20)',
-      'natu.ctaPrint': '🖨️ Print-Ready (18)',
+      'natu.ctaPrint': '🖨️ Print-Ready (54)',
       'natu.nav.reels': 'Reels @natu.phy',
 
       // Natu Reels (@natu.phy)
@@ -411,10 +425,10 @@
       'natu.dl.title': "Natu's Official Downloads",
       'natu.dl.subtitle':
         'Pick a pack below and follow the step-by-step instructions to install it on your PC, phone, WhatsApp or take it to a print shop.',
-      'natu.dl.filterAllHtml': '✨ View All <span class="dl-count-pill">48</span>',
+      'natu.dl.filterAllHtml': '✨ View All <span class="dl-count-pill">84</span>',
       'natu.dl.filterWpHtml': '🖼️ PC &amp; Mobile Wallpapers <span class="dl-count-pill">10</span>',
       'natu.dl.filterWaHtml': '💬 WhatsApp Stickers <span class="dl-count-pill">20</span>',
-      'natu.dl.filterPrintHtml': '🖨️ Print-Ready Stickers <span class="dl-count-pill">18</span>',
+      'natu.dl.filterPrintHtml': '🖨️ Print-Ready Stickers <span class="dl-count-pill">54</span>',
 
       // Natu Wallpapers
       'natu.wp.tag': '🖼️ Wallpapers',
@@ -453,21 +467,35 @@
         'Download any <code>.webp</code> with <code>⬇</code> or grab the <code>.zip</code> GIF pack and upload from <strong>+ → Create sticker</strong> in WhatsApp Web.',
 
       // Natu Print
-      'natu.pr.tag': '🖨️ High Resolution · 300 DPI',
-      'natu.pr.title': '18 Die-Cut Natu Stickers for Printing',
+      'natu.pr.tag': '🖨️ High Resolution · 300 DPI · 3 Slices',
+      'natu.pr.title': '54 Die-Cut Stickers in 3 Slices for Printing',
       'natu.pr.subtitle':
-        'Includes Natu’s 4 chosen poses (Loaf #5, 4-Legged #3, Sitting #6, Leaping #9), coffee, code and scannable QRs.',
-      'natu.pr.dlSheet': '⬇ 1m² Sheet PDF (100 pcs)',
-      'natu.pr.dlLetter': '📄 2-Page US Letter PDF',
-      'natu.pr.dlZip': '📦 18 PNGs (.zip)',
+        '3 slices of 18 designs each: Slice 1 Classics (@Nacho__Fari / GitHub / Web), Slice 2 @Natu.Phy + QRs, and Slice 3 New Outfits.',
+      'natu.pr.dlSheet': '⬇ 1m² Sheet PDF (108 pcs)',
+      'natu.pr.dlSlices': '🖨️ 3-Slice PDF (54 pcs)',
+      'natu.pr.dlLetter': '📄 6-Page US Letter PDF',
+      'natu.pr.dlZip': '📦 54 PNGs (.zip)',
       'natu.pr.opt1Badge': 'Print Shop · PVC Vinyl',
-      'natu.pr.opt1Title': '1 m² Plotter Sheet (100 stickers)',
+      'natu.pr.opt1Title': '1 m² Plotter Sheet (108 stickers · 2×54)',
       'natu.pr.opt1DescHtml':
-        'Download the <strong>1m² Sheet PDF (100 pcs)</strong> and request <em>"kiss-cut adhesive vinyl"</em>. Everything sits on one sheet with no variety surcharge.',
+        'Download the <strong>1m² Sheet PDF (108 pcs)</strong> with 2 copies of all 54 designs and ask for <em>"kiss-cut adhesive vinyl"</em>. Everything fits on one file with no variety surcharge.',
       'natu.pr.opt2Badge': 'At Home · Sticker Paper',
-      'natu.pr.opt2Title': 'US Letter Pages at 100%',
+      'natu.pr.opt2Title': '3-Slice or 6-Page US Letter at 100%',
       'natu.pr.opt2DescHtml':
-        'Download the <strong>2-Page US Letter PDF</strong>, print at actual size (<strong>100% no scaling</strong>) and cut along Natu’s white outline.',
+        'Download the <strong>3-Slice PDF (54 pcs)</strong> (18 per landscape page) or <strong>6-Page US Letter PDF</strong> (9 large per page), print at <strong>100% no scaling</strong> and cut along the white outline.',
+      'natu.pr.sliceAllHtml': '✨ All Slices <span class="dl-count-pill">54</span>',
+      'natu.pr.slice1BtnHtml': 'Slice 1 · Classics <span class="dl-count-pill">18</span>',
+      'natu.pr.slice2BtnHtml': 'Slice 2 · @Natu.Phy &amp; QRs <span class="dl-count-pill">18</span>',
+      'natu.pr.slice3BtnHtml': 'Slice 3 · New Outfits <span class="dl-count-pill">18</span>',
+      'natu.pr.s1Badge': 'SLICE 1 / 3',
+      'natu.pr.s1Title': 'Classics · @Nacho__Fari, GitHub & Web',
+      'natu.pr.s1Meta': '#01–#18 · 18 stickers',
+      'natu.pr.s2Badge': 'SLICE 2 / 3',
+      'natu.pr.s2Title': '@Natu.Phy Reels, @Nacho__Fari & Scannable QRs',
+      'natu.pr.s2Meta': '#19–#36 · 18 stickers',
+      'natu.pr.s3Badge': 'SLICE 3 / 3',
+      'natu.pr.s3Title': 'New Outfits · Lab, Hero, Astronaut, School, Barista & Beach',
+      'natu.pr.s3Meta': '#37–#54 · 18 stickers',
 
       'natu.footerHtml': '<strong>Natu.exe</strong> · Official mascot of <strong>NachoFari</strong>',
     },
