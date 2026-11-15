@@ -1871,12 +1871,227 @@ code {
   max-height: 78vh;
   display: grid;
   place-items: center;
+  gap: 0.65rem;
+  overflow-y: auto;
 }
 
 .lightbox-body img {
-  max-height: 74vh;
+  max-height: 68vh;
   width: auto;
   border-radius: 10px;
+}
+
+.lightbox-desc {
+  max-width: 68ch;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: center;
+  padding: 0.35rem 0.65rem 0.2rem;
+}
+
+/* ==========================================================================
+   Sonido táctil en barra + Carrusel Reels @natu.phy + HUD Estadísticas
+   ========================================================================== */
+
+.sound-toggle-btn {
+  color: var(--fox-amber);
+  border-color: rgba(255, 107, 53, 0.38);
+  transition: transform 0.16s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.sound-toggle-btn .sound-icon-off {
+  display: none;
+}
+
+.sound-toggle-btn.is-muted {
+  color: var(--text-muted);
+  border-color: var(--border-subtle);
+}
+
+.sound-toggle-btn.is-muted .sound-icon-on {
+  display: none;
+}
+
+.sound-toggle-btn.is-muted .sound-icon-off {
+  display: block;
+}
+
+.reel-card .activity-media {
+  aspect-ratio: 4 / 3;
+  padding: 12px;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 107, 53, 0.16), #0b0c12 78%);
+}
+
+.reel-card .activity-media img {
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.reel-format-pill {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.18rem 0.52rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  background: rgba(16, 17, 22, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: #bae6fd;
+  backdrop-filter: blur(8px);
+}
+
+.ig-telemetry-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.35rem;
+  padding: 0.9rem 1.15rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(20, 22, 31, 0.88));
+  border: 1px solid rgba(255, 107, 53, 0.28);
+  backdrop-filter: blur(10px);
+}
+
+.ig-profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+  transition: transform 0.18s ease;
+}
+
+.ig-profile-chip:hover {
+  transform: translateY(-1px);
+}
+
+.ig-profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 107, 53, 0.48);
+  background: #101116;
+  flex-shrink: 0;
+}
+
+.ig-profile-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.ig-profile-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ig-handle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.ig-live-pill {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.ig-live-pill.is-local {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-subtle);
+}
+
+.ig-bio-line {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 44ch;
+}
+
+.ig-stats-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.ig-stat-pill {
+  min-width: 92px;
+  padding: 0.5rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(16, 17, 22, 0.72);
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ig-stat-pill:hover {
+  border-color: var(--border-fox);
+  transform: translateY(-1px);
+}
+
+.ig-stat-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+  color: var(--text-main);
+}
+
+.ig-stat-pill--accent .ig-stat-value {
+  color: var(--fox-orange);
+}
+
+.ig-stat-pill--amber .ig-stat-value {
+  color: var(--fox-amber);
+}
+
+.ig-stat-label {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .ig-telemetry-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ig-bio-line {
+    white-space: normal;
+  }
+
+  .ig-stats-pills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .toast {

@@ -259,6 +259,7 @@
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxDesc = document.getElementById('lightboxDesc');
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxBackdrop = document.getElementById('lightboxBackdrop');
   const toastEl = document.getElementById('toast');
@@ -273,21 +274,35 @@
     }, 2600);
   }
 
-  function openLightbox(src, caption) {
+  function openLightbox(src, caption, desc = '') {
     if (!lightbox || !lightboxImg) return;
     lightboxImg.src = src;
     lightboxImg.alt = caption || 'Vista previa';
-    lightboxCaption.textContent = caption || 'Vista previa';
+    if (lightboxCaption) lightboxCaption.textContent = caption || 'Vista previa';
+    if (lightboxDesc) {
+      const cleanDesc = (desc || '').trim();
+      lightboxDesc.textContent = cleanDesc;
+      lightboxDesc.hidden = !cleanDesc;
+    }
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
+    if (window.NatuAudio) window.NatuAudio.play('open');
   }
 
   function closeLightbox() {
     if (!lightbox) return;
+    if (!lightbox.hidden && window.NatuAudio) window.NatuAudio.play('close');
     lightbox.hidden = true;
     lightboxImg.src = '';
+    if (lightboxDesc) {
+      lightboxDesc.textContent = '';
+      lightboxDesc.hidden = true;
+    }
     document.body.style.overflow = '';
   }
+
+  window.__natuOpenLightbox = openLightbox;
+  window.__natuShowToast = showToast;
 
   function renderProjects(filterKey = 'all') {
     if (!projectsGrid) return;
@@ -419,63 +434,120 @@
     `;
   }
 
-  let activitiesAutoPaused = false;
-  let activitiesPauseUntil = 0;
-  let activitiesVirtualScroll = 0;
-  let activitiesTickerStarted = false;
+  function createInfiniteCarousel({ trackEl, prevBtn, nextBtn, itemSelector, speedPx = 28 }) {
+    let paused = false;
+    let pauseUntil = 0;
+    let virtualScroll = 0;
+    let tickerStarted = false;
 
-  function getActivityStep() {
-    const card = activitiesGrid?.querySelector('.activity-card');
-    if (!card) return 365;
-    const style = window.getComputedStyle(activitiesGrid);
-    const gap = parseFloat(style.columnGap || style.gap) || 18;
-    return card.getBoundingClientRect().width + gap;
-  }
+    function getStep() {
+      const card = trackEl?.querySelector(itemSelector);
+      if (!card || !trackEl) return 365;
+      const style = window.getComputedStyle(trackEl);
+      const gap = parseFloat(style.columnGap || style.gap) || 18;
+      return card.getBoundingClientRect().width + gap;
+    }
 
-  function startActivitiesAutoScroll() {
-    if (activitiesTickerStarted || !activitiesGrid) return;
-    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
+    function startTicker() {
+      if (tickerStarted || !trackEl) return;
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
 
-    activitiesTickerStarted = true;
-    const SPEED_PX_PER_SEC = 28;
-    let lastTime = performance.now();
+      tickerStarted = true;
+      let lastTime = performance.now();
 
-    const step = (now) => {
-      const dt = Math.min(0.05, Math.max(0, (now - lastTime) / 1000));
-      lastTime = now;
+      const step = (now) => {
+        const dt = Math.min(0.05, Math.max(0, (now - lastTime) / 1000));
+        lastTime = now;
 
-      if (!activitiesAutoPaused && !document.hidden && now >= activitiesPauseUntil) {
-        const cardStep = getActivityStep();
-        const maxScroll = activitiesGrid.scrollWidth - activitiesGrid.clientWidth;
+        if (!paused && !document.hidden && now >= pauseUntil) {
+          const cardStep = getStep();
+          const maxScroll = trackEl.scrollWidth - trackEl.clientWidth;
 
-        if (maxScroll > 10 && activitiesGrid.children.length > 1) {
-          if (Math.abs(activitiesVirtualScroll - activitiesGrid.scrollLeft) > 3) {
-            activitiesVirtualScroll = activitiesGrid.scrollLeft;
-          }
-          activitiesVirtualScroll += SPEED_PX_PER_SEC * dt;
-
-          // Bucle infinito sin tarjetas repetidas: cuando la primera tarjeta salió por completo a la izquierda,
-          // pasa al final de la fila restando su ancho exacto para mantener continuidad visual de 0px de salto.
-          if (activitiesVirtualScroll >= cardStep) {
-            const firstCard = activitiesGrid.firstElementChild;
-            if (firstCard) {
-              activitiesGrid.appendChild(firstCard);
-              activitiesVirtualScroll -= cardStep;
+          if (maxScroll > 10 && trackEl.children.length > 1) {
+            if (Math.abs(virtualScroll - trackEl.scrollLeft) > 3) {
+              virtualScroll = trackEl.scrollLeft;
             }
-          }
+            virtualScroll += speedPx * dt;
 
-          activitiesGrid.scrollLeft = activitiesVirtualScroll;
+            if (virtualScroll >= cardStep) {
+              const firstCard = trackEl.firstElementChild;
+              if (firstCard) {
+                trackEl.appendChild(firstCard);
+                virtualScroll -= cardStep;
+              }
+            }
+
+            trackEl.scrollLeft = virtualScroll;
+          }
+        } else {
+          virtualScroll = trackEl.scrollLeft;
         }
-      } else {
-        activitiesVirtualScroll = activitiesGrid.scrollLeft;
-      }
+
+        requestAnimationFrame(step);
+      };
 
       requestAnimationFrame(step);
-    };
+    }
 
-    requestAnimationFrame(step);
+    if (trackEl) {
+      trackEl.addEventListener('mouseenter', () => { paused = true; });
+      trackEl.addEventListener('mouseleave', () => { paused = false; });
+      trackEl.addEventListener('focusin', () => { paused = true; });
+      trackEl.addEventListener('focusout', () => { paused = false; });
+      trackEl.addEventListener('pointerdown', () => { paused = true; });
+      window.addEventListener('pointerup', () => {
+        if (paused) {
+          paused = false;
+          pauseUntil = performance.now() + 900;
+        }
+      });
+    }
+
+    if (prevBtn && trackEl) {
+      prevBtn.addEventListener('click', () => {
+        const cardStep = getStep();
+        if (trackEl.scrollLeft <= cardStep * 0.6 && trackEl.lastElementChild) {
+          trackEl.prepend(trackEl.lastElementChild);
+          trackEl.scrollLeft += cardStep;
+        }
+        pauseUntil = performance.now() + 1200;
+        trackEl.scrollBy({ left: -Math.round(cardStep), behavior: 'smooth' });
+      });
+    }
+
+    if (nextBtn && trackEl) {
+      nextBtn.addEventListener('click', () => {
+        const cardStep = getStep();
+        const maxScroll = trackEl.scrollWidth - trackEl.clientWidth;
+        if (trackEl.scrollLeft >= maxScroll - cardStep * 0.6 && trackEl.firstElementChild) {
+          trackEl.appendChild(trackEl.firstElementChild);
+          trackEl.scrollLeft = Math.max(0, trackEl.scrollLeft - cardStep);
+        }
+        pauseUntil = performance.now() + 1200;
+        trackEl.scrollBy({ left: Math.round(cardStep), behavior: 'smooth' });
+      });
+    }
+
+    return {
+      start: startTicker,
+      setPaused: (value) => { paused = Boolean(value); },
+      resetScroll: () => {
+        virtualScroll = 0;
+        if (trackEl) trackEl.scrollLeft = 0;
+      }
+    };
   }
+
+  window.__natuCreateInfiniteCarousel = createInfiniteCarousel;
+
+  const activitiesCarousel = createInfiniteCarousel({
+    trackEl: activitiesGrid,
+    prevBtn: activitiesPrevBtn,
+    nextBtn: activitiesNextBtn,
+    itemSelector: '.activity-card',
+    speedPx: 28
+  });
 
   function renderActivities() {
     if (!activitiesGrid) return;
@@ -490,45 +562,7 @@
       });
     });
 
-    startActivitiesAutoScroll();
-  }
-
-  if (activitiesGrid) {
-    activitiesGrid.addEventListener('mouseenter', () => { activitiesAutoPaused = true; });
-    activitiesGrid.addEventListener('mouseleave', () => { activitiesAutoPaused = false; });
-    activitiesGrid.addEventListener('focusin', () => { activitiesAutoPaused = true; });
-    activitiesGrid.addEventListener('focusout', () => { activitiesAutoPaused = false; });
-    activitiesGrid.addEventListener('pointerdown', () => { activitiesAutoPaused = true; });
-    window.addEventListener('pointerup', () => {
-      if (activitiesAutoPaused) {
-        activitiesAutoPaused = false;
-        activitiesPauseUntil = performance.now() + 900;
-      }
-    });
-  }
-
-  if (activitiesPrevBtn && activitiesGrid) {
-    activitiesPrevBtn.addEventListener('click', () => {
-      const cardStep = getActivityStep();
-      if (activitiesGrid.scrollLeft <= cardStep * 0.6 && activitiesGrid.lastElementChild) {
-        activitiesGrid.prepend(activitiesGrid.lastElementChild);
-        activitiesGrid.scrollLeft += cardStep;
-      }
-      activitiesPauseUntil = performance.now() + 1200;
-      activitiesGrid.scrollBy({ left: -Math.round(cardStep), behavior: 'smooth' });
-    });
-  }
-  if (activitiesNextBtn && activitiesGrid) {
-    activitiesNextBtn.addEventListener('click', () => {
-      const cardStep = getActivityStep();
-      const maxScroll = activitiesGrid.scrollWidth - activitiesGrid.clientWidth;
-      if (activitiesGrid.scrollLeft >= maxScroll - cardStep * 0.6 && activitiesGrid.firstElementChild) {
-        activitiesGrid.appendChild(activitiesGrid.firstElementChild);
-        activitiesGrid.scrollLeft = Math.max(0, activitiesGrid.scrollLeft - cardStep);
-      }
-      activitiesPauseUntil = performance.now() + 1200;
-      activitiesGrid.scrollBy({ left: Math.round(cardStep), behavior: 'smooth' });
-    });
+    activitiesCarousel.start();
   }
 
   function renderPodcastCarousel(index = 0) {
@@ -860,7 +894,7 @@
       }, 650);
     });
     gravityBodies = [];
-    activitiesAutoPaused = false;
+    activitiesCarousel.setPaused(false);
     foxClickStreak = 0;
     updateFoxQuote(true);
   }
@@ -868,7 +902,7 @@
   function triggerGravityCollapse() {
     if (gravityActive) return;
     gravityActive = true;
-    activitiesAutoPaused = true;
+    activitiesCarousel.setPaused(true);
 
     const triggerRect = (foxFrameTrigger || foxOrbCard || document.body).getBoundingClientRect();
     const ox = triggerRect.left + triggerRect.width / 2;
@@ -1267,17 +1301,18 @@
   }
 
   const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxCaption = document.getElementById('lightboxCaption');
-
-  function openLightbox(src, title) {
-    if (!lightbox || !lightboxImg) return;
-    lightboxImg.src = src;
-    lightboxImg.alt = title || '';
-    if (lightboxCaption) lightboxCaption.textContent = title || 'Vista previa';
-    lightbox.hidden = false;
+  // Lightbox compartido con el módulo principal
+  const openLightbox = window.__natuOpenLightbox || function fallbackLightbox(src, title) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const cap = document.getElementById('lightboxCaption');
+    if (!lb || !img) return;
+    img.src = src;
+    img.alt = title || '';
+    if (cap) cap.textContent = title || 'Vista previa';
+    lb.hidden = false;
     document.body.style.overflow = 'hidden';
-  }
+  };
 
   if (natuActiveImg) {
     natuActiveImg.addEventListener('click', () => {
@@ -1296,6 +1331,319 @@
     });
   });
 
+  // =========================================================================
+  // Carrusel de Reels de @natu.phy + HUD Estadísticas en vivo (Behold JSON)
+  // =========================================================================
+  const natuReelsGrid = document.getElementById('natuReelsGrid');
+  const reelsCountEl = document.getElementById('reelsCount');
+  const reelsPrevBtn = document.getElementById('reelsPrevBtn');
+  const reelsNextBtn = document.getElementById('reelsNextBtn');
+
+  const isEnLang = () => window.NachoI18n && window.NachoI18n.getLang() === 'en';
+  const FALLBACK_BEHOLD_URL = 'https://feeds.behold.so/DBWb5Q76eVprNmEOhpvo';
+
+  const DEFAULT_NATU_REELS = [
+    {
+      id: 'reel-01',
+      badge: 'Física & Cálculo · #01',
+      topic: '@natu.phy · Círculo Unitario',
+      title: '¿Por qué en física todos juran que sin(x) ≈ x?',
+      summary: 'No es flojera de cálculo: en radianes, x es la longitud del arco curvo y sin(x) es la altura vertical recta en el círculo unitario. Por serie de Taylor el error va como x³/6: bajo 14° te equivocas menos del 1%, pero a 70° el péndulo real se frena y el truco se rompe.',
+      tags: ['#NatuPhy', '#Física', '#Cálculo', '#Taylor'],
+      image: 'assets/reels/Portada_Div_01_SinX_Aprox.png',
+      imageAlt: 'Portada Reel 01 de @natu.phy: ¿Por qué sin(x) ≈ x?',
+      url: 'https://www.instagram.com/natu.phy/',
+      urlLabel: 'Ver Reel en Instagram'
+    },
+    {
+      id: 'reel-02',
+      badge: 'Óptica Atmosférica · #02',
+      topic: '@natu.phy · Dispersión Rayleigh',
+      title: '¿Por qué el cielo es azul y no violeta?',
+      summary: 'La dispersión de Rayleigh escala con 1/λ⁴, desviando la luz azul casi 6 veces más que la roja. No lo vemos violeta porque el Sol emite menos radiación violeta y nuestros conos oculares son mucho más sensibles al azul. Al atardecer la luz cruza 10× más atmósfera y solo llega el rojo.',
+      tags: ['#NatuPhy', '#Óptica', '#Rayleigh', '#Atardecer'],
+      image: 'assets/reels/Portada_Div_02_Cielo_Azul.png',
+      imageAlt: 'Portada Reel 02 de @natu.phy: ¿Por qué el cielo es azul y no violeta?',
+      url: 'https://www.instagram.com/natu.phy/',
+      urlLabel: 'Ver Reel en Instagram'
+    },
+    {
+      id: 'reel-03',
+      badge: 'Termodinámica · #03',
+      topic: '@natu.phy · Boltzmann S = k_B ln(Ω)',
+      title: "Basta de decir 'desorden': así funciona la Entropía en tu café",
+      summary: 'Cada choque individual entre moléculas rápidas del café (90°C) y lentas del aire (22°C) es 100% reversible. El café no hierve solo por estadística pura: hay 1 forma microscópica de concentrar la energía frente a 10²³ formas de repartirla en la habitación.',
+      tags: ['#NatuPhy', '#Entropía', '#Termodinámica', '#Boltzmann'],
+      image: 'assets/reels/Portada_Div_03_Entropia_Cafe.png',
+      imageAlt: 'Portada Reel 03 de @natu.phy: Entropía y por qué se enfría tu café',
+      url: 'https://www.instagram.com/natu.phy/',
+      urlLabel: 'Ver Reel en Instagram'
+    },
+    {
+      id: 'reel-04',
+      badge: 'Cosmología · #04',
+      topic: '@natu.phy · Doppler & Redshift',
+      title: '¿Cómo sabemos que el Universo se expande (y no son estrellas rojas)?',
+      summary: 'La prueba reina son los códigos de barras atómicos: el hidrógeno absorbe luz en longitudes de onda cuánticas idénticas en todo el cosmos (líneas de Balmer). Ver ese patrón rígido desplazado hacia el rojo demuestra matemáticamente que el propio espacio se estiró.',
+      tags: ['#NatuPhy', '#Cosmología', '#Doppler', '#Redshift'],
+      image: 'assets/reels/Portada_Div_04_Efecto_Doppler.png',
+      imageAlt: 'Portada Reel 04 de @natu.phy: Efecto Doppler y Redshift cosmológico',
+      url: 'https://www.instagram.com/natu.phy/',
+      urlLabel: 'Ver Reel en Instagram'
+    },
+    {
+      id: 'reel-05',
+      badge: 'Cuántica & Fotónica · #05',
+      topic: '@natu.phy · Emisión Estimulada',
+      title: '¿Cómo un láser viaja kilómetros en línea recta?',
+      summary: 'A diferencia de la ampolleta caótica, un láser usa emisión estimulada para clonar fotones idénticos en fase, color y dirección. El secreto es la Inversión de Población (N₂ > N₁) mediante bombeo dentro de una cavidad de dos espejos que multiplica el haz coherente.',
+      tags: ['#NatuPhy', '#Láser', '#Cuántica', '#Fotónica'],
+      image: 'assets/reels/Portada_Div_05_Como_Funciona_Laser.png',
+      imageAlt: 'Portada Reel 05 de @natu.phy: ¿Cómo funciona un láser?',
+      url: 'https://www.instagram.com/natu.phy/',
+      urlLabel: 'Ver Reel en Instagram'
+    },
+    {
+      id: 'reel-06',
+      badge: 'Astrofísica · #06',
+      topic: '@natu.phy · Exoplanetas & JWST',
+      title: '¿Cómo cazamos planetas si su estrella brilla 10¹⁰ más?',
+      summary: 'Combinamos dos trucos indirectos: 1) Tránsito (ΔF/F = (Rp/R*)² revela el radio y periodo al tapar un poco de luz) y 2) Velocidad radial (bamboleo Doppler estelar revela la masa). Con masa y radio calculamos su densidad para saber si es roca o gas sin foto directa.',
+      tags: ['#NatuPhy', '#Exoplanetas', '#Astrofísica', '#JWST'],
+      image: 'assets/reels/Portada_Div_06_Como_Buscar_Exoplanetas.png',
+      imageAlt: 'Portada Reel 06 de @natu.phy: ¿Cómo cazamos exoplanetas?',
+      url: 'https://www.instagram.com/natu.phy/',
+      urlLabel: 'Ver Reel en Instagram'
+    }
+  ];
+
+  function escHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function formatShortDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toLocaleDateString(isEnLang() ? 'en-US' : 'es-CL', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function parseBeholdPost(post, idx, account) {
+    const rawCaption = (post.caption || post.prunedCaption || '').trim();
+    const lines = rawCaption.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+    const title = lines[0] || `Reel #${String(idx + 1).padStart(2, '0')} · @${account}`;
+    const isTagOnlyLine = (line) => /^(#\S+\s*)+$/.test(line);
+    const bodyLines = lines.slice(1).filter((l) => !isTagOnlyLine(l));
+    const summary = bodyLines.join(' ') || rawCaption || 'Divulgación científica en @natu.phy.';
+    const tags = Array.isArray(post.hashtags) && post.hashtags.length
+      ? post.hashtags
+        .filter((t) => !/^[0-9a-f]{6}$/i.test(String(t).replace(/^#/, '')))
+        .slice(0, 4)
+        .map((t) => (t.startsWith('#') ? t : `#${t}`))
+      : ['#NatuPhy', '#Física', '#Divulgación'];
+    const img = post.sizes?.large?.mediaUrl
+      || post.sizes?.medium?.mediaUrl
+      || post.thumbnailUrl
+      || post.mediaUrl
+      || DEFAULT_NATU_REELS[idx % DEFAULT_NATU_REELS.length].image;
+    const dateLabel = formatShortDate(post.timestamp);
+    const stats = [];
+    if (typeof post.likeCount === 'number') stats.push(`❤️ ${post.likeCount}`);
+    if (typeof post.commentsCount === 'number') stats.push(`💬 ${post.commentsCount}`);
+    const metaParts = [`@${account}`];
+    if (dateLabel) metaParts.push(dateLabel);
+    if (stats.length) metaParts.push(stats.join(' · '));
+    return {
+      id: post.id || `ig-reel-${idx + 1}`,
+      badge: `Instagram Reel · #${String(idx + 1).padStart(2, '0')}`,
+      topic: metaParts.join(' · '),
+      title,
+      summary,
+      tags,
+      image: img,
+      imageAlt: title,
+      url: post.permalink || `https://www.instagram.com/${account}/`,
+      urlLabel: isEnLang() ? 'Watch Reel on Instagram' : 'Ver Reel en Instagram'
+    };
+  }
+
+  function renderNatuReelCard(reel) {
+    const tagsHtml = (reel.tags || []).map((t) => `<span class="project-tag">${escHtml(t)}</span>`).join('');
+    const src = escHtml(reel.image);
+    const title = escHtml(reel.title);
+    const summary = escHtml(reel.summary);
+    const coverLabel = isEnLang() ? 'View Cover' : 'Ver Portada';
+    const watchLabel = reel.urlLabel || (isEnLang() ? 'Watch Reel on Instagram' : 'Ver Reel en Instagram');
+    return `
+      <article class="activity-card reel-card">
+        <div class="activity-media">
+          <img src="${src}" alt="${escHtml(reel.imageAlt || reel.title)}" loading="lazy" data-zoom-src="${src}" data-zoom-caption="${title}" data-zoom-desc="${summary}" />
+          <span class="activity-badge">${escHtml(reel.badge || 'Reel · @natu.phy')}</span>
+          <span class="reel-format-pill">▶ REEL 9:16</span>
+        </div>
+        <div class="activity-body">
+          <div class="activity-meta">
+            <span>📸 ${escHtml(reel.topic || '@natu.phy')}</span>
+          </div>
+          <h3 class="activity-title">${title}</h3>
+          <p class="activity-desc" title="${summary}">${summary}</p>
+          <div class="activity-tags">${tagsHtml}</div>
+          <div class="activity-actions">
+            <a href="${escHtml(reel.url || 'https://www.instagram.com/natu.phy/')}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <span>${escHtml(watchLabel)}</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+            <button type="button" class="btn btn-glass" data-zoom-src="${src}" data-zoom-caption="${title}" data-zoom-desc="${summary}">
+              <span>${coverLabel}</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  if (natuReelsGrid && window.__natuCreateInfiniteCarousel) {
+    const reelsCarousel = window.__natuCreateInfiniteCarousel({
+      trackEl: natuReelsGrid,
+      prevBtn: reelsPrevBtn,
+      nextBtn: reelsNextBtn,
+      itemSelector: '.activity-card',
+      speedPx: 26
+    });
+
+    let lastBeholdRaw = null;
+    let lastReelsAccount = 'natu.phy';
+    let lastReelsList = DEFAULT_NATU_REELS;
+
+    function updateIgTelemetry(igPayload, reelsList) {
+      const followersEl = document.getElementById('igStatFollowers');
+      const reelsEl = document.getElementById('igStatReels');
+      const likesEl = document.getElementById('igStatLikes');
+      const commentsEl = document.getElementById('igStatComments');
+      const avatarEl = document.getElementById('igProfileAvatar');
+      const bioEl = document.getElementById('igProfileBio');
+      const badgeEl = document.getElementById('igLiveBadge');
+
+      const fmtNum = (n) => (typeof n === 'number' ? n.toLocaleString(isEnLang() ? 'en-US' : 'es-CL') : '--');
+      const count = Array.isArray(reelsList) ? reelsList.length : 0;
+      if (reelsEl) reelsEl.textContent = fmtNum(count);
+
+      if (!igPayload || Array.isArray(igPayload)) {
+        if (badgeEl) {
+          badgeEl.textContent = isEnLang() ? 'LOCAL FEED' : 'CATÁLOGO LOCAL';
+          badgeEl.classList.add('is-local');
+        }
+        return;
+      }
+
+      if (badgeEl) {
+        badgeEl.textContent = '● LIVE IG';
+        badgeEl.classList.remove('is-local');
+      }
+      if (followersEl) followersEl.textContent = fmtNum(igPayload.followersCount);
+
+      const posts = Array.isArray(reelsList) ? reelsList : [];
+      const totalLikes = posts.reduce((acc, p) => acc + (Number(p.likeCount) || 0), 0);
+      const totalComments = posts.reduce((acc, p) => acc + (Number(p.commentsCount) || 0), 0);
+      if (likesEl) likesEl.textContent = fmtNum(totalLikes);
+      if (commentsEl) commentsEl.textContent = fmtNum(totalComments);
+
+      if (avatarEl && igPayload.profilePictureUrl) {
+        avatarEl.onerror = () => {
+          avatarEl.onerror = null;
+          avatarEl.src = 'assets/img/fox-avatar.png';
+        };
+        avatarEl.src = igPayload.profilePictureUrl;
+      }
+
+      if (bioEl && igPayload.biography) {
+        const firstLine = igPayload.biography.split(/\r?\n/).map((l) => l.trim()).find(Boolean);
+        if (firstLine) bioEl.textContent = firstLine;
+      }
+    }
+
+    const renderNatuReels = (list) => {
+      const safeList = Array.isArray(list) && list.length ? list : DEFAULT_NATU_REELS;
+      lastReelsList = safeList;
+      if (reelsCountEl) {
+        reelsCountEl.textContent = `${safeList.length} ${safeList.length === 1 ? 'reel' : 'reels'}`;
+      }
+      natuReelsGrid.innerHTML = safeList.map((r) => renderNatuReelCard(r)).join('');
+      natuReelsGrid.querySelectorAll('[data-zoom-src]').forEach((el) => {
+        el.addEventListener('click', () => {
+          openLightbox(el.dataset.zoomSrc, el.dataset.zoomCaption, el.dataset.zoomDesc || '');
+        });
+      });
+      reelsCarousel.resetScroll();
+      reelsCarousel.start();
+    };
+
+    const loadSyncedNatuReels = async () => {
+      let account = 'natu.phy';
+      let beholdUrl = FALLBACK_BEHOLD_URL;
+      let localJsonReels = null;
+
+      if (window.location.protocol !== 'file:') {
+        try {
+          const res = await fetch('data/natu-reels.json', { cache: 'no-store' });
+          if (res.ok) {
+            const data = await res.json();
+            account = data?.account || account;
+            if (data?.beholdFeedUrl) beholdUrl = data.beholdFeedUrl;
+            if (Array.isArray(data?.reels) && data.reels.length) {
+              localJsonReels = data.reels;
+            }
+          }
+        } catch (_) {
+          // fallback directo a beholdUrl
+        }
+      }
+
+      if (beholdUrl) {
+        try {
+          const igRes = await fetch(beholdUrl, { cache: 'no-store' });
+          if (igRes.ok) {
+            const igPayload = await igRes.json();
+            const rawPosts = Array.isArray(igPayload) ? igPayload : igPayload?.posts;
+            if (Array.isArray(rawPosts) && rawPosts.length) {
+              const videoPosts = rawPosts.filter((p) => p.mediaType === 'VIDEO' || p.isReel);
+              const chosen = videoPosts.length ? videoPosts : rawPosts;
+              lastBeholdRaw = { payload: igPayload, chosen: chosen.slice(0, 12) };
+              lastReelsAccount = account;
+              updateIgTelemetry(igPayload, chosen);
+              renderNatuReels(lastBeholdRaw.chosen.map((p, idx) => parseBeholdPost(p, idx, account)));
+              return;
+            }
+          }
+        } catch (_) {
+          // fallback al JSON local
+        }
+      }
+
+      if (localJsonReels) renderNatuReels(localJsonReels);
+      updateIgTelemetry(null, localJsonReels || DEFAULT_NATU_REELS);
+    };
+
+    if (window.NachoI18n) {
+      window.NachoI18n.onChange(() => {
+        if (lastBeholdRaw) {
+          updateIgTelemetry(lastBeholdRaw.payload, lastBeholdRaw.chosen);
+          renderNatuReels(lastBeholdRaw.chosen.map((p, idx) => parseBeholdPost(p, idx, lastReelsAccount)));
+        } else {
+          renderNatuReels(lastReelsList);
+        }
+      });
+    }
+
+    renderNatuReels(DEFAULT_NATU_REELS);
+    loadSyncedNatuReels();
+  }
+
   const filterBtns = document.querySelectorAll('.dl-filter-btn');
   const dlSections = document.querySelectorAll('.dl-group-section');
   if (filterBtns.length && dlSections.length) {
@@ -1313,4 +1661,153 @@
       applyFilter(hash);
     }
   }
+})();
+
+// ==========================================================================
+// 3. Motor de sonido UI táctil (Web Audio API, sin archivos externos)
+// ==========================================================================
+(() => {
+  const STORAGE_KEY = 'natu_ui_sound';
+  const toggleBtn = document.getElementById('soundToggleBtn');
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+
+  let enabled = localStorage.getItem(STORAGE_KEY) !== 'off';
+  let ctx = null;
+  let lastHoverAt = 0;
+
+  function ensureContext(allowCreate = false) {
+    if (!AudioCtx) return null;
+    if (!ctx) {
+      if (!allowCreate) return null;
+      ctx = new AudioCtx();
+    }
+    if (ctx.state === 'suspended' && allowCreate) {
+      ctx.resume().catch(() => {});
+    }
+    return ctx;
+  }
+
+  function tone(audioCtx, { type = 'sine', f0, f1, dur = 0.04, gain = 0.06, delay = 0 }) {
+    const t0 = audioCtx.currentTime + delay;
+    const osc = audioCtx.createOscillator();
+    const amp = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(f0, t0);
+    if (f1 && f1 !== f0) {
+      osc.frequency.exponentialRampToValueAtTime(Math.max(20, f1), t0 + dur);
+    }
+    amp.gain.setValueAtTime(0.0001, t0);
+    amp.gain.linearRampToValueAtTime(gain, t0 + 0.004);
+    amp.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    osc.connect(amp);
+    amp.connect(audioCtx.destination);
+    osc.start(t0);
+    osc.stop(t0 + dur + 0.01);
+  }
+
+  function play(kind = 'click') {
+    if (!enabled) return;
+    const isHover = kind === 'hover';
+    const audioCtx = ensureContext(!isHover);
+    if (!audioCtx || audioCtx.state !== 'running') return;
+
+    if (isHover) {
+      const now = performance.now();
+      if (now - lastHoverAt < 65) return;
+      lastHoverAt = now;
+      tone(audioCtx, { type: 'sine', f0: 1180, f1: 1460, dur: 0.022, gain: 0.016 });
+      return;
+    }
+
+    switch (kind) {
+      case 'nav':
+        tone(audioCtx, { type: 'triangle', f0: 560, f1: 860, dur: 0.048, gain: 0.05 });
+        break;
+      case 'fox':
+        tone(audioCtx, { type: 'triangle', f0: 740, f1: 980, dur: 0.045, gain: 0.055 });
+        tone(audioCtx, { type: 'sine', f0: 1020, f1: 1320, dur: 0.055, gain: 0.045, delay: 0.04 });
+        break;
+      case 'download':
+        tone(audioCtx, { type: 'triangle', f0: 523.25, f1: 523.25, dur: 0.05, gain: 0.05 });
+        tone(audioCtx, { type: 'triangle', f0: 659.25, f1: 659.25, dur: 0.055, gain: 0.05, delay: 0.045 });
+        tone(audioCtx, { type: 'sine', f0: 880, f1: 932, dur: 0.08, gain: 0.048, delay: 0.09 });
+        break;
+      case 'open':
+        tone(audioCtx, { type: 'sine', f0: 420, f1: 780, dur: 0.07, gain: 0.048 });
+        break;
+      case 'close':
+        tone(audioCtx, { type: 'sine', f0: 640, f1: 330, dur: 0.065, gain: 0.045 });
+        break;
+      case 'click':
+      default:
+        tone(audioCtx, { type: 'triangle', f0: 480, f1: 210, dur: 0.032, gain: 0.06 });
+        tone(audioCtx, { type: 'sine', f0: 1100, f1: 680, dur: 0.018, gain: 0.022 });
+        break;
+    }
+  }
+
+  window.NatuAudio = {
+    play,
+    isEnabled: () => enabled
+  };
+
+  function syncToggleUI() {
+    if (!toggleBtn) return;
+    toggleBtn.classList.toggle('is-muted', !enabled);
+    toggleBtn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+    const isEn = window.NachoI18n && window.NachoI18n.getLang() === 'en';
+    toggleBtn.title = enabled
+      ? (isEn ? 'Button sounds: On' : 'Sonido de botones: Activado')
+      : (isEn ? 'Button sounds: Muted' : 'Sonido de botones: Silenciado');
+  }
+  syncToggleUI();
+  if (window.NachoI18n) window.NachoI18n.onChange(syncToggleUI);
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      enabled = !enabled;
+      localStorage.setItem(STORAGE_KEY, enabled ? 'on' : 'off');
+      syncToggleUI();
+      if (enabled) play('download');
+      if (window.__natuShowToast) {
+        const isEn = window.NachoI18n && window.NachoI18n.getLang() === 'en';
+        window.__natuShowToast(enabled
+          ? (isEn ? '🔊 Button sounds enabled' : '🔊 Sonido de botones activado')
+          : (isEn ? '🔇 Button sounds muted' : '🔇 Sonido de botones silenciado'));
+      }
+    });
+  }
+
+  const INTERACTIVE_SEL = 'button, a.btn, a.btn-nav-cta, a.btn-icon, a.nav-link, a.mobile-link, .thumb-btn, .carousel-btn, .dl-filter-btn, .filter-tab, .sticker-dl, .natu-lore-quote, .fox-frame, .fox-speech, [data-zoom-src], [data-lightbox-src]';
+
+  document.addEventListener('pointerdown', (e) => {
+    if (e.target.closest(INTERACTIVE_SEL)) {
+      ensureContext(true);
+    }
+  }, { passive: true });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest(INTERACTIVE_SEL);
+    if (!target || target.id === 'soundToggleBtn') return;
+    if (target.matches('.natu-lore-quote, .fox-frame, .fox-speech')) {
+      play('fox');
+    } else if (target.matches('[download], .sticker-dl, #copyEmailBtn')) {
+      play('download');
+    } else if (target.matches('.carousel-btn, .thumb-btn, .dl-filter-btn, .filter-tab, .podcast-dot-btn, .nav-link, .mobile-link, .lang-toggle-btn')) {
+      play('nav');
+    } else if (target.matches('.lightbox-close')) {
+      play('close');
+    } else if (!target.matches('[data-zoom-src], [data-lightbox-src]')) {
+      play('click');
+    }
+  });
+
+  document.addEventListener('pointerover', (e) => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    const target = e.target.closest('button, a.btn, a.btn-nav-cta, a.btn-icon, .thumb-btn, .carousel-btn, .dl-filter-btn, .filter-tab');
+    if (!target) return;
+    if (e.relatedTarget && target.contains(e.relatedTarget)) return;
+    play('hover');
+  });
 })();

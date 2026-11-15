@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=20261115b" />
+  <link rel="stylesheet" href="css/styles.css?v=20261115c" />
 </head>
 <body>
   <!-- Fondo animado tecnológico (inspirado en qstate.cl + paleta Fox Naranjo) -->
@@ -51,6 +51,7 @@
       </nav>
 
       <div class="nav-actions">
+        <button type="button" class="btn-icon sound-toggle-btn" id="soundToggleBtn" title="Sonido de botones: Activado" aria-label="Alternar sonido de botones" aria-pressed="true"><svg class="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><svg class="sound-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
         <button type="button" class="lang-toggle-btn" id="langToggleBtn" aria-label="Cambiar idioma entre Español e Inglés" title="Switch to English">
           <span class="lang-opt is-active" data-lang-opt="es">ES</span>
           <span class="lang-opt" data-lang-opt="en">EN</span>
@@ -489,6 +490,7 @@
       </div>
       <div class="lightbox-body">
         <img src="" alt="" id="lightboxImg" />
+        <p class="lightbox-desc" id="lightboxDesc" hidden></p>
       </div>
     </div>
   </div>
@@ -502,8 +504,8 @@
   <!-- Toast de notificación -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/background.js?v=20261115b"></script>
-  <script src="js/i18n.js?v=20261115b"></script>
-  <script src="js/projects.js?v=20261115b"></script>
+  <script src="js/background.js?v=20261115c"></script>
+  <script src="js/i18n.js?v=20261115c"></script>
+  <script src="js/projects.js?v=20261115c"></script>
 </body>
 </html>

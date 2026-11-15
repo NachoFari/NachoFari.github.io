@@ -161,6 +161,17 @@
       'natu.ctaWp': '🖼️ Ver Wallpapers (10)',
       'natu.ctaWa': '💬 Stickers WhatsApp (20)',
       'natu.ctaPrint': '🖨️ Para Imprimir (18)',
+      'natu.nav.reels': 'Reels @natu.phy',
+
+      // Natu Reels (@natu.phy)
+      'natu.reels.tag': '📸 @natu.phy · Divulgación en Instagram',
+      'natu.reels.titleHtml': 'Reels de <span class="text-gradient">@natu.phy</span>',
+      'natu.reels.subtitle':
+        'Física, cálculo y astrofísica explicados en simple junto a Natu y Nacho — sincronizado con nuestro Instagram oficial.',
+      'natu.reels.statFollowers': 'Seguidores',
+      'natu.reels.statReels': 'Reels',
+      'natu.reels.statLikes': 'Me gusta',
+      'natu.reels.statComments': 'Comentarios',
 
       // Natu Downloads Header
       'natu.dl.tag': '📦 Llévate a Natu contigo',
@@ -383,6 +394,17 @@
       'natu.ctaWp': '🖼️ View Wallpapers (10)',
       'natu.ctaWa': '💬 WhatsApp Stickers (20)',
       'natu.ctaPrint': '🖨️ Print-Ready (18)',
+      'natu.nav.reels': 'Reels @natu.phy',
+
+      // Natu Reels (@natu.phy)
+      'natu.reels.tag': '📸 @natu.phy · Instagram Outreach',
+      'natu.reels.titleHtml': '<span class="text-gradient">@natu.phy</span> Reels',
+      'natu.reels.subtitle':
+        'Physics, calculus and astrophysics explained simply with Natu and Nacho — synced with our official Instagram.',
+      'natu.reels.statFollowers': 'Followers',
+      'natu.reels.statReels': 'Reels',
+      'natu.reels.statLikes': 'Likes',
+      'natu.reels.statComments': 'Comments',
 
       // Natu Downloads Header
       'natu.dl.tag': '📦 Take Natu with you',

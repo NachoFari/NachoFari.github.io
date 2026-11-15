@@ -1,0 +1,110 @@
+{
+  "account": "natu.phy",
+  "profileUrl": "https://www.instagram.com/natu.phy/",
+  "beholdFeedUrl": "https://feeds.behold.so/DBWb5Q76eVprNmEOhpvo",
+  "note": "Pega aquí tu beholdFeedUrl de Behold.so (gratis para cuentas Creator) o deja que GitHub Actions / sync actualice este JSON automáticamente.",
+  "reels": [
+    {
+      "id": "reel-01",
+      "badge": "Física & Cálculo · #01",
+      "topic": "@natu.phy · Círculo Unitario",
+      "title": "¿Por qué en física todos juran que sin(x) ≈ x?",
+      "summary": "No es flojera de cálculo: en radianes, x es la longitud del arco curvo y sin(x) es la altura vertical recta en el círculo unitario. Por serie de Taylor el error va como x³/6: bajo 14° te equivocas menos del 1%, pero a 70° el péndulo real se frena y el truco se rompe.",
+      "tags": [
+        "#NatuPhy",
+        "#Física",
+        "#Cálculo",
+        "#Taylor"
+      ],
+      "image": "assets/reels/Portada_Div_01_SinX_Aprox.png",
+      "imageAlt": "Portada Reel 01 de @natu.phy: ¿Por qué sin(x) ≈ x?",
+      "url": "https://www.instagram.com/natu.phy/",
+      "urlLabel": "Ver Reel en Instagram"
+    },
+    {
+      "id": "reel-02",
+      "badge": "Óptica Atmosférica · #02",
+      "topic": "@natu.phy · Dispersión Rayleigh",
+      "title": "¿Por qué el cielo es azul y no violeta?",
+      "summary": "La dispersión de Rayleigh escala con 1/λ⁴, desviando la luz azul casi 6 veces más que la roja. No lo vemos violeta porque el Sol emite menos radiación violeta y nuestros conos oculares son mucho más sensibles al azul. Al atardecer la luz cruza 10× más atmósfera y solo llega el rojo.",
+      "tags": [
+        "#NatuPhy",
+        "#Óptica",
+        "#Rayleigh",
+        "#Atardecer"
+      ],
+      "image": "assets/reels/Portada_Div_02_Cielo_Azul.png",
+      "imageAlt": "Portada Reel 02 de @natu.phy: ¿Por qué el cielo es azul y no violeta?",
+      "url": "https://www.instagram.com/natu.phy/",
+      "urlLabel": "Ver Reel en Instagram"
+    },
+    {
+      "id": "reel-03",
+      "badge": "Termodinámica · #03",
+      "topic": "@natu.phy · Boltzmann S = k_B ln(Ω)",
+      "title": "Basta de decir 'desorden': así funciona la Entropía en tu café",
+      "summary": "Cada choque individual entre moléculas rápidas del café (90°C) y lentas del aire (22°C) es 100% reversible. El café no hierve solo por estadística pura: hay 1 forma microscópica de concentrar la energía frente a 10²³ formas de repartirla en la habitación.",
+      "tags": [
+        "#NatuPhy",
+        "#Entropía",
+        "#Termodinámica",
+        "#Boltzmann"
+      ],
+      "image": "assets/reels/Portada_Div_03_Entropia_Cafe.png",
+      "imageAlt": "Portada Reel 03 de @natu.phy: Entropía y por qué se enfría tu café",
+      "url": "https://www.instagram.com/natu.phy/",
+      "urlLabel": "Ver Reel en Instagram"
+    },
+    {
+      "id": "reel-04",
+      "badge": "Cosmología · #04",
+      "topic": "@natu.phy · Doppler & Redshift",
+      "title": "¿Cómo sabemos que el Universo se expande (y no son estrellas rojas)?",
+      "summary": "La prueba reina son los códigos de barras atómicos: el hidrógeno absorbe luz en longitudes de onda cuánticas idénticas en todo el cosmos (líneas de Balmer). Ver ese patrón rígido desplazado hacia el rojo demuestra matemáticamente que el propio espacio se estiró.",
+      "tags": [
+        "#NatuPhy",
+        "#Cosmología",
+        "#Doppler",
+        "#Redshift"
+      ],
+      "image": "assets/reels/Portada_Div_04_Efecto_Doppler.png",
+      "imageAlt": "Portada Reel 04 de @natu.phy: Efecto Doppler y Redshift cosmológico",
+      "url": "https://www.instagram.com/natu.phy/",
+      "urlLabel": "Ver Reel en Instagram"
+    },
+    {
+      "id": "reel-05",
+      "badge": "Cuántica & Fotónica · #05",
+      "topic": "@natu.phy · Emisión Estimulada",
+      "title": "¿Cómo un láser viaja kilómetros en línea recta?",
+      "summary": "A diferencia de la ampolleta caótica, un láser usa emisión estimulada para clonar fotones idénticos en fase, color y dirección. El secreto es la Inversión de Población (N₂ > N₁) mediante bombeo dentro de una cavidad de dos espejos que multiplica el haz coherente.",
+      "tags": [
+        "#NatuPhy",
+        "#Láser",
+        "#Cuántica",
+        "#Fotónica"
+      ],
+      "image": "assets/reels/Portada_Div_05_Como_Funciona_Laser.png",
+      "imageAlt": "Portada Reel 05 de @natu.phy: ¿Cómo funciona un láser?",
+      "url": "https://www.instagram.com/natu.phy/",
+      "urlLabel": "Ver Reel en Instagram"
+    },
+    {
+      "id": "reel-06",
+      "badge": "Astrofísica · #06",
+      "topic": "@natu.phy · Exoplanetas & JWST",
+      "title": "¿Cómo cazamos planetas si su estrella brilla 10¹⁰ más?",
+      "summary": "Combinamos dos trucos indirectos: 1) Tránsito (ΔF/F = (Rp/R*)² revela el radio y periodo al tapar un poco de luz) y 2) Velocidad radial (bamboleo Doppler estelar revela la masa). Con masa y radio calculamos su densidad para saber si es roca o gas sin foto directa.",
+      "tags": [
+        "#NatuPhy",
+        "#Exoplanetas",
+        "#Astrofísica",
+        "#JWST"
+      ],
+      "image": "assets/reels/Portada_Div_06_Como_Buscar_Exoplanetas.png",
+      "imageAlt": "Portada Reel 06 de @natu.phy: ¿Cómo cazamos exoplanetas?",
+      "url": "https://www.instagram.com/natu.phy/",
+      "urlLabel": "Ver Reel en Instagram"
+    }
+  ]
+}

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20261115b" />
+  <link rel="stylesheet" href="css/styles.css?v=20261115c" />
 </head>
 <body>
   <div class="bg-atmosphere" aria-hidden="true"></div>
@@ -31,12 +31,14 @@
 
       <nav class="nav-links" aria-label="Navegación de Natu">
         <a href="#lore" class="nav-link active" data-i18n="natu.nav.lore">Lore de Natu</a>
+        <a href="#natu-reels" class="nav-link" data-i18n="natu.nav.reels">Reels @natu.phy</a>
         <a href="#wallpapers" class="nav-link" data-i18n="natu.nav.wallpapers">Wallpapers</a>
         <a href="#whatsapp" class="nav-link" data-i18n="natu.nav.whatsapp">Stickers WhatsApp</a>
         <a href="#imprimir" class="nav-link" data-i18n="natu.nav.print">Para Imprimir</a>
       </nav>
 
       <div class="nav-actions">
+        <button type="button" class="btn-icon sound-toggle-btn" id="soundToggleBtn" title="Sonido de botones: Activado" aria-label="Alternar sonido de botones" aria-pressed="true"><svg class="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><svg class="sound-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
         <button type="button" class="lang-toggle-btn" id="langToggleBtn" aria-label="Cambiar idioma entre Español e Inglés" title="Switch to English">
           <span class="lang-opt is-active" data-lang-opt="es">ES</span>
           <span class="lang-opt" data-lang-opt="en">EN</span>
@@ -50,6 +52,7 @@
 
     <div class="mobile-drawer" id="mobileDrawer">
       <a href="#lore" class="mobile-link" data-i18n="natu.nav.lore">Lore de Natu</a>
+      <a href="#natu-reels" class="mobile-link" data-i18n="natu.nav.reels">Reels @natu.phy</a>
       <a href="#wallpapers" class="mobile-link" data-i18n="natu.nav.wallpapers">Wallpapers</a>
       <a href="#whatsapp" class="mobile-link" data-i18n="natu.nav.whatsapp">Stickers WhatsApp</a>
       <a href="#imprimir" class="mobile-link" data-i18n="natu.nav.print">Para Imprimir</a>
@@ -199,6 +202,9 @@
             </div>
 
             <div class="flagship-actions">
+              <a href="https://www.instagram.com/natu.phy/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                <span>📸 @natu.phy</span>
+              </a>
               <a href="#wallpapers" class="btn btn-primary">
                 <span data-i18n="natu.ctaWp">🖼️ Ver Wallpapers (10)</span>
               </a>
@@ -211,6 +217,68 @@
             </div>
           </div>
         </article>
+      </div>
+    </section>
+
+    <!-- REELS DE @NATU.PHY (Carrusel sincronizado con Instagram, estilo Actividades y Eventos) -->
+    <section id="natu-reels" class="section">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag" data-i18n="natu.reels.tag">📸 @natu.phy · Divulgación en Instagram</div>
+            <h2 class="section-title" data-i18n-html="natu.reels.titleHtml">Reels de <span class="text-gradient">@natu.phy</span></h2>
+            <p class="section-subtitle" data-i18n="natu.reels.subtitle">
+              Física, cálculo y astrofísica explicados en simple junto a Natu y Nacho — sincronizado con nuestro Instagram oficial.
+            </p>
+          </div>
+
+          <div class="podcast-carousel-controls" aria-label="Desplazar Reels de Natu.phy">
+            <button type="button" class="carousel-btn" id="reelsPrevBtn" aria-label="Reels anteriores">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <span class="carousel-counter" id="reelsCount">1 reel</span>
+            <button type="button" class="carousel-btn" id="reelsNextBtn" aria-label="Siguientes Reels">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- HUD de métricas en vivo de @natu.phy (sincronizado vía Behold) -->
+        <div class="ig-telemetry-bar" id="igTelemetryBar" aria-label="Estadísticas de Instagram @natu.phy">
+          <a href="https://www.instagram.com/natu.phy/" target="_blank" rel="noopener noreferrer" class="ig-profile-chip">
+            <img src="assets/img/fox-avatar.png" alt="@natu.phy" id="igProfileAvatar" class="ig-profile-avatar" />
+            <div class="ig-profile-text">
+              <div class="ig-profile-top">
+                <strong class="ig-handle">@natu.phy</strong>
+                <span class="ig-live-pill" id="igLiveBadge">● LIVE IG</span>
+              </div>
+              <span class="ig-bio-line" id="igProfileBio">Ciencia y física difícil… explicada en simple</span>
+            </div>
+          </a>
+
+          <div class="ig-stats-pills">
+            <div class="ig-stat-pill ig-stat-pill--accent">
+              <span class="ig-stat-value" id="igStatFollowers">--</span>
+              <span class="ig-stat-label" data-i18n="natu.reels.statFollowers">Seguidores</span>
+            </div>
+            <div class="ig-stat-pill">
+              <span class="ig-stat-value" id="igStatReels">--</span>
+              <span class="ig-stat-label" data-i18n="natu.reels.statReels">Reels</span>
+            </div>
+            <div class="ig-stat-pill ig-stat-pill--amber">
+              <span class="ig-stat-value" id="igStatLikes">--</span>
+              <span class="ig-stat-label" data-i18n="natu.reels.statLikes">Me gusta</span>
+            </div>
+            <div class="ig-stat-pill">
+              <span class="ig-stat-value" id="igStatComments">--</span>
+              <span class="ig-stat-label" data-i18n="natu.reels.statComments">Comentarios</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activities-track" id="natuReelsGrid" tabindex="0" aria-label="Carrusel de Reels de @natu.phy">
+          <!-- Renderizado dinámico desde data/natu-reels.json + Behold -->
+        </div>
       </div>
     </section>
 
@@ -835,14 +903,15 @@
       </div>
       <div class="lightbox-body">
         <img src="" alt="" id="lightboxImg" />
+        <p class="lightbox-desc" id="lightboxDesc" hidden></p>
       </div>
     </div>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/background.js?v=20261115b"></script>
-  <script src="js/i18n.js?v=20261115b"></script>
-  <script src="js/projects.js?v=20261115b"></script>
+  <script src="js/background.js?v=20261115c"></script>
+  <script src="js/i18n.js?v=20261115c"></script>
+  <script src="js/projects.js?v=20261115c"></script>
 </body>
 </html>
